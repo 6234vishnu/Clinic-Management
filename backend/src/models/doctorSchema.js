@@ -52,12 +52,6 @@ const doctorSchema = new mongoose.Schema(
       required: true,
     },
 
-    isDoctor: {
-      type: Boolean,
-      default: true,
-
-    },
-
     isApproved: {
       type: Boolean,
       default: false, // receptionist sets this to true after verification
@@ -76,4 +70,4 @@ const doctorSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export default mongoose.model("User", doctorSchema);
+export default mongoose.model("Doctor", doctorSchema);

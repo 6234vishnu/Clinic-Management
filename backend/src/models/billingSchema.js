@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 const billingSchema = new mongoose.Schema({
     patient: { type: mongoose.Schema.Types.ObjectId, ref: "Patient", required: true },
-    doctor: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+    doctor: { type: mongoose.Schema.Types.ObjectId, ref: "Doctor", required: true },
     consultationFee: { type: Number, required: true },
     additionalCharges: { type: Number, default: 0 },
     totalAmount: { type: Number, required: true },

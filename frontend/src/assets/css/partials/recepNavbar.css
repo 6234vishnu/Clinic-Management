@@ -1,0 +1,184 @@
+/* NavigationBar.css */
+.recepNavContainer {
+    display: flex;
+    flex-direction: column;
+    width: 280px;
+    height: 100vh;
+    background: linear-gradient(180deg, #2e3a4d 0%, #2d394e 100%);
+    color: white;
+    padding: 24px 16px;
+    box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 1000;
+    overflow-y: auto;
+  }
+  .recepNavToggleBtn {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1100;
+    background: #ffffff;
+    border: none;
+    padding: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #000000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  }
+  
+  .recepNavLogo {
+    display: flex;
+    align-items: center;
+    margin-bottom: 40px;
+    padding-left: 12px;
+  }
+  
+  .recepNavLogoText {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+  
+  .recepNavLogoAccent {
+    font-size: 24px;
+    font-weight: 700;
+    color: #64ffda;
+    margin-left: 4px;
+  }
+  
+  .recepNavList {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex-grow: 1;
+  }
+  
+  .recepNavItem {
+    display: flex;
+    align-items: center;
+    padding: 14px 16px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .recepNavItem:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateX(5px);
+  }
+  
+  .recepNavItemActive {
+    background-color:#2e3a4d;
+    font-weight: 600;
+  }
+  
+  .recepNavIconContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    margin-right: 16px;
+    transition: transform 0.3s ease;
+  }
+  
+  .recepNavItemActive .recepNavIconContainer {
+    transform: scale(1.1);
+    color: #ffffff;
+  }
+  
+  .recepNavLabel {
+    flex-grow: 1;
+    font-size: 16px;
+    white-space: nowrap;
+  }
+  
+  .recepNavActiveIndicator {
+    position: absolute;
+    right: 0;
+    width: 4px;
+    height: 70%;
+    background-color: #ffffff;
+    border-radius: 4px 0 0 4px;
+    animation: slideIn 0.3s ease-out;
+  }
+  
+  .recepNavUserSection {
+    display: flex;
+    align-items: center;
+    padding: 16px 12px;
+    margin-top: 24px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .recepNavUserAvatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    color: #2e3a4d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    margin-right: 12px;
+  }
+  
+  .recepNavUserInfo {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .recepNavUserName {
+    font-weight: 600;
+    font-size: 14px;
+  }
+  
+  .recepNavUserRole {
+    font-size: 12px;
+    opacity: 0.7;
+  }
+  
+  /* Animations */
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateX(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  /* Hover effects */
+  .recepNavItem:hover .recepNavIconContainer {
+    transform: rotate(-10deg);
+  }
+  
+  /* For the active navigation indicator animation */
+  .recepNavItemActive .recepNavIconContainer svg {
+    animation: pulse 1.5s infinite;
+  }
+  
+  @keyframes pulse {
+    0% {
+      filter: drop-shadow(0 0 0px #64ffda);
+    }
+    50% {
+      filter: drop-shadow(0 0 3px #64ffda);
+    }
+    100% {
+      filter: drop-shadow(0 0 0px #64ffda);
+    }
+  }

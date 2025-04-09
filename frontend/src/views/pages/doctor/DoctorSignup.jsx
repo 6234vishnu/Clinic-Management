@@ -30,6 +30,8 @@ const DoctorSignup = () => {
     try {
       const response = await api.post('/doctor/signup', formData);
       if (response.data.success) {
+        localStorage.setItem("docId",response.data.user)
+        localStorage.getItem("doctorToken",response.data.token)
         navigate('/doctor/login');
       } else {
         setMessage(response.data.message);

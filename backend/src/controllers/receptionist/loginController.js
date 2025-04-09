@@ -5,32 +5,31 @@ import { verifyToken, generateToken } from "../../helpers/jwtToken.js";
 import generateOTP from "../../utils/otpGenerator.js";
 import sendOtpEmail from "../../utils/sendEmail.js";
 import client from "../../helpers/redis.js";
+import bcrypt from 'bcrypt';
 
 export const login = async (req, res) => {
   try {
-    const { email, password } = req.body;
-
-    const hashedPassword = await hashPassword(password);
-    if (!hashPassword) {
-      return res
-        .status(200)
-        .json({ success: false, message: "server 1 error try again later" });
-    }
+    
+    const { email, password } = req.body.formData;
+    
     const findUser = await Receptionist.findOne({
       isBlocked: false,
-      password: hashedPassword,
       email: email,
-      isAdmin: false,
     });
     if (!findUser) {
       return res
         .status(200)
         .json({ success: false, message: "couldint find account try again" });
     }
+    const hashedPassword = await bcrypt.compare(password, findUser.password);
+
+    if (!hashedPassword) {
+      return res
+        .status(200)
+        .json({ success: false, message: "server 1 error try again later" });
+    }
     const userPayload = {
       id: findUser._id,
-      isDoctor: findUser.isDoctor,
-      isAdmin: findUser.isAdmin,
     };
     const token = generateToken(userPayload);
     if (!token) {
@@ -38,7 +37,7 @@ export const login = async (req, res) => {
         .status(200)
         .json({ success: false, message: "server 2 error try again later" });
     }
-    res.cookie("authTokenDoc", token, {
+    res.cookie("authTokenRecep", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "Strict",
@@ -87,7 +86,7 @@ export const ForgotPasswordGetOtp = async (req, res) => {
         .status(200)
         .json({
           success: false,
-          message: "error in server side try again later",
+          message: "couldint find this email address",
         });
     }
     const storeOtpRedis = await client.set(`otp:${email}`, otp, { EX: 300 });
@@ -118,11 +117,12 @@ export const ForgotPasswordGetOtp = async (req, res) => {
 
 export const verifyOtp = async (req, res) => {
   try {
-    const { otp, email } = req.body;
-    const findUser = await Receptionist.findOne({
-      email: email,
-      isBlocked: false,
-    });
+    console.log(req.body);
+    
+    const {otp, email} = req.body;
+    
+    const findUser = await Receptionist.findOne({email:email,isBlocked:false})
+    
     if (!findUser) {
       return res
         .status(200)
@@ -132,6 +132,8 @@ export const verifyOtp = async (req, res) => {
         });
     }
     const storedOtp = await client.get(`otp:${email}`);
+  
+    
 
     if (!otp) {
       return res
@@ -179,18 +181,19 @@ export const newPassword = async (req, res) => {
           message: "couldint find user with this Email ID",
         });
     }
-    console.log('hello');
+    const newhashedPassword = await hashPassword(newPassword);
     const updatepassword = await Receptionist.findByIdAndUpdate(
       findUser._id,
-      { set: { password: newPassword } },
+      { $set: { password: newhashedPassword } },
       { new: true }
     );
+    
     if (!updatepassword) {
       return res
         .status(200)
         .json({ success: false, message: "coulint update password try later" });
     }
-console.log('hello');
+
 
     return res.status(200).json({ success: true });
 
@@ -202,3 +205,27 @@ console.log('hello');
       .json({ success: false, message: "server error try again later" });
   }
 };
+
+
+export const getRecepDetails=async(req,res)=>{
+
+  
+  try {
+    const {recepId}=req.query
+    if(!recepId){
+      return res.status(200).json({success:false,message:"couldint find user "})
+    }
+    const findRecep=await Receptionist.findOne({_id:recepId,isBlocked:false})
+    if(!findRecep){
+      return res.status(200).json({success:false,message:"couldint find user "})
+    }
+
+    return res.status(200).json({success:true,name:findRecep.name})
+  } catch (error) {
+    console.log("error in  receptionist get details", error);
+
+    res
+      .status(500)
+      .json({ success: false, message: "server error try again later" });
+  }
+}

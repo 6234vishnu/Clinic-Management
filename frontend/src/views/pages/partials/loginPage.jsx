@@ -56,7 +56,7 @@ const LoginPage = () => {
         const response=await api.post("/doctor/auth/doctor-login",{formData})
         if(response.data.success){
           localStorage.setItem("docId",response.data.user)
-          localStorage.getItem("doctorToken",response.data.token)
+          localStorage.setItem("doctorToken",response.data.token)
           return navigate("/Doctor-Dashboard")
         }
        return setMessage(response.data.message)
@@ -71,8 +71,8 @@ const LoginPage = () => {
        
         const response=await api.post("/receptionist/auth/recep-login",{formData})
         if(response.data.success){
-          localStorage.setItem("recepId",response.data.user)
-          localStorage.getItem("recepionistToken",response.data.token);
+          localStorage.setItem('recepID',response.data.user)
+          localStorage.setItem("recepionistToken",response.data.token);
           return navigate("/receptionist-Dashboard")
         }
        return setMessage(response.data.message)
