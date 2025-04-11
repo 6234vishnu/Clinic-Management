@@ -48,13 +48,18 @@ const ApproveDoctors = () => {
     if (!selectedDoctor) return;
 
     try {
-      const response = await api.put(`/doctor/approveDoctor/${selectedDoctor._id}`);
+      console.log(selectedDoctor._id);
+      
+      const response = await api.put(`/receptionist/approveDoctor/${selectedDoctor._id}`);
       if (response.data.success) {
         const updatedDoctors = doctors.filter(doc => doc._id !== selectedDoctor._id);
         setDoctors(updatedDoctors);
-        setMessage("Doctor approved successfully.");
-        setSelectedDoctor(null);
-        setIsModalOpen(false);
+        setMessage(response.data.message);
+        setTimeout(() => {
+          setSelectedDoctor(null);
+          setIsModalOpen(false);
+          setMessage(''); 
+        }, 2000);
       }
     } catch (error) {
       console.log('Error approving doctor', error);
@@ -77,6 +82,8 @@ const ApproveDoctors = () => {
 
   if (!doctors.length) {
     return (
+      <>
+       <RecepNav/>
       <div className="noDoctorstContainer">
         <div className="noDoctorstIcon">
           <AlertCircle size={48} />
@@ -84,6 +91,7 @@ const ApproveDoctors = () => {
         <h2 className="noDoctorstTitle">No Doctors to Approve</h2>
         <p className="noDoctorstMessage">{message || "There are currently no doctors pending approval."}</p>
       </div>
+      </>
     );
   }
 

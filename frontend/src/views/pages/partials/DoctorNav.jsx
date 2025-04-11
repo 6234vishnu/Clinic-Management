@@ -5,16 +5,16 @@ import '../../../assets/css/partials/recepNavbar.css';
 import api from '../../../services/axios';
 import { useNavigate } from 'react-router-dom';
 
-const RecepNav = () => {
+const DoctorNav = () => {
   const [activeItem, setActiveItem] = useState('Dashboard');
   const [isOpen, setIsOpen] = useState(true);
   const [message,setMessage]=useState("")
-  const [recepName,setRecepName]=useState("")
+  const [docName,setDocName]=useState("")
   const navigate=useNavigate()
 
   
   
-  const userId=localStorage.getItem("recepID")
+  const userId=localStorage.getItem("docId")
   useEffect(() => {
     if (!userId) {
       setMessage("Couldn't find any user. Please log in first.");
@@ -23,14 +23,14 @@ const RecepNav = () => {
   
     const getReceptionistData = async () => {
       try {
-        const response = await api.post(`/receptionist/getDetails?recepId=${userId}`);
+        const response = await api.post(`/doctor/getDetails?docId=${userId}`);
         if (response.data.success) {
-          setRecepName(response.data.name);
+            setDocName(response.data.name);
         } else {
           setMessage(response.data.message);
         }
       } catch (error) {
-        console.log('error in receptionist sidebar', error);
+        console.log('error in doctor sidebar', error);
         setMessage('Server error, try again later');
       }
     };
@@ -41,12 +41,12 @@ const RecepNav = () => {
 
   const navItems = [
     { id: 'dashboard', label: 'Dashboard',path:"", icon: <Home /> },
-    { id: 'registration', label: 'Patient Registration',path:"/Register-Patient", icon: <UserPlus /> },
-    { id: 'token', label: 'Token Generation',path:"/Token-Generation", icon: <Ticket /> },
+    { id: 'registration', label: 'Patient Registration',path:"", icon: <UserPlus /> },
+    { id: 'token', label: 'Token Generation',path:"", icon: <Ticket /> },
     { id: 'billing', label: 'Billing',path:"", icon: <CreditCard /> },
-    { id: 'patients', label: 'Patient List',path:"/Patient-List", icon: <Users /> },
-    { id: 'appointments', label: 'Appointment Management',path:"/Appoinment-Shedule", icon: <Calendar /> },
-    { id: 'doctorSignupRequests', label: 'Doctor Signup Requests',path:"/Approve-Doctors", icon: <ClipboardCheck /> } 
+    { id: 'patients', label: 'Patient List',path:"", icon: <Users /> },
+    { id: 'appointments', label: 'Appointment Management',path:"", icon: <Calendar /> },
+
   ];
 
   return (
@@ -85,11 +85,11 @@ const RecepNav = () => {
 
           <div className="recepNavUserSection">
             <div className="recepNavUserAvatar">
-            <span>{recepName.charAt(0)}</span>
+            <span>{docName.charAt(0)}</span>
             </div>
             <div className="recepNavUserInfo">
-            <span className="recepNavUserName">{recepName || 'Receptionist'}</span>
-              <span className="recepNavUserRole">Receptionist</span>
+            <span className="recepNavUserName">{docName || 'doctor'}</span>
+              <span className="recepNavUserRole">Doctor</span>
             </div>
           </div>
         </nav>
@@ -98,4 +98,4 @@ const RecepNav = () => {
   );
 };
 
-export default RecepNav;
+export default DoctorNav;

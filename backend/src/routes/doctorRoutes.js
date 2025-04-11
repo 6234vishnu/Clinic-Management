@@ -13,6 +13,7 @@ doctorRoute.post("/signup",signupDoctor)
 
 
 
+
 export default doctorRoute
 
 

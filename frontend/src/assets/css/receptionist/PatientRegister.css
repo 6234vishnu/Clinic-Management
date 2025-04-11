@@ -1,0 +1,199 @@
+
+:root {
+    --primary-color: #213547;
+    --primary-light: #eef2ff;
+    --primary-dark: #0f2d46;
+    --success-color: #10b981;
+    --error-color: #ef4444;
+    --text-dark: #1f2937;
+    --text-light: #6b7280;
+    --background-light: #ffffff;
+    --border-color: #e5e7eb;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --radius: 0.5rem;
+    --transition: all 0.3s ease;
+  }
+  
+  .patientRegisterRecepContainer {
+    display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 2rem;
+        font-family: 'Merriweather', serif;
+        width: auto;
+        min-width: 600px;
+  }
+  
+  .patientRegisterRecepCard {
+    width: 100%;
+    max-width: 600px;
+    background-color: var(--background-light);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+  }
+  
+  .patientRegisterRecepHeader {
+    padding: 1.5rem;
+    background-color: var(--primary-light);
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  .patientRegisterRecepHeader h1 {
+    margin: 0;
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+  
+  .patientRegisterRecepHeader p {
+    margin: 0.5rem 0 0;
+    color: var(--text-light);
+    font-size: 0.875rem;
+  }
+  
+  .patientRegisterRecepForm {
+    padding: 1.5rem;
+  }
+  
+  .patientRegisterRecepFormGroup {
+    margin-bottom: 1.25rem;
+  }
+  
+  .patientRegisterRecepRow {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .patientRegisterRecepHalfWidth {
+    flex: 1;
+  }
+  
+  .patientRegisterRecepLabel {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-dark);
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+  
+  .patientRegisterRecepRequired {
+    color: var(--error-color);
+  }
+  
+  .patientRegisterRecepInput,
+  .patientRegisterRecepSelect,
+  .patientRegisterRecepTextarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    background-color: white;
+    color: black;
+    font-size: 0.875rem;
+    transition: var(--transition);
+  }
+  
+  .patientRegisterRecepInput:focus,
+  .patientRegisterRecepSelect:focus,
+  .patientRegisterRecepTextarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
+  }
+  
+  .patientRegisterRecepInputError {
+    border-color: var(--error-color);
+  }
+  
+  .patientRegisterRecepInputError:focus {
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+  }
+  
+  .patientRegisterRecepErrorMessage {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    color: var(--error-color);
+    font-size: 0.75rem;
+  }
+  
+  .patientRegisterRecepFormFooter {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  
+  .patientRegisterRecepButtonPrimary,
+  .patientRegisterRecepButtonSecondary {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: var(--radius);
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+  }
+  
+  .patientRegisterRecepButtonPrimary {
+    background-color: var(--primary-color);
+    color: white;
+  }
+  
+  .patientRegisterRecepButtonPrimary:hover {
+    background-color: var(--primary-dark);
+  }
+  
+  .patientRegisterRecepButtonSecondary {
+    background-color: white;
+    color: var(--text-dark);
+    border: 1px solid var(--border-color);
+  }
+  
+  .patientRegisterRecepButtonSecondary:hover {
+    background-color: #f9fafb;
+  }
+  
+  .patientRegisterRecepSuccess {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 1rem 1.5rem 0;
+    padding: 0.75rem 1rem;
+    background-color: #ecfdf5;
+    border: 1px solid #a7f3d0;
+    border-radius: var(--radius);
+    color: var(--success-color);
+  }
+  
+  .patientRegisterRecepSuccess p {
+    margin: 0;
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+  
+  .patientRegisterRecepTextarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+  
+  /* Add responsive adjustments */
+  @media (max-width: 640px) {
+    .patientRegisterRecepRow {
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    
+    .patientRegisterRecepFormFooter {
+      flex-direction: column;
+    }
+    
+    .patientRegisterRecepButtonPrimary,
+    .patientRegisterRecepButtonSecondary {
+      width: 100%;
+    }
+  }

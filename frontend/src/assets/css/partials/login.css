@@ -47,7 +47,7 @@ body {
     transform-style: preserve-3d;
     transition: transform 0.6s ease, box-shadow 0.6s ease;
     overflow: hidden;
-    height: 90vh;
+    height:auto;
 }
 
 .loginPage-card:hover {

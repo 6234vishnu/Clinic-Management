@@ -5,22 +5,18 @@ import { verifyToken, generateToken } from "../../helpers/jwtToken.js";
 import generateOTP from "../../utils/otpGenerator.js";
 import sendOtpEmail from "../../utils/sendEmail.js";
 import client from "../../helpers/redis.js";
+import bcrypt from 'bcrypt'
 
 export const login = async (req, res) => {
   try {
     console.log(req.body);
 
-    const { email, password } = req.body;
+    const { email, password } = req.body.formData;
     console.log(email, password);
-    const hashedPassword = await hashPassword(password);
-    if (!hashPassword) {
-      return res
-        .status(200)
-        .json({ success: false, message: "server error try again later" });
-    }
+    
     const findUser = await Doctor.findOne({
       isBlocked: false,
-      password: hashedPassword,
+      isApproved:true,
       email: email,
     });
     if (!findUser) {
@@ -28,9 +24,14 @@ export const login = async (req, res) => {
         .status(200)
         .json({ success: false, message: "couldint find account try again" });
     }
+    const hashedPassword = await bcrypt.compare(password, findUser.password);
+    if (!hashedPassword) {
+      return res
+        .status(200)
+        .json({ success: false, message: "server error try again later" });
+    }
     const userPayload = {
       id: findUser._id,
-      isDoctor: findUser.isDoctor,
 
     };
     const token = generateToken(userPayload);
@@ -194,9 +195,10 @@ export const signupDoctor = async (req, res) => {
       experience,
       licenseNumber,
       licenseDocument,
+      confirmPassword,
     } = req.body;
 
-    if(!name&& !email&& !phone&& !password&& !specialization&& !qualification&& !experience&& !licenseNumber&& !licenseDocument){
+    if(!name&& !email&& !phone&& !password&& !specialization&& !qualification&& !experience&& !licenseNumber&& !licenseDocument &&!confirmPassword){
       return res.status(200).json({success:false,message:"fill all the feilds to signup"})
     }
 const findUser=await Doctor.findOne({email:email})
@@ -206,11 +208,16 @@ if(findUser){
 
 }
 
+if(password!==confirmPassword){
+  return res.status(200).json({success:false,message:"password and confirm password are not matched"})
+}
+const hashedPassword=await hashPassword(password)
+
 const newDoctor=new Doctor({
   name,
       email,
       phone,
-      password,
+      password:hashedPassword,
       specialization,
       qualification,
       experience,

@@ -3,12 +3,14 @@ import "../../../assets/css/doctor/doctorSignup.css"
 import api from '../../../services/axios';
 import { useNavigate } from 'react-router-dom';
 
+
 const DoctorSignup = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
     password: '',
+    confirmPassword:'',
     specialization: '',
     qualification: '',
     experience: '',
@@ -45,6 +47,8 @@ const DoctorSignup = () => {
   };
 
   return (
+    <>
+  
     <div className="adminLoginContainer">
       <div className="adminLoginWrapper">
         <div className="adminLoginLeftPanel">
@@ -71,6 +75,7 @@ const DoctorSignup = () => {
                 { label: 'Email', name: 'email', type: 'email' },
                 { label: 'Phone', name: 'phone', type: 'text' },
                 { label: 'Password', name: 'password', type: 'password' },
+                { label: 'Confirm Password', name: 'confirmPassword', type: 'password' },
                 { label: 'Specialization', name: 'specialization', type: 'text' },
                 { label: 'Qualification', name: 'qualification', type: 'text' },
                 { label: 'Experience (Years)', name: 'experience', type: 'number' },
@@ -105,6 +110,7 @@ const DoctorSignup = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 
