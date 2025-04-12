@@ -203,19 +203,18 @@ export const getAppoinmentAndPatientList = async (req, res) => {
 
 export const pendingAppoinments = async (req, res) => {
   try {
-    const getPendingAppoinments = await Appoinment.find({ status: "Pending" }).sort({ createdAt: -1 })
+    const getPendingAppoinments = await Appoinment.find({ status: "Pending" })
+      .sort({ createdAt: -1 })
       .populate("doctor")
       .populate("patient");
 
     if (!getPendingAppoinments) {
-      return res
-        .status(200)
-        .json({
-          success: false,
-          message: "There is no pending appoiments to generate token",
-        });
+      return res.status(200).json({
+        success: false,
+        message: "There is no pending appoiments to generate token",
+      });
     }
-    
+
     return res
       .status(200)
       .json({ success: true, appointments: getPendingAppoinments });
@@ -225,25 +224,29 @@ export const pendingAppoinments = async (req, res) => {
   }
 };
 
-
-export const generateToken=async(req,res)=>{
+export const generateToken = async (req, res) => {
   try {
-    
-    const appointmentId=req.body.appointmentId
-    if(!appointmentId){
-      return res.status(200).json({success:false,message:"server error try again later"})
+    const appointmentId = req.body.appointmentId;
+    if (!appointmentId) {
+      return res
+        .status(200)
+        .json({ success: false, message: "server error try again later" });
     }
-    const findAppoinment=await Appoinment.findOne({_id:appointmentId,status:"Pending"})
-    if(!findAppoinment){
-      return res.status(200).json({success:false,message:"couldint find any appoinments"})
-      
+    const findAppoinment = await Appoinment.findOne({
+      _id: appointmentId,
+      status: "Pending",
+    });
+    if (!findAppoinment) {
+      return res
+        .status(200)
+        .json({ success: false, message: "couldint find any appoinments" });
     }
     const todayStart = new Date();
     todayStart.setHours(0, 0, 0, 0);
 
     const latestToken = await Token.findOne({
       doctor: findAppoinment.doctor._id,
-      createdAt: { $gte: todayStart }
+      createdAt: { $gte: todayStart },
     }).sort({ tokenNumber: -1 });
 
     const nextTokenNumber = latestToken ? latestToken.tokenNumber + 1 : 1;
@@ -253,20 +256,109 @@ export const generateToken=async(req,res)=>{
       tokenNumber: nextTokenNumber,
       patient: findAppoinment.patient._id,
       doctor: findAppoinment.doctor._id,
+      appoinmentId: appointmentId,
     });
 
     await newToken.save();
 
-   
     findAppoinment.status = "Completed";
     await findAppoinment.save();
 
     return res.status(200).json({
       success: true,
       token: newToken.tokenNumber,
-     
     });
   } catch (error) {
-    
+    console.log("error in getTokens in recepRoute", error);
+    return res.status(500).json({ success: false, message: "server error" });
   }
-}
+};
+
+export const generatedTokens = async (req, res) => {
+  try {
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 3;
+
+    const fiveDaysAgo = new Date();
+    fiveDaysAgo.setDate(fiveDaysAgo.getDate() - 5);
+
+    const filter = {
+      createdAt: { $gte: fiveDaysAgo },
+    };
+
+    const totalTokens = await Token.countDocuments(filter);
+    const totalPages = Math.ceil(totalTokens / limit);
+
+    const tokens = await Token.find(filter)
+      .populate("patient")
+      .populate("doctor")
+      .sort({ createdAt: -1 })
+      .skip((page - 1) * limit)
+      .limit(limit);
+    if (!tokens) {
+      return res.status(200).json({
+        success: false,
+        message: "server error try again later",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      tokens,
+      totalPages,
+    });
+  } catch (error) {
+    console.error("Error fetching paginated tokens:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+};
+
+export const cancelTokenAndAppoinment = async (req, res) => {
+  try {
+    const tokenId = req.query.Token;
+
+    if (!tokenId) {
+      return res.status(200).json({
+        success: false,
+        message: "server error try later",
+      });
+    }
+
+    const findToken = await Token.findOne({ _id: tokenId });
+    if (!findToken) {
+      return res.status(200).json({
+        success: false,
+        message: "couldint find any token with this details",
+      });
+    }
+    const updateTokenStatus = Token.findByIdAndUpdate(tokenId, {
+      $set: { status: "Cancelled" },
+    });
+    const updateAppoinmentStatus = Appoinment.findByIdAndUpdate(
+      findToken.appoinmentId,
+      { $set: { status: "Cancelled" } }
+    );
+
+    const [tokenUpdate, AppoinmentUpdate] = await Promise.all([
+      updateTokenStatus,
+      updateAppoinmentStatus,
+    ]);
+    if (!tokenUpdate && !AppoinmentUpdate) {
+      return res.status(200).json({
+        success: false,
+        message: "server error try later",
+      });
+    }
+
+    return res.status(200).json({success:true,message:"Token cancelled successfully"})
+  } catch (error) {
+    console.error("Error in cancelTokenAndAppoinments", error);
+    return res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+};

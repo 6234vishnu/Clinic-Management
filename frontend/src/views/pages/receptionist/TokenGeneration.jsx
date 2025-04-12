@@ -3,6 +3,7 @@ import "../../../assets/css/receptionist/tokenGeneration.css";
 import api from "../../../services/axios";
 import RecepNav from "../partials/recepNav";
 import AnimatedTokenModal from "../../../components/AnimatedTokenModal";
+import { useNavigate } from "react-router-dom";
 
 const TokenGeneration = () => {
   const [appointments, setAppointments] = useState([]);
@@ -11,6 +12,7 @@ const TokenGeneration = () => {
   const [generatedToken, setGeneratedToken] = useState(null);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  const navigate=useNavigate()
 
   const itemsPerPage = 3;
 
@@ -40,7 +42,6 @@ const TokenGeneration = () => {
         appointmentId: selectedAppointment._id,
       });
       if (res.data.success) {
-        setMessage("Token generated successfully.");
         setGeneratedToken(res.data.token);
         setAppointments((prev) =>
           prev.filter((a) => a._id !== selectedAppointment._id)
@@ -72,7 +73,7 @@ const TokenGeneration = () => {
       <RecepNav />
       <div className="tokenGenerationRecep-container">
         <h2 className="tokenGenerationRecep-heading">Pending Appointments</h2>
-           <button className="tokenGenerationRecep-generatedTokens">Show Recently Generated Tokens</button>
+           <button className="tokenGenerationRecep-generatedTokens" onClick={()=>navigate("/Show-Generated-Tokens")}>Show Recently Generated Tokens</button>
         {message && <p className="tokenGenerationRecep-message">{message}</p>}
         <div style={{gap:"2rem"}} className="tokenGenerationRecep-list">
           {currentAppointments.length > 0 ? (
@@ -94,7 +95,11 @@ const TokenGeneration = () => {
               </div>
             ))
           ) : (
-            <p>No pending appointments.</p>
+            <p style={{
+              color:"white",
+              marginLeft:"50px",
+              padding:"30px"
+            }}>No pending appointments.</p>
           )}
         </div>
 

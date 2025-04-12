@@ -12,6 +12,7 @@ import PatientRegistration from './views/pages/receptionist/PatientRegistration'
 import AppointmentScheduling from './views/pages/receptionist/AppointmentScheduling'
 import PatientList from './views/pages/receptionist/patientList'
 import TokenGeneration from './views/pages/receptionist/TokenGeneration'
+import ShowTokens from './views/pages/receptionist/showTokens'
 
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
        <Route path='/Appoinment-Shedule' element={<AppointmentScheduling/>}/>
        <Route path='/Patient-List' element={<PatientList/>}/>
        <Route path='/Token-Generation' element={<TokenGeneration/>}/>
+       <Route path='/Show-Generated-Tokens' element={<ShowTokens/>}/>
 
 
       {/* Doctor */}
