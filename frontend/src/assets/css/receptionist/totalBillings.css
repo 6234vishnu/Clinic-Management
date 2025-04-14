@@ -1,0 +1,105 @@
+
+.TotalBillingRecepContainer {
+    padding: 2rem;
+    min-height: 100vh;
+    animation: fadeIn 0.8s ease-in-out;
+  }
+  
+  .TotalBillingRecepTitle {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: #ffffff;
+    text-align: center;
+    text-shadow: 1px 1px 1px #2e3a4d;
+  }
+  
+  .TotalBillingRecepGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .TotalBillingRecepCard {
+    background: #ffffff;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    box-shadow: 0 10px 20px #2e3a4d;
+    transition: transform 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .TotalBillingRecepCard:hover {
+    transform: translateY(-8px);
+  }
+  
+  .TotalBillingRecepPatient {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #2e3a4d;
+    margin-bottom: 0.5rem;
+  }
+  
+  .TotalBillingRecepTotal {
+    font-weight: bold;
+    color: #2e3a4d;
+    margin-top: 0.5rem;
+  }
+  
+  .TotalBillingRecepStatus {
+    padding: 0.3rem 0.6rem;
+    border-radius: 5px;
+    font-weight: 500;
+    display: inline-block;
+    margin-top: 0.5rem;
+  }
+  
+  .TotalBillingRecepStatus.Pending {
+    background-color: #ffe082;
+    color: #795548;
+  }
+  
+  .TotalBillingRecepStatus.Completed {
+    background-color: #c8e6c9;
+    color: #2e7d32;
+  }
+  
+  .TotalBillingRecepPagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+    gap: 1rem;
+  }
+  
+  .TotalBillingRecepPagination button {
+    padding: 0.5rem 1rem;
+    background-color: #2e3a4d;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .TotalBillingRecepPagination button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .TotalBillingRecepPagination span {
+    font-weight: 600;
+    color: #ffffff;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0.98);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  

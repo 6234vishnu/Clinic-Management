@@ -17,6 +17,9 @@ import {
   pendingAppoinments,
   generateToken,
   generatedTokens,cancelTokenAndAppoinment,
+  appoinmentsAndPrescriptions,
+  generateBill,
+  getAllBilling,
 } from "../controllers/receptionist/recepDutiesController.js";
 const receptionistRoute = express.Router();
 
@@ -39,6 +42,9 @@ receptionistRoute.get("/generateToken/pendingAppointments", pendingAppoinments);
 receptionistRoute.post("/generateToken", generateToken);
 receptionistRoute.get("/getGeneratedTokens", generatedTokens);
 receptionistRoute.post("/cancelToken", cancelTokenAndAppoinment);
+receptionistRoute.get("/getAppoinments/prescriptions", appoinmentsAndPrescriptions);
+receptionistRoute.post("/generateBilling/:PrescriptionId", generateBill);
+receptionistRoute.get("/allBilling", getAllBilling);
 
 
 export default receptionistRoute;

@@ -1,0 +1,277 @@
+/* BillingGeneratePage.css */
+
+.BillingGenarationRecepContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.BillingGenarationRecepForm {
+  width: 100%;
+  max-width: 500px;
+  background-color: white;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  padding: 40px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.BillingGenarationRecepForm::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 8px;
+  background: linear-gradient(90deg, #ffffff 0%, #ffffff 100%);
+}
+
+.BillingGenarationRecepTitle {
+  color: #2e3a4d;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 30px;
+  text-align: center;
+  position: relative;
+  padding-bottom: 15px;
+}
+
+.BillingGenarationRecepTitle:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, #2e3a4d 0%, #323d4f 100%);
+  border-radius: 2px;
+}
+
+.BillingGenarationRecepInput {
+  width: 100%;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  font-size: 16px;
+  color: #334155;
+  background-color: #f8fafc;
+  transition: all 0.3s ease;
+}
+
+.BillingGenarationRecepInput:focus {
+  border-color: #2e3a4d;
+  background-color: white;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+  outline: none;
+}
+
+.BillingGenarationRecepInput::placeholder {
+  color: #94a3b8;
+}
+
+.BillingGenarationRecepInput[readonly] {
+  background-color: #f1f5f9;
+  border-color: #cbd5e1;
+  font-weight: 700;
+  color: #2e3a4d;
+}
+
+.BillingGenarationRecepButton {
+  width: 100%;
+  padding: 16px;
+  margin-top: 10px;
+  background: linear-gradient(90deg, #2e3a4d 0%, #1a2b47 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.BillingGenarationRecepButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px #12294c;
+}
+
+.BillingGenarationRecepButton:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .BillingGenarationRecepForm {
+    padding: 30px 20px;
+  }
+  
+  .BillingGenarationRecepTitle {
+    font-size: 24px;
+  }
+  
+  .BillingGenarationRecepInput {
+    padding: 14px 16px;
+  }
+  
+  .BillingGenarationRecepButton {
+    padding: 14px;
+    font-size: 16px;
+  }
+}
+
+/* Add animation effects */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.BillingGenarationRecepForm {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* Add labels for better UX */
+.BillingGenarationRecepInput[name="totalAmount"] {
+  position: relative;
+}
+
+.BillingGenarationRecepInput[name="totalAmount"]::before {
+  content: "Total Amount";
+  position: absolute;
+  top: -25px;
+  left: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #64748b;
+}
+
+/* Custom styling for numbers */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* Add currency symbol */
+.BillingGenarationRecepInput[name="consultationFee"],
+.BillingGenarationRecepInput[name="additionalCharges"],
+.BillingGenarationRecepInput[name="totalAmount"] {
+  position: relative;
+  padding-left: 40px;
+}
+
+.BillingGenarationRecepInput[name="consultationFee"]::before,
+.BillingGenarationRecepInput[name="additionalCharges"]::before,
+.BillingGenarationRecepInput[name="totalAmount"]::before {
+  content: "$";
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #64748b;
+  font-weight: 600;
+}
+
+/* Enhanced focus state with nice animated outline */
+.BillingGenarationRecepInput:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+}
+
+/* Make the total amount stand out */
+.BillingGenarationRecepInput[name="totalAmount"] {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1e3a8a;
+  background-color: #eff6ff;
+  border-color: #bfdbfe;
+}
+
+/* Add subtle hover effect to inputs */
+.BillingGenarationRecepInput:hover:not(:focus):not([readonly]) {
+  border-color: #cbd5e1;
+  background-color: #f1f5f9;
+}
+
+
+.BillingGenarationRecepModalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.BillingGenarationRecepModal {
+  background: #fff;
+  padding: 2rem;
+  width: 90%;
+  max-width: 500px;
+  border-radius: 1rem;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  animation: slideDown 0.3s ease;
+}
+
+.BillingGenarationRecepModalTitle {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #1a1a1a;
+  text-align: center;
+}
+
+.BillingGenarationRecepModal p {
+  font-size: 1rem;
+  margin: 0.5rem 0;
+}
+
+.BillingGenarationRecepModalCloseButton {
+  margin-top: 1.5rem;
+  background-color: #2e3a4d;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  transition: background-color 0.2s ease;
+}
+
+.BillingGenarationRecepModalCloseButton:hover {
+  background-color: #162b4e;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-20%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+}

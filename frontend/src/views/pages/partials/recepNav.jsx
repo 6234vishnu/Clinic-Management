@@ -40,10 +40,10 @@ const RecepNav = () => {
   
 
   const navItems = [
-    { id: 'dashboard', label: 'Dashboard',path:"", icon: <Home /> },
+    { id: 'dashboard', label: 'Dashboard',path:"/Recep-Dasboard-Page", icon: <Home /> },
     { id: 'registration', label: 'Patient Registration',path:"/Register-Patient", icon: <UserPlus /> },
     { id: 'token', label: 'Token Generation',path:"/Token-Generation", icon: <Ticket /> },
-    { id: 'billing', label: 'Billing',path:"", icon: <CreditCard /> },
+    { id: 'billing', label: 'Billing',path:"/Billing-receptionist", icon: <CreditCard /> },
     { id: 'patients', label: 'Patient List',path:"/Patient-List", icon: <Users /> },
     { id: 'appointments', label: 'Appointment Management',path:"/Appoinment-Shedule", icon: <Calendar /> },
     { id: 'doctorSignupRequests', label: 'Doctor Signup Requests',path:"/Approve-Doctors", icon: <ClipboardCheck /> } 

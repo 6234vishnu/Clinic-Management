@@ -2,7 +2,9 @@ import Doctor from "../../models/doctorSchema.js";
 import Patient from "../../models/patientSchema.js";
 import Appoinment from "../../models/appoinmentSchema.js";
 import Token from "../../models/tokenSchema.js";
-
+import Prescription from "../../models/prescriptionSchema.js";
+import Bill from "../../models/billingSchema.js";
+import mongoose from "mongoose";
 export const unApprovedDoctors = async (req, res) => {
   try {
     const findUnapprovedDocs = await Doctor.find({ isApproved: false });
@@ -261,8 +263,6 @@ export const generateToken = async (req, res) => {
 
     await newToken.save();
 
-    findAppoinment.status = "Completed";
-    await findAppoinment.save();
 
     return res.status(200).json({
       success: true,
@@ -353,9 +353,170 @@ export const cancelTokenAndAppoinment = async (req, res) => {
       });
     }
 
-    return res.status(200).json({success:true,message:"Token cancelled successfully"})
+    return res
+      .status(200)
+      .json({ success: true, message: "Token cancelled successfully" });
   } catch (error) {
     console.error("Error in cancelTokenAndAppoinments", error);
+    return res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+};
+
+export const appoinmentsAndPrescriptions = async (req, res) => {
+  try {
+    // const newPrescrip = await Appoinment.findOne();
+
+    // if (newPrescrip) {
+    //   const prescriptionId = new mongoose.Types.ObjectId('67fb4fb59e28184fc51bcf4d');
+
+    //   const update = await Appoinment.updateOne(
+    //     { _id: newPrescrip._id },
+    //     { $set: { prescription: prescriptionId } }
+    //   );
+
+    //   console.log('Update result:', update);
+    // } else {
+    //   console.log('No appointment found.');
+    // }
+
+    const getAppoinments = await Appoinment.find({ status: "Completed" })
+      .populate("patient")
+      .populate("doctor")
+      .populate({
+        path: "prescription",
+        populate: {
+          path: "doctor", // This is the doctor field inside the prescription
+          model: "Doctor", // Optional, but good practice to specify the model
+        },
+      });
+    if (!getAppoinments) {
+      return res
+        .status(200)
+        .json({ success: false, message: "couldint find any appoinments" });
+    }
+    return res
+      .status(200)
+      .json({ success: true, appointments: getAppoinments });
+  } catch (error) {
+    console.error("Error in appoinmentsAndPrescriptions", error);
+    return res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+};
+
+export const generateBill = async (req, res) => {
+  try {
+    const { consultationFee, additionalCharges, totalAmount } = req.body.formData;
+
+    if (!consultationFee && !additionalCharges && !totalAmount) {
+      return res
+        .status(200)
+        .json({ success: false, message: "Couldn’t find any fees" });
+    }
+
+    const { PrescriptionId } = req.params;
+    if (!PrescriptionId) {
+      return res
+        .status(200)
+        .json({ success: false, message: "Couldn’t find prescription ID" });
+    }
+
+    const findPrescription = await Prescription.findById(PrescriptionId);
+    if (!findPrescription) {
+      return res
+        .status(200)
+        .json({ success: false, message: "Couldn’t find prescription" });
+    }
+
+    const alreadyBillGenerated = await Bill.findOne({ prescription: PrescriptionId });
+    if (alreadyBillGenerated) {
+      return res
+        .status(200)
+        .json({
+          success: false,
+          message: "Bill is already generated for this appointment",
+        });
+    }
+
+    const appointmentCount = await Appoinment.countDocuments({ patient: findPrescription.patient });
+
+    const parsedConsultationFee = parseFloat(consultationFee) || 0;
+    const parsedAdditionalCharges = parseFloat(additionalCharges) || 0;
+
+    let tokenAmount = 0;
+    if (appointmentCount === 1) {
+      tokenAmount = 100;
+    }
+
+    const calculatedTotal = parsedConsultationFee + parsedAdditionalCharges + tokenAmount;
+
+    const newbill = new Bill({
+      patient: findPrescription.patient,
+      doctor: findPrescription.doctor,
+      consultationFee: parsedConsultationFee,
+      additionalCharges: parsedAdditionalCharges,
+      tokenAmount, 
+      totalAmount: calculatedTotal,
+      prescription: PrescriptionId,
+    });
+
+    const saveBilling = await newbill.save();
+    const populatedBill = await saveBilling.populate("patient");
+
+    return res.status(200).json({
+      success: true,
+      message: "Successfully bill generated",
+      billing: populatedBill,
+    });
+  } catch (error) {
+    console.error("Error in generateBill recep", error);
+    return res.status(500).json({
+      success: false,
+      message: "Server Error",
+    });
+  }
+};
+
+
+export const getAllBilling = async (req, res) => {
+  try {
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 5;
+    const skip = (page - 1) * limit;
+
+
+    const total = await Bill.countDocuments();
+
+
+    const bills = await Bill.find()
+      .populate("patient",) 
+      .populate("doctor", ) 
+      .sort({ createdAt: -1 }) 
+      .skip(skip)
+      .limit(limit);
+if(!bills){
+  return res
+  .status(200)
+  .json({
+    success: false,
+    message: "No bills found",
+  });
+}
+
+    return res.status(200).json({
+      success: true,
+      bills,
+      currentPage: page,
+      totalPages: Math.ceil(total / limit),
+      totalBills: total,
+    });
+  } catch (error) {
+    console.error("Error in getAllBilling:", error);
     return res.status(500).json({
       success: false,
       message: "Server Error",

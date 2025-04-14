@@ -13,6 +13,10 @@ import AppointmentScheduling from './views/pages/receptionist/AppointmentSchedul
 import PatientList from './views/pages/receptionist/patientList'
 import TokenGeneration from './views/pages/receptionist/TokenGeneration'
 import ShowTokens from './views/pages/receptionist/showTokens'
+import BillingPage from './views/pages/receptionist/BillingPage'
+import BillingGeneratingPage from './views/pages/receptionist/BillingGeneratingPage'
+import TotalBillingPage from './views/pages/receptionist/TotalBillingPage'
+import RecepDashboard from './views/pages/receptionist/RecepDashboard'
 
 
 function App() {
@@ -34,6 +38,10 @@ function App() {
        <Route path='/Patient-List' element={<PatientList/>}/>
        <Route path='/Token-Generation' element={<TokenGeneration/>}/>
        <Route path='/Show-Generated-Tokens' element={<ShowTokens/>}/>
+       <Route path='/Billing-receptionist' element={<BillingPage/>}/>
+       <Route path='/Generate-Bills' element={<BillingGeneratingPage/>}/>
+       <Route path='/TotalBills-Page' element={<TotalBillingPage/>}/>
+       <Route path='/Recep-Dasboard-Page' element={<RecepDashboard/>}/>
 
 
       {/* Doctor */}
