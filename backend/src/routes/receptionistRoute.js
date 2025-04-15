@@ -20,6 +20,7 @@ import {
   appoinmentsAndPrescriptions,
   generateBill,
   getAllBilling,
+  getDashboardData,
 } from "../controllers/receptionist/recepDutiesController.js";
 const receptionistRoute = express.Router();
 
@@ -45,6 +46,7 @@ receptionistRoute.post("/cancelToken", cancelTokenAndAppoinment);
 receptionistRoute.get("/getAppoinments/prescriptions", appoinmentsAndPrescriptions);
 receptionistRoute.post("/generateBilling/:PrescriptionId", generateBill);
 receptionistRoute.get("/allBilling", getAllBilling);
+receptionistRoute.get("/getDashboardData", getDashboardData);
 
 
 export default receptionistRoute;

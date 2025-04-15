@@ -73,7 +73,7 @@ const LoginPage = () => {
         if(response.data.success){
           localStorage.setItem('recepID',response.data.user)
           localStorage.setItem("recepionistToken",response.data.token);
-          return navigate("/receptionist-Dashboard")
+          return navigate("/Recep-Dasboard-Page")
         }
        return setMessage(response.data.message)
     } catch (error) {

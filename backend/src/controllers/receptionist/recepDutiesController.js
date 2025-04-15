@@ -523,3 +523,95 @@ if(!bills){
     });
   }
 };
+
+
+export const getDashboardData = async (req, res) => {
+  try {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1);
+
+    // Total patients created today
+    const totalPatients = await Patient.countDocuments({
+      createdAt: { $gte: today, $lt: tomorrow },
+    });
+
+    // Tokens issued today
+    const tokensIssued = await Token.countDocuments({
+      createdAt: { $gte: today, $lt: tomorrow },
+    });
+
+    // Appointments
+    const findPendingAppointments = await Appoinment.countDocuments({
+      createdAt: { $gte: today, $lt: tomorrow },
+      status: "Pending",
+    });
+
+    const findCompletedAppointments = await Appoinment.countDocuments({
+      createdAt: { $gte: today, $lt: tomorrow },
+      status: "Completed",
+    });
+
+    // Total billing amount today
+    const totalBillingToday = await Bill.aggregate([
+      {
+        $match: {
+          createdAt: { $gte: today, $lt: tomorrow },
+        },
+      },
+      {
+        $group: {
+          _id: null,
+          totalAmount: { $sum: "$totalAmount" },
+        },
+      },
+    ]);
+    const billingTotal =
+      totalBillingToday.length > 0
+        ? `₹${totalBillingToday[0].totalAmount}`
+        : "₹0";
+
+    // Upcoming appointments (next few that are pending/confirmed)
+    const upcomingAppointments = await Appoinment.find({
+      date: { $gte: today },
+      status: { $in: ["Pending", "Confirmed"] },
+    })
+      .sort({ date: 1, timeSlot: 1 })
+      .limit(5)
+      .populate("patient", "name")
+      .populate("doctor", "name");
+
+    // Format appointments
+    const formattedAppointments = upcomingAppointments.map((app) => ({
+      time: app.timeSlot,
+      patient: app.patient?.name || "Unknown",
+      doctor: app.doctor?.name || "Unknown",
+      status: app.status,
+    }));
+    const findDoctorSignupRequest=await Doctor.countDocuments({isApproved:false})
+    const totalTokens=await Token.countDocuments()
+
+    res.status(200).json({
+      success: true,
+      stats: {
+        totalPatients,
+        tokensIssued,
+        appointments: {
+          pending: findPendingAppointments,
+          completed: findCompletedAppointments,
+        },
+        billingTotal,
+      },
+      DoctorSignupRequest:findDoctorSignupRequest,
+      pendingAppointments: formattedAppointments,
+      totalTokens,
+    });
+  } catch (error) {
+    console.error("Error in getDashboardData:", error);
+    res.status(500).json({
+      success: false,
+      message: "Server error while fetching dashboard data",
+    });
+  }
+};

@@ -1,21 +1,42 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import '../../../assets/css/receptionist/RecepDashboard.css'
 import { motion } from "framer-motion";
 import RecepNav from "../partials/recepNav";
+import api from "../../../services/axios";
 
 const RecepDashboard = () => {
-  const stats = {
-    totalPatients: 18,
-    tokensIssued: 15,
-    appointments: { pending: 4, completed: 11 },
-    billingTotal: "₹12,450",
-  };
+  const [stats,setStats]=useState([
+    {
+        totalPatients: 0,
+         tokensIssued: 0,
+         appointments: { pending: 0, completed: 0 },
+         billingTotal: 0,
+       }
+  ])
+  const [pendingAppointments,setPendingAppointments]=useState([])
+  const [DoctorSignupRequest,setDoctorSignupRequest]=useState()
+  const [message,setmessage]=useState("")
+  const [totalTokens,setTotalTokens]=useState(0)
 
-  const upcomingAppointments = [
-    { time: "10:00 AM", patient: "John Doe", doctor: "Dr. Smith", status: "Pending" },
-    { time: "10:30 AM", patient: "Priya Shah", doctor: "Dr. Nair", status: "Pending" },
-    { time: "11:00 AM", patient: "Amit Kumar", doctor: "Dr. Rao", status: "Confirmed" },
-  ];
+  useEffect(()=>{
+const getDatas=async()=>{
+try {
+  const response=await api.get('/receptionist/getDashboardData')
+  if(response.data.success){
+    setDoctorSignupRequest(response.data.DoctorSignupRequest)  
+setStats(response.data.stats)
+setPendingAppointments(response.data.pendingAppointments)
+setTotalTokens(response.data.totalTokens)
+  }
+setmessage(response.data.message)
+
+} catch (error) {
+  console.log('error in getDatas recep dashboard',error);
+  setmessage('server error')
+}
+}
+getDatas()
+  },[])
 
   return (
     <>
@@ -57,7 +78,7 @@ const RecepDashboard = () => {
             </tr>
           </thead>
           <tbody>
-            {upcomingAppointments.map((appt, index) => (
+            {pendingAppointments.map((appt, index) => (
               <motion.tr
                 key={index}
                 initial={{ opacity: 0, x: -20 }}
@@ -81,9 +102,10 @@ const RecepDashboard = () => {
       <div className="RecepDashboard__notifications">
         <h3>Notifications</h3>
         <ul>
-          <li>🔔 2 Appointments pending confirmation</li>
-          <li>💬 doctor signup request is:  </li>
-          <li>📢 Token 105 issued successfully</li>
+          <li>
+            <a style={{ color: 'inherit', textDecoration: 'none' }} href="/Approve-Doctors">🔔 {DoctorSignupRequest} doctor Appointments pending confirmation</a>
+          </li>
+          <li>📢Total Token issued successfully is : {totalTokens}</li>
         </ul>
       </div>
     </div>
