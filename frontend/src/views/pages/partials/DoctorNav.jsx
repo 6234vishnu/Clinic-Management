@@ -14,38 +14,38 @@ const DoctorNav = () => {
 
   
   
-  const userId=localStorage.getItem("docId")
-  useEffect(() => {
-    if (!userId) {
-      setMessage("Couldn't find any user. Please log in first.");
-      return;
-    }
+  // const userId=localStorage.getItem("docId")
+  // useEffect(() => {
+  //   if (!userId) {
+  //     setMessage("Couldn't find any user. Please log in first.");
+  //     return;
+  //   }
   
-    const getReceptionistData = async () => {
-      try {
-        const response = await api.post(`/doctor/getDetails?docId=${userId}`);
-        if (response.data.success) {
-            setDocName(response.data.name);
-        } else {
-          setMessage(response.data.message);
-        }
-      } catch (error) {
-        console.log('error in doctor sidebar', error);
-        setMessage('Server error, try again later');
-      }
-    };
+  //   const getReceptionistData = async () => {
+  //     try {
+  //       const response = await api.post(`/doctor/getDetails?docId=${userId}`);
+  //       if (response.data.success) {
+  //           setDocName(response.data.name);
+  //       } else {
+  //         setMessage(response.data.message);
+  //       }
+  //     } catch (error) {
+  //       console.log('error in doctor sidebar', error);
+  //       setMessage('Server error, try again later');
+  //     }
+  //   };
   
-    getReceptionistData();
-  }, [userId]);
+  //   getReceptionistData();
+  // }, [userId]);
   
 
   const navItems = [
     { id: 'dashboard', label: 'Dashboard',path:"", icon: <Home /> },
-    { id: 'registration', label: 'Patient Registration',path:"", icon: <UserPlus /> },
-    { id: 'token', label: 'Token Generation',path:"", icon: <Ticket /> },
-    { id: 'billing', label: 'Billing',path:"", icon: <CreditCard /> },
-    { id: 'patients', label: 'Patient List',path:"", icon: <Users /> },
-    { id: 'appointments', label: 'Appointment Management',path:"", icon: <Calendar /> },
+  
+    { id: 'Medical History Page', label: 'Medical History Page',path:"/Medical-History-Doctor", icon: <CreditCard /> },
+    { id: 'Patient Consultation Page', label: 'Patient Consultation Page',path:"/Patient-Consultation-Page", icon: <Users /> },
+    { id: 'View Patient Profile Page', label: 'View Patient Profile Page',path:"/Patient-List-Page", icon: <Users /> },
+    { id: 'Search Patient Records', label: 'Search Patient Records',path:"", icon: <Users /> },
 
   ];
 

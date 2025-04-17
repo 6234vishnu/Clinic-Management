@@ -532,17 +532,17 @@ export const getDashboardData = async (req, res) => {
     const tomorrow = new Date(today);
     tomorrow.setDate(today.getDate() + 1);
 
-    // Total patients created today
+  
     const totalPatients = await Patient.countDocuments({
       createdAt: { $gte: today, $lt: tomorrow },
     });
 
-    // Tokens issued today
+ 
     const tokensIssued = await Token.countDocuments({
       createdAt: { $gte: today, $lt: tomorrow },
     });
 
-    // Appointments
+ 
     const findPendingAppointments = await Appoinment.countDocuments({
       createdAt: { $gte: today, $lt: tomorrow },
       status: "Pending",
@@ -553,7 +553,7 @@ export const getDashboardData = async (req, res) => {
       status: "Completed",
     });
 
-    // Total billing amount today
+  
     const totalBillingToday = await Bill.aggregate([
       {
         $match: {
@@ -572,7 +572,7 @@ export const getDashboardData = async (req, res) => {
         ? `₹${totalBillingToday[0].totalAmount}`
         : "₹0";
 
-    // Upcoming appointments (next few that are pending/confirmed)
+  
     const upcomingAppointments = await Appoinment.find({
       date: { $gte: today },
       status: { $in: ["Pending", "Confirmed"] },
@@ -582,7 +582,7 @@ export const getDashboardData = async (req, res) => {
       .populate("patient", "name")
       .populate("doctor", "name");
 
-    // Format appointments
+   
     const formattedAppointments = upcomingAppointments.map((app) => ({
       time: app.timeSlot,
       patient: app.patient?.name || "Unknown",

@@ -16,12 +16,27 @@ import ForgotPasswordModal from '../../../components/forgotPasswordModal'
 
 
 const LoginPage = () => {
-  const [activeRole, setActiveRole] = useState("doctor");
+  const navigate=useNavigate()
+  
+  // useEffect(() => {
+  //   const recepLoign = localStorage.getItem("recepID");
+  //   const doctorLogin = localStorage.getItem("docId");
+  
+  //   if (recepLoign && !doctorLogin) {
+  //     navigate("/Recep-Dasboard-Page");
+  //   } else if (doctorLogin && !recepLoign) {
+  //     navigate("/Doctor-Dashboard");
+  //   } else if (recepLoign && doctorLogin) {
+  
+  //     navigate("/Doctor-Dashboard"); 
+  //   }
+  // }, [navigate]);
+  const [activeRole,setActiveRole]=useState('doctor')
   const [showPassword, setShowPassword] = useState(false);
   const [showModal, setShowModal] = useState(false);
  
   const [message,setMessage]=useState("")
-  const navigate=useNavigate()
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",

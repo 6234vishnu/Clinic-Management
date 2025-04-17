@@ -1,9 +1,12 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import "../../../assets/css/partials/doctorNav.css"; // your CSS path
+import DoctorNav from './DoctorNav';
 
 function DoctornavBar() {
   return (
+    <>
+    <DoctorNav/>
     <nav className="navbar">
       <div className="navbar-container">
         <img src="" alt="Logo" className="navbar-logo" />
@@ -16,6 +19,7 @@ function DoctornavBar() {
         </div>
       </div>
     </nav>
+    </>
   );
   
 }

@@ -17,6 +17,9 @@ import BillingPage from './views/pages/receptionist/BillingPage'
 import BillingGeneratingPage from './views/pages/receptionist/BillingGeneratingPage'
 import TotalBillingPage from './views/pages/receptionist/TotalBillingPage'
 import RecepDashboard from './views/pages/receptionist/RecepDashboard'
+import PatientListPage from './views/pages/doctor/patientProfile'
+import MedicalHistoryDoctor from './views/pages/doctor/MedicalHistoryDoctor'
+import PatientConsultationPage from './views/pages/doctor/PatientConsultationPage'
 
 
 function App() {
@@ -31,7 +34,7 @@ function App() {
 
        {/* Receptionist */}
        <Route path='/Change-Password-receptionist' element={<ChangePasswordRecep/>} />
-       {/* <Route path='/RecepNav' element={<RecepNav/>}/> */}
+       <Route path='/RecepNav' element={<RecepNav/>}/>
        <Route path='/Approve-Doctors' element={<ApproveDoctors/>}/>
        <Route path='/Register-Patient' element={<PatientRegistration/>}/>
        <Route path='/Appoinment-Shedule' element={<AppointmentScheduling/>}/>
@@ -45,10 +48,13 @@ function App() {
 
 
       {/* Doctor */}
+      <Route path='/DoctorNav' element={<DoctorNav/>}/>
       <Route path='/Doctor-Signup' element={<DoctorSignup/>}/>
       <Route path='/Change-Password-Doctor' element={<ChangePasswordDoc/>}/>
       <Route path='/Doctor-Dashboard' element={<DoctornavBar/>}/>
-      <Route path='/DoctorNav' element={<DoctorNav/>}/>
+      <Route path='/Patient-List-Page' element={<PatientListPage/>}/>
+      <Route path='/Medical-History-Doctor' element={<MedicalHistoryDoctor/>}/>
+      <Route path='/Patient-Consultation-Page' element={<PatientConsultationPage/>}/>
   
       </Routes>
     </BrowserRouter>

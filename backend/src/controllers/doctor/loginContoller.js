@@ -1,22 +1,18 @@
 import Doctor from "../../models/doctorSchema.js";
 import hashPassword from "../../helpers/bcryptPassword.js";
-import jwt from "jsonwebtoken";
-import { verifyToken, generateToken } from "../../helpers/jwtToken.js";
+import { generateToken } from "../../helpers/jwtToken.js";
 import generateOTP from "../../utils/otpGenerator.js";
 import sendOtpEmail from "../../utils/sendEmail.js";
 import client from "../../helpers/redis.js";
-import bcrypt from 'bcrypt'
+import bcrypt from "bcrypt";
 
 export const login = async (req, res) => {
   try {
-    console.log(req.body);
-
     const { email, password } = req.body.formData;
-    console.log(email, password);
-    
+
     const findUser = await Doctor.findOne({
       isBlocked: false,
-      isApproved:true,
+      isApproved: true,
       email: email,
     });
     if (!findUser) {
@@ -32,7 +28,6 @@ export const login = async (req, res) => {
     }
     const userPayload = {
       id: findUser._id,
-
     };
     const token = generateToken(userPayload);
     if (!token) {
@@ -112,12 +107,10 @@ export const verifyOtp = async (req, res) => {
     const { otp, email } = req.body;
     const findUser = await Doctor.findOne({ email: email });
     if (!findUser) {
-      return res
-        .status(200)
-        .json({
-          success: false,
-          message: "couldint find user with this email",
-        });
+      return res.status(200).json({
+        success: false,
+        message: "couldint find user with this email",
+      });
     }
 
     const storedOtp = await client.get(`otp:${email}`);
@@ -131,13 +124,11 @@ export const verifyOtp = async (req, res) => {
       return res.status(200).json({ success: false, message: "Invalid OTP" });
     }
 
-    return res
-      .status(200)
-      .json({
-        success: true,
-        message: "please Enter a new password",
-        userId: findUser._id,
-      });
+    return res.status(200).json({
+      success: true,
+      message: "please Enter a new password",
+      userId: findUser._id,
+    });
   } catch (error) {
     console.log("error in verifyOtp receptionist login", error);
 
@@ -198,61 +189,83 @@ export const signupDoctor = async (req, res) => {
       confirmPassword,
     } = req.body;
 
-    if(!name&& !email&& !phone&& !password&& !specialization&& !qualification&& !experience&& !licenseNumber&& !licenseDocument &&!confirmPassword){
-      return res.status(200).json({success:false,message:"fill all the feilds to signup"})
+    if (
+      !name &&
+      !email &&
+      !phone &&
+      !password &&
+      !specialization &&
+      !qualification &&
+      !experience &&
+      !licenseNumber &&
+      !licenseDocument &&
+      !confirmPassword
+    ) {
+      return res
+        .status(200)
+        .json({ success: false, message: "fill all the feilds to signup" });
     }
-const findUser=await Doctor.findOne({email:email})
+    const findUser = await Doctor.findOne({ email: email });
 
-if(findUser){
-  return res.status(200).json({success:false,message:"user already exists with same email"})
+    if (findUser) {
+      return res
+        .status(200)
+        .json({
+          success: false,
+          message: "user already exists with same email",
+        });
+    }
 
-}
+    if (password !== confirmPassword) {
+      return res
+        .status(200)
+        .json({
+          success: false,
+          message: "password and confirm password are not matched",
+        });
+    }
+    const hashedPassword = await hashPassword(password);
 
-if(password!==confirmPassword){
-  return res.status(200).json({success:false,message:"password and confirm password are not matched"})
-}
-const hashedPassword=await hashPassword(password)
-
-const newDoctor=new Doctor({
-  name,
+    const newDoctor = new Doctor({
+      name,
       email,
       phone,
-      password:hashedPassword,
+      password: hashedPassword,
       specialization,
       qualification,
       experience,
       licenseNumber,
       licenseDocument,
-  
-})
+    });
 
-const saveDoctor=await newDoctor.save()
+    const saveDoctor = await newDoctor.save();
 
-if(!saveDoctor){
-  return res.status(200).json({success:false,message:"server error try again later"})
-}
+    if (!saveDoctor) {
+      return res
+        .status(200)
+        .json({ success: false, message: "server error try again later" });
+    }
 
-const userPayload = {
-  id: saveDoctor._id,
-  isDoctor: saveDoctor.isDoctor,
+    const userPayload = {
+      id: saveDoctor._id,
+      isDoctor: saveDoctor.isDoctor,
+    };
+    const token = generateToken(userPayload);
+    if (!token) {
+      return res
+        .status(200)
+        .json({ success: false, message: "server error try again later" });
+    }
+    res.cookie("authTokenDoc", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "Strict",
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 day
+    });
 
-};
-const token = generateToken(userPayload);
-if (!token) {
-  return res
-    .status(200)
-    .json({ success: false, message: "server error try again later" });
-}
-res.cookie("authTokenDoc", token, {
-  httpOnly: true,
-  secure: process.env.NODE_ENV === "production",
-  sameSite: "Strict",
-  maxAge: 7 * 24 * 60 * 60 * 1000, // 7 day
-});
-
-return res
-  .status(200)
-  .json({ success: true, message: "success", token, user: userPayload.id });
+    return res
+      .status(200)
+      .json({ success: true, message: "success", token, user: userPayload.id });
   } catch (error) {
     console.log("error in doctor signUp", error);
     res
