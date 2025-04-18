@@ -367,20 +367,6 @@ export const cancelTokenAndAppoinment = async (req, res) => {
 
 export const appoinmentsAndPrescriptions = async (req, res) => {
   try {
-    // const newPrescrip = await Appoinment.findOne();
-
-    // if (newPrescrip) {
-    //   const prescriptionId = new mongoose.Types.ObjectId('67fb4fb59e28184fc51bcf4d');
-
-    //   const update = await Appoinment.updateOne(
-    //     { _id: newPrescrip._id },
-    //     { $set: { prescription: prescriptionId } }
-    //   );
-
-    //   console.log('Update result:', update);
-    // } else {
-    //   console.log('No appointment found.');
-    // }
 
     const getAppoinments = await Appoinment.find({ status: "Completed" })
       .populate("patient")
@@ -389,7 +375,6 @@ export const appoinmentsAndPrescriptions = async (req, res) => {
         path: "prescription",
         populate: {
           path: "doctor", // This is the doctor field inside the prescription
-          model: "Doctor", // Optional, but good practice to specify the model
         },
       });
     if (!getAppoinments) {
@@ -397,9 +382,15 @@ export const appoinmentsAndPrescriptions = async (req, res) => {
         .status(200)
         .json({ success: false, message: "couldint find any appoinments" });
     }
+    const getPrescriptions=await Prescription.find().populate('doctor').populate("patient")
+    if(!getPrescriptions){
+      return res
+        .status(200)
+        .json({ success: false, message: "couldint find any Prescriptions" });
+    }
     return res
       .status(200)
-      .json({ success: true, appointments: getAppoinments });
+      .json({ success: true, appointments: getAppoinments,Prescriptions:getPrescriptions });
   } catch (error) {
     console.error("Error in appoinmentsAndPrescriptions", error);
     return res.status(500).json({

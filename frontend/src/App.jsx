@@ -20,6 +20,7 @@ import RecepDashboard from './views/pages/receptionist/RecepDashboard'
 import PatientListPage from './views/pages/doctor/patientProfile'
 import MedicalHistoryDoctor from './views/pages/doctor/MedicalHistoryDoctor'
 import PatientConsultationPage from './views/pages/doctor/PatientConsultationPage'
+import DoctorDashboard from './views/pages/doctor/DoctorDashboard'
 
 
 function App() {
@@ -55,6 +56,9 @@ function App() {
       <Route path='/Patient-List-Page' element={<PatientListPage/>}/>
       <Route path='/Medical-History-Doctor' element={<MedicalHistoryDoctor/>}/>
       <Route path='/Patient-Consultation-Page' element={<PatientConsultationPage/>}/>
+      <Route path='/Doctor--Dasboard-Pagee' element={<DoctorDashboard/>}/>
+      
+
   
       </Routes>
     </BrowserRouter>

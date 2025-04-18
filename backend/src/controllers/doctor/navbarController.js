@@ -3,33 +3,41 @@ import Appoinments from "../../models/appoinmentSchema.js";
 import Prescriptions from "../../models/prescriptionSchema.js";
 import Bill from "../../models/billingSchema.js";
 import Token from "../../models/tokenSchema.js";
+import MedicalRecord from "../../models/medicalRecordSchema.js"
 
 export const getpatients = async (req, res) => {
   try {
+  const {doctorId}=req.query
   
-    const appointments = await Appoinments.find({
-      doctor: { $ne: null },status:"Pending"
-    }).populate("doctor");
+  const appointments = await Appoinments.find({
+    doctor: doctorId,
+  }).populate({
+    path: "patient",
+    populate: {
+      path: "medicalHistory",
 
+    },
+  });
+  
     if (!appointments || appointments.length === 0) {
       return res.status(200).json({
         success: false,
         message: "No appointments with doctors found",
       });
     }
-
- 
-    const patientIds = [
-      ...new Set(appointments.map((app) => app.patient.toString())),
-    ];
-
-
-    const patients = await Patient.find({ _id: { $in: patientIds } });
-
-    // Step 4: Fetch prescriptions and billing
-    const prescriptions = await Prescriptions.find();
-    const bills = await Bill.find();
-
+    const patients = [];
+    const patientIds = new Set();
+    
+    appointments.forEach((appointment) => {
+      if (appointment.patient && !patientIds.has(appointment.patient._id.toString())) {
+        patients.push(appointment.patient);
+        patientIds.add(appointment.patient._id.toString());
+      }
+    });
+    
+    const prescriptions = await Prescriptions.find({ doctor: doctorId }).populate('doctor').populate("patient")
+    const bills = await Bill.find({ doctor: doctorId })
+    
     return res.status(200).json({
       success: true,
       patients,
@@ -103,7 +111,7 @@ export const getPatientsAppoinments = async (req, res) => {
     if (!getAppointments || getAppointments.length === 0) {
       return res
         .status(200)
-        .json({ success: false, message: "Couldn't find any appointments" });
+        .json({ success: false, message: "Prescription is already given" });
     }
 
     const firstAppointment = getAppointments[0];
@@ -171,6 +179,26 @@ export const generatePrescriptions = async (req, res) => {
         .status(200)
         .json({ success: false, message: "server error try later " });
     }
+    const createMedicalRecord=new MedicalRecord({
+      patient:patientId,
+      doctor: findPatientAppoinment.doctor,
+      prescriptions:savePrescription._id,
+      diagnosis:prescription.diagnosis
+
+    })
+    const saveMedicalRecord=await createMedicalRecord.save()
+    if(!saveMedicalRecord){
+      return res
+      .status(200)
+      .json({ success: false, message: "server error try later " });
+    }
+
+    const addMedicalHistoryInPatient=await Patient.findByIdAndUpdate(patientId,{$set:{medicalHistory:saveMedicalRecord._id}})
+    if(!addMedicalHistoryInPatient){
+      return res
+      .status(200)
+      .json({ success: false, message: "server error try later " });
+    }
     return res
       .status(200)
       .json({ success: true, message: "prescription saved successFully" });
@@ -181,3 +209,22 @@ export const generatePrescriptions = async (req, res) => {
       .json({ success: false, message: "server error try later " });
   }
 };
+
+
+export const getMedicalRecord=async(req,res)=>{
+  try {
+    
+    const getMedicalRecord=await MedicalRecord.find({patient:req.params.patientId}).populate("prescriptions")
+    if(!getMedicalRecord){
+      return res
+      .status(200)
+      .json({ success: false, message: "server error try later " });
+    }
+    res.json({ success: true, medicalRecord:getMedicalRecord });
+  } catch (error) {
+    console.log("error in getMedicalRecord doctorRoute", error);
+    return res
+      .status(500)
+      .json({ success: false, message: "server error try later " });
+  }
+}

@@ -10,6 +10,7 @@ const MedicalHistoryDoctor = () => {
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [message, setMessage] = useState("");
+  const [selectedMedicalRecord, setSelectedMedicalRecord] = useState(null);
   const doctorId=localStorage.getItem("docId")
   if(!doctorId) return <h1>Login first to do further</h1>
 
@@ -32,6 +33,21 @@ const MedicalHistoryDoctor = () => {
     };
     fetchAppointments();
   }, []);
+
+  const handlePatientClick = async (patientId) => {
+    try {
+      const res = await api.get(`/doctor/medicalRecord/${patientId}`);
+      if (res.data.success) {
+        console.log(res.data.medicalRecord);
+        
+       return setSelectedMedicalRecord(res.data.medicalRecord[0]);
+      }
+      setMessage(res.data.message)
+    } catch (error) {
+      setMessage("server error")
+      console.error("Failed to fetch medical record", error);
+    }
+  };
 
   return (
   <>
@@ -59,7 +75,8 @@ const MedicalHistoryDoctor = () => {
           appointment.patient.name.toLowerCase().includes(searchQuery.toLowerCase())
         )
         .map((appointment) => (
-          <div key={appointment._id} className="medicalHistoryDoc__card">
+          <div key={appointment._id} className="medicalHistoryDoc__card" onClick={() => handlePatientClick(appointment.patient._id)}>
+
             <div className="medicalHistoryDoc__top">
               <h3 className="medicalHistoryDoc__patient">
                 {appointment.patient.name}
@@ -71,28 +88,52 @@ const MedicalHistoryDoctor = () => {
             <div className="medicalHistoryDoc__info">
               <p><strong>Date:</strong> {new Date(appointment.date).toLocaleDateString()}</p>
               <p><strong>Time Slot:</strong> {appointment.timeSlot}</p>
-              {appointment.prescription ? (
-                <>
-                  <p><strong>Prescription:</strong> ✅ Provided</p>
-                  <ul className="medicalHistoryDoc__medicineList">
-                    {appointment.prescription.medicines.map((med, index) => (
-                      <li key={med._id || index} className="medicalHistoryDoc__medicineItem">
-                        <p><strong>Name:</strong> {med.name}</p>
-                        <p><strong>Dosage:</strong> {med.dosage}</p>
-                        <p><strong>Frequency:</strong> {med.frequency}</p>
-                      </li>
-                    ))}
-                  </ul>
-                </>
-              ) : (
-                <p><strong>Prescription:</strong> ❌ Not Provided</p>
-              )}
+              
             </div>
           </div>
         ))}
   </div>
 )}
     </div>
+
+    {selectedMedicalRecord && (
+  <div className="medicalHistoryDoc__modalOverlay" onClick={() => setSelectedMedicalRecord(null)}>
+    <div className="medicalHistoryDoc__modal" onClick={(e) => e.stopPropagation()}>
+      <div className="medicalHistoryDoc__modalHeader">
+        <h2 style={{color:"#2c3e50"}}>Medical Record</h2>
+        <button className="medicalHistoryDoc__closeBtn" onClick={() => setSelectedMedicalRecord(null)}>×</button>
+      </div>
+      <div className="medicalHistoryDoc__modalContent">
+        <p style={{color:"#2c3e50"}}><strong>Diagnosis:</strong> {selectedMedicalRecord.diagnosis}</p>
+
+        {selectedMedicalRecord.prescriptions?.length > 0 ? (
+          selectedMedicalRecord.prescriptions.map((prescription, index) => (
+            <div key={prescription._id || index}>
+              <p style={{color:"#2c3e50"}}><strong>Instructions:</strong> {prescription.instructions}</p>
+              <h3 style={{color:"#2c3e50"}}>Medicines</h3>
+              {prescription.medicines?.length > 0 ? (
+                prescription.medicines.map((med, idx) => (
+                  <div key={idx} className="medicalHistoryDoc__medicineRow">
+                    <p><strong >Name:</strong> {med.name}</p>
+                    <p><strong>Dosage:</strong> {med.dosage}</p>
+                    <p><strong>Frequency:</strong> {med.frequency}</p>
+                  </div>
+                ))
+              ) : (
+                <p>No medicines listed.</p>
+              )}
+            </div>
+          ))
+        ) : (
+          <p>No prescriptions found.</p>
+        )}
+      </div>
+    </div>
+  </div>
+)}
+
+
+
     </>
   );
 };

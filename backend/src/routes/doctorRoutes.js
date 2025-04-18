@@ -1,6 +1,6 @@
 import express from 'express'
 import { login,ForgotPasswordGetOtp,verifyOtp,newpassword,signupDoctor } from '../controllers/doctor/loginContoller.js'
-import { getpatients,getDocsAppoinments,getPatientsAppoinments,generatePrescriptions } from '../controllers/doctor/navbarController.js'
+import { getpatients,getDocsAppoinments,getPatientsAppoinments,generatePrescriptions,getMedicalRecord } from '../controllers/doctor/navbarController.js'
 const doctorRoute=express.Router()
 
 //Doctor Rotues
@@ -16,6 +16,7 @@ doctorRoute.get("/getpatients",getpatients)
 doctorRoute.get("/appointments",getDocsAppoinments)
 doctorRoute.get("/getPatientsAppoinment",getPatientsAppoinments)
 doctorRoute.post("/attendAppoinment",generatePrescriptions)
+doctorRoute.get("/medicalRecord/:patientId",getMedicalRecord)
 
 
 

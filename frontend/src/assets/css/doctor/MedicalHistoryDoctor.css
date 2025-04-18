@@ -142,6 +142,84 @@
     background-color: #ffffff;
     box-shadow: 0 0 15px #1f364e;
   }
+
+  /* Modal overlay */
+.medicalHistoryDoc__modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Modal box */
+.medicalHistoryDoc__modal {
+  background-color: #fff;
+  padding: 2rem;
+  width: 90%;
+  max-width: 600px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  animation: fadeInScale 0.3s ease-in-out;
+}
+
+/* Modal header */
+.medicalHistoryDoc__modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 1rem;
+}
+
+.medicalHistoryDoc__closeBtn {
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Modal content */
+.medicalHistoryDoc__modalContent {
+  color: #333;
+}
+
+.medicalHistoryDoc__modalContent h3 {
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  color: #2c3e50;
+}
+
+/* Each medicine row */
+.medicalHistoryDoc__medicineRow {
+  background-color: #f7f7f7;
+  padding: 0.75rem;
+  border-radius: 8px;
+  margin-bottom: 0.75rem;
+  transition: transform 0.3s ease;
+}
+
+.medicalHistoryDoc__medicineRow:hover {
+  transform: translateY(-2px);
+}
+
+/* Animation */
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
   
   /* Optional fade-in animation */
   @keyframes fadeIn {

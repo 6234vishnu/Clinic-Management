@@ -35,6 +35,7 @@ body {
     justify-content: center;
     align-items: center;
     perspective: 1000px;
+    overflow: hidden;
 }
 
 /* Card styles */
@@ -53,6 +54,7 @@ body {
 .loginPage-card:hover {
     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
     transform: translateY(-5px) rotateX(5deg);
+
 }
 
 /* Header styles */

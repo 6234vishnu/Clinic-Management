@@ -10,6 +10,7 @@ const PatientConsultationPage = () => {
   const [token,setToken]=useState(0)
   const [prescription, setPrescription] = useState({
     medicines: [{ name: '', dosage: '', frequency: '' }],
+    diagnosis: '',
     instructions: '',
   });
   const [isLoading, setIsLoading] = useState(true);
@@ -21,11 +22,11 @@ const PatientConsultationPage = () => {
   
   const patientsPerPage = 3;
 
-
+const doctorId=localStorage.getItem("docId")
   useEffect(() => {
     const getPatients=async()=>{
 try {
-    const response=await api.get('/doctor/getpatients')
+    const response=await api.get(`/doctor/getpatients?doctorId=${doctorId}`)
     if(response.data.success){
         setPatients(response.data.patients)
       
@@ -83,6 +84,8 @@ try {
   
 
   const handlePatientSelect = (patient) => {
+    setErrorMessage("")
+    setSuccessMessage("")
     setSelectedPatient(patient);
   };
 
@@ -92,6 +95,10 @@ try {
       medicines: [...prescription.medicines, { name: '', dosage: '', frequency: '' }],
     });
   };
+
+  const handleDiagnosisChange=(value)=>{
+    setPrescription(prev => ({ ...prev, diagnosis: value }));
+  }
 
   const handleRemoveMedicine = (index) => {
     const updatedMedicines = [...prescription.medicines];
@@ -220,11 +227,11 @@ try {
       </div>
 
       {successMessage && (
-        <div style={{color:"white"}} className="PatientConsulDocSuccessMessage">{successMessage}</div>
+        <div style={{color:"green"}} className="PatientConsulDocSuccessMessage">{successMessage}</div>
       )}
       
       {errorMessage && (
-        <div style={{color:"white"}} className="PatientConsulDocErrorMessage">{errorMessage}</div>
+        <div style={{color:"red"}} className="PatientConsulDocErrorMessage">{errorMessage}</div>
       )}
 
       <div className="PatientConsulDocPatientList">
@@ -285,7 +292,7 @@ try {
         </div>
       </div>
 
-      {selectedPatient && (
+      {selectedPatient &&  (
         <div className="PatientConsulDocSelectedPatientCard">
           <div className="PatientConsulDocPatientInfo">
             <h2>Selected Patient</h2>
@@ -490,6 +497,16 @@ try {
                       </button>
                     </div>
                   ))}
+                  <div className="PatientConsulDocFormGroup PatientConsulDocDiagnosis">
+  <label htmlFor="diagnosis">Diagnosis</label>
+  <input
+    id="diagnosis"
+    type="text"
+    value={prescription.diagnosis}
+    onChange={(e) => handleDiagnosisChange(e.target.value)}
+    placeholder="Enter diagnosis"
+  />
+</div>
                   <button
                     type="button"
                     className="PatientConsulDocButton PatientConsulDocAddButton"
