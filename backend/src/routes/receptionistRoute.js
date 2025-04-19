@@ -16,12 +16,14 @@ import {
   getAppoinmentAndPatientList,
   pendingAppoinments,
   generateToken,
-  generatedTokens,cancelTokenAndAppoinment,
+  generatedTokens,
+  cancelTokenAndAppoinment,
   appoinmentsAndPrescriptions,
   generateBill,
   getAllBilling,
   getDashboardData,
 } from "../controllers/receptionist/recepDutiesController.js";
+import verifyReceptionistToken from "../middlewares/verifyReceptionistToken.js";
 const receptionistRoute = express.Router();
 
 // Receptionist auth routes
@@ -32,21 +34,68 @@ receptionistRoute.post("/auth/newPassword", newPassword);
 receptionistRoute.post("/getDetails", getRecepDetails);
 
 // Receptionist duties routes
-receptionistRoute.get("/unApprovedDoctors", unApprovedDoctors);
-receptionistRoute.put("/approveDoctor/:doctorId", approveDoctors);
-receptionistRoute.post("/registerPatient", registerPatient);
-receptionistRoute.get("/getPatients", patientDetails);
-receptionistRoute.get("/getdoctors", doctorDetails);
-receptionistRoute.post("/doctorAppoinment", AppoinmentGenerte);
-receptionistRoute.get("/getPatientListAndAppoinments",getAppoinmentAndPatientList);
-receptionistRoute.get("/generateToken/pendingAppointments", pendingAppoinments);
-receptionistRoute.post("/generateToken", generateToken);
-receptionistRoute.get("/getGeneratedTokens", generatedTokens);
-receptionistRoute.post("/cancelToken", cancelTokenAndAppoinment);
-receptionistRoute.get("/getAppoinments/prescriptions", appoinmentsAndPrescriptions);
-receptionistRoute.post("/generateBilling/:PrescriptionId", generateBill);
-receptionistRoute.get("/allBilling", getAllBilling);
-receptionistRoute.get("/getDashboardData", getDashboardData);
-
+receptionistRoute.get(
+  "/unApprovedDoctors",
+  verifyReceptionistToken,
+  unApprovedDoctors
+);
+receptionistRoute.put(
+  "/approveDoctor/:doctorId",
+  verifyReceptionistToken,
+  approveDoctors
+);
+receptionistRoute.post(
+  "/registerPatient",
+  verifyReceptionistToken,
+  registerPatient
+);
+receptionistRoute.get("/getPatients", verifyReceptionistToken, patientDetails);
+receptionistRoute.get("/getdoctors", verifyReceptionistToken, doctorDetails);
+receptionistRoute.post(
+  "/doctorAppoinment",
+  verifyReceptionistToken,
+  AppoinmentGenerte
+);
+receptionistRoute.get(
+  "/getPatientListAndAppoinments",
+  verifyReceptionistToken,
+  getAppoinmentAndPatientList
+);
+receptionistRoute.get(
+  "/generateToken/pendingAppointments",
+  verifyReceptionistToken,
+  pendingAppoinments
+);
+receptionistRoute.post(
+  "/generateToken",
+  verifyReceptionistToken,
+  generateToken
+);
+receptionistRoute.get(
+  "/getGeneratedTokens",
+  verifyReceptionistToken,
+  generatedTokens
+);
+receptionistRoute.post(
+  "/cancelToken",
+  verifyReceptionistToken,
+  cancelTokenAndAppoinment
+);
+receptionistRoute.get(
+  "/getAppoinments/prescriptions",
+  verifyReceptionistToken,
+  appoinmentsAndPrescriptions
+);
+receptionistRoute.post(
+  "/generateBilling/:PrescriptionId",
+  verifyReceptionistToken,
+  generateBill
+);
+receptionistRoute.get("/allBilling", verifyReceptionistToken, getAllBilling);
+receptionistRoute.get(
+  "/getDashboardData",
+  verifyReceptionistToken,
+  getDashboardData
+);
 
 export default receptionistRoute;

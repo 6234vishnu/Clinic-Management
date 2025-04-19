@@ -72,7 +72,7 @@ const LoginPage = () => {
         if(response.data.success){
           localStorage.setItem("docId",response.data.user)
           localStorage.setItem("doctorToken",response.data.token)
-          return navigate("/Doctor-Dashboard")
+          return navigate("/Doctor-Dashboard-Page")
         }
        return setMessage(response.data.message)
     } catch (error) {

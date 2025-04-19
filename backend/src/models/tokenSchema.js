@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 const tokenSchema = new mongoose.Schema({
-    tokenNumber: { type: Number, required: true, unique: true },
+    tokenNumber: { type: Number, required: true, },
     patient: { type: mongoose.Schema.Types.ObjectId, ref: "Patient", required: true },
     appoinmentId: { type: mongoose.Schema.Types.ObjectId, ref: "Appointment", required: true },
     doctor: { type: mongoose.Schema.Types.ObjectId, ref: "Doctor", required: true },

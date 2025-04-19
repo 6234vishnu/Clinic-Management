@@ -269,7 +269,7 @@ export const generateToken = async (req, res) => {
       token: newToken.tokenNumber,
     });
   } catch (error) {
-    console.log("error in getTokens in recepRoute", error);
+    console.log("error in generateToken in recepRoute", error);
     return res.status(500).json({ success: false, message: "server error" });
   }
 };

@@ -1,10 +1,8 @@
 import {BrowserRouter,Routes,Route} from 'react-router-dom'
 import './App.css'
 import LoginPage from './views/pages/partials/loginPage'
-import DoctorSignup from './views/pages/doctor/DoctorSignup'
 import ChangePasswordRecep from './views/pages/receptionist/ChangePasswordRecep'
 import ChangePasswordDoc from './views/pages/doctor/ChangePasswordDoc'
-import DoctornavBar from './views/pages/partials/DoctornavBar'
 import RecepNav from './views/pages/partials/recepNav'
 import ApproveDoctors from './views/pages/receptionist/ApproveDoctors'
 import DoctorNav from './views/pages/partials/DoctorNav'
@@ -34,8 +32,8 @@ function App() {
 
 
        {/* Receptionist */}
-       <Route path='/Change-Password-receptionist' element={<ChangePasswordRecep/>} />
        <Route path='/RecepNav' element={<RecepNav/>}/>
+       <Route path='/Change-Password-receptionist' element={<ChangePasswordRecep/>} />
        <Route path='/Approve-Doctors' element={<ApproveDoctors/>}/>
        <Route path='/Register-Patient' element={<PatientRegistration/>}/>
        <Route path='/Appoinment-Shedule' element={<AppointmentScheduling/>}/>
@@ -50,13 +48,11 @@ function App() {
 
       {/* Doctor */}
       <Route path='/DoctorNav' element={<DoctorNav/>}/>
-      <Route path='/Doctor-Signup' element={<DoctorSignup/>}/>
       <Route path='/Change-Password-Doctor' element={<ChangePasswordDoc/>}/>
-      <Route path='/Doctor-Dashboard' element={<DoctornavBar/>}/>
       <Route path='/Patient-List-Page' element={<PatientListPage/>}/>
       <Route path='/Medical-History-Doctor' element={<MedicalHistoryDoctor/>}/>
       <Route path='/Patient-Consultation-Page' element={<PatientConsultationPage/>}/>
-      <Route path='/Doctor--Dasboard-Pagee' element={<DoctorDashboard/>}/>
+      <Route path='/Doctor-Dashboard-Page' element={<DoctorDashboard/>}/>
       
 
   

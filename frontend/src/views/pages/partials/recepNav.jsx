@@ -1,6 +1,5 @@
-// NavigationBar.jsx
 import React, { useEffect, useState } from 'react';
-import { Home, UserPlus, Ticket, CreditCard, Users, Calendar, X, Menu,ClipboardCheck } from 'lucide-react';
+import { Home, UserPlus, Ticket, CreditCard, Users, Calendar, X, Menu, ClipboardCheck } from 'lucide-react';
 import '../../../assets/css/partials/recepNavbar.css';
 import api from '../../../services/axios';
 import { useNavigate } from 'react-router-dom';
@@ -8,19 +7,19 @@ import { useNavigate } from 'react-router-dom';
 const RecepNav = () => {
   const [activeItem, setActiveItem] = useState('Dashboard');
   const [isOpen, setIsOpen] = useState(true);
-  const [message,setMessage]=useState("")
-  const [recepName,setRecepName]=useState("")
-  const navigate=useNavigate()
+  const [message, setMessage] = useState("");
+  const [recepName, setRecepName] = useState("");
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
+  const navigate = useNavigate();
 
-  
-  
-  const userId=localStorage.getItem("recepID")
+  const userId = localStorage.getItem("recepID");
+
   useEffect(() => {
     if (!userId) {
       setMessage("Couldn't find any user. Please log in first.");
       return;
     }
-  
+
     const getReceptionistData = async () => {
       try {
         const response = await api.post(`/receptionist/getDetails?recepId=${userId}`);
@@ -34,19 +33,29 @@ const RecepNav = () => {
         setMessage('Server error, try again later');
       }
     };
-  
+
     getReceptionistData();
   }, [userId]);
-  
+
+  const handleLogout =async () => {
+
+    try {
+      
+    } catch (error) {
+      
+    }
+    localStorage.removeItem("recepID");
+    navigate("/Receptionist-Login");
+  };
 
   const navItems = [
-    { id: 'dashboard', label: 'Dashboard',path:"/Recep-Dasboard-Page", icon: <Home /> },
-    { id: 'registration', label: 'Patient Registration',path:"/Register-Patient", icon: <UserPlus /> },
-    { id: 'token', label: 'Token Generation',path:"/Token-Generation", icon: <Ticket /> },
-    { id: 'billing', label: 'Billing',path:"/Billing-receptionist", icon: <CreditCard /> },
-    { id: 'patients', label: 'Patient List',path:"/Patient-List", icon: <Users /> },
-    { id: 'appointments', label: 'Appointment Management',path:"/Appoinment-Shedule", icon: <Calendar /> },
-    { id: 'doctorSignupRequests', label: 'Doctor Signup Requests',path:"/Approve-Doctors", icon: <ClipboardCheck /> } 
+    { id: 'dashboard', label: 'Dashboard', path: "/Recep-Dasboard-Page", icon: <Home /> },
+    { id: 'registration', label: 'Patient Registration', path: "/Register-Patient", icon: <UserPlus /> },
+    { id: 'token', label: 'Token Generation', path: "/Token-Generation", icon: <Ticket /> },
+    { id: 'billing', label: 'Billing', path: "/Billing-receptionist", icon: <CreditCard /> },
+    { id: 'patients', label: 'Patient List', path: "/Patient-List", icon: <Users /> },
+    { id: 'appointments', label: 'Appointment Management', path: "/Appoinment-Shedule", icon: <Calendar /> },
+    { id: 'doctorSignupRequests', label: 'Doctor Signup Requests', path: "/Approve-Doctors", icon: <ClipboardCheck /> }
   ];
 
   return (
@@ -61,7 +70,11 @@ const RecepNav = () => {
       {isOpen && (
         <nav className="recepNavContainer">
           <div className="recepNavLogo">
-            <img style={{width:"90px",height:"60px",marginLeft:"83px",borderRadius:"30px"}} src="\src\assets\images\LogoImage.jpg" alt="" />
+            <img
+              style={{ width: "90px", height: "60px", marginLeft: "83px", borderRadius: "30px" }}
+              src="\src\assets\images\LogoImage.jpg"
+              alt=""
+            />
           </div>
 
           <ul className="recepNavList">
@@ -71,7 +84,7 @@ const RecepNav = () => {
                 className={`recepNavItem ${activeItem === item.label ? 'recepNavItemActive' : ''}`}
                 onClick={() => {
                   setActiveItem(item.label);
-                  navigate(item.path); 
+                  navigate(item.path);
                 }}
               >
                 <div className="recepNavIconContainer">
@@ -85,17 +98,45 @@ const RecepNav = () => {
 
           <div className="recepNavUserSection">
             <div className="recepNavUserAvatar">
-            <span>{recepName.charAt(0)}</span>
+              <span>{recepName.charAt(0)}</span>
             </div>
             <div className="recepNavUserInfo">
-            <span className="recepNavUserName">{recepName || 'Receptionist'}</span>
+              <span className="recepNavUserName">{recepName || 'Receptionist'}</span>
               <span className="recepNavUserRole">Receptionist</span>
             </div>
           </div>
+
+          {/* Logout button */}
+          <button
+            style={{ backgroundColor: "white", color: "black", borderRadius: "10px", padding: "10px 20px", border: "1px solid black", margin: "10px" }}
+            onClick={() => setShowLogoutModal(true)}
+          >
+            LogOut
+          </button>
         </nav>
       )}
+
+      {/* Modal */}
+      {showLogoutModal && (
+  <div className="logoutModalOverlay">
+    <div className="logoutModalBox">
+      <h5>Are you sure you want to logout?</h5>
+      <div className="logoutModalButtons">
+        <button onClick={() => setShowLogoutModal(false)} className="logoutCancelBtn">
+          Cancel
+        </button>
+        <button onClick={handleLogout} className="logoutConfirmBtn">
+          Logout
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+
     </>
   );
 };
+
+
 
 export default RecepNav;

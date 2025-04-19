@@ -22,35 +22,35 @@ const DoctorNav = () => {
   const [docName, setDocName] = useState("");
   const navigate = useNavigate();
 
-  // const userId=localStorage.getItem("docId")
-  // useEffect(() => {
-  //   if (!userId) {
-  //     setMessage("Couldn't find any user. Please log in first.");
-  //     return;
-  //   }
+  const userId = localStorage.getItem("docId");
+  useEffect(() => {
+    if (!userId) {
+      setMessage("Couldn't find any user. Please log in first.");
+      return;
+    }
 
-  //   const getReceptionistData = async () => {
-  //     try {
-  //       const response = await api.post(`/doctor/getDetails?docId=${userId}`);
-  //       if (response.data.success) {
-  //           setDocName(response.data.name);
-  //       } else {
-  //         setMessage(response.data.message);
-  //       }
-  //     } catch (error) {
-  //       console.log('error in doctor sidebar', error);
-  //       setMessage('Server error, try again later');
-  //     }
-  //   };
+    const getReceptionistData = async () => {
+      try {
+        const response = await api.post(`/doctor/getDetails?docId=${userId}`);
+        if (response.data.success) {
+          setDocName(response.data.name);
+        } else {
+          setMessage(response.data.message);
+        }
+      } catch (error) {
+        console.log("error in doctor sidebar", error);
+        setMessage("Server error, try again later");
+      }
+    };
 
-  //   getReceptionistData();
-  // }, [userId]);
+    getReceptionistData();
+  }, [userId]);
 
   const navItems = [
     {
       id: "dashboard",
       label: "Dashboard",
-      path: "/Doctor--Dasboard-Pagee",
+      path: "/Doctor-Dashboard-Page",
       icon: <Home />,
     },
 
