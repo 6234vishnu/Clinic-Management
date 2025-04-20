@@ -350,3 +350,43 @@ const todaysAppointments = await Appoinments.countDocuments({
     return res.status(500).json({ success: false, message: "Server error" });
   }
 };
+
+export const docLogout=async(req,res)=>{
+  
+  try {
+     const {docId}=req.query
+     
+      if(!docId){
+        return res.status(200).json({
+          success: false,
+          message: "Server Error",
+        });
+  
+      }
+      const findDoctor=await Doctor.findById(docId);
+      if(!findDoctor){
+        return res.status(200).json({
+          success: false,
+          message: "Couldint find receptionist ",
+        });
+      }
+      res.clearCookie("authTokenDoc", {
+        httpOnly: true,
+        sameSite: "strict",
+        secure: process.env.NODE_ENV === "production", // set to true in production with HTTPS
+      });
+  
+      return res.status(200).json({
+        success: true,
+        message: "Logged out successfully",
+      });
+  
+  
+    } catch (error) {
+      console.error("Error in docLogout:", error);
+      res.status(500).json({
+        success: false,
+        message: "Server error docLogout",
+      });
+    }
+}

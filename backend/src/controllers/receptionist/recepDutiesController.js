@@ -4,7 +4,7 @@ import Appoinment from "../../models/appoinmentSchema.js";
 import Token from "../../models/tokenSchema.js";
 import Prescription from "../../models/prescriptionSchema.js";
 import Bill from "../../models/billingSchema.js";
-import mongoose from "mongoose";
+import Receptionist from "../../models/receptionistSchema.js";
 export const unApprovedDoctors = async (req, res) => {
   try {
     const findUnapprovedDocs = await Doctor.find({ isApproved: false });
@@ -606,3 +606,42 @@ export const getDashboardData = async (req, res) => {
     });
   }
 };
+
+
+export const recepLogout=async(req,res)=>{
+  try {
+    const {recepId}=req.query
+    if(!recepId){
+      return res.status(200).json({
+        success: false,
+        message: "Server Error",
+      });
+
+    }
+    const findReceptionist=await Receptionist.findById(recepId);
+    if(!findReceptionist){
+      return res.status(200).json({
+        success: false,
+        message: "Couldint find receptionist ",
+      });
+    }
+    res.clearCookie("authTokenRecep", {
+      httpOnly: true,
+      sameSite: "strict",
+      secure: process.env.NODE_ENV === "production", // set to true in production with HTTPS
+    });
+
+    return res.status(200).json({
+      success: true,
+      message: "Logged out successfully",
+    });
+
+
+  } catch (error) {
+    console.error("Error in recepLogout:", error);
+    res.status(500).json({
+      success: false,
+      message: "Server error in logout doctor",
+    });
+  }
+}

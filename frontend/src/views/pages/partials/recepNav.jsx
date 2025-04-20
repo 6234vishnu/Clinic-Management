@@ -38,14 +38,28 @@ const RecepNav = () => {
   }, [userId]);
 
   const handleLogout =async () => {
-
+const recepId=localStorage.getItem("recepID")
     try {
-      
+      const response=await api.post(`/receptionist/logout?recepId=${recepId}`)
+      if(response.data.success){
+        localStorage.removeItem("recepID");
+        localStorage.removeItem("recepionistToken")
+        navigate("/", { replace: true });
+
+      // 3. Optional: Force refresh (clears React state, memory, etc.)
+      window.location.reload();
+
+      // 4. Clear any messages or session data if needed
+      setMessage("");
+
+      }
+      setMessage(response.data.message)
     } catch (error) {
+      console.log('error in handleLogout recep Nav',error);
       
+      setMessage('server error')
     }
-    localStorage.removeItem("recepID");
-    navigate("/Receptionist-Login");
+   
   };
 
   const navItems = [

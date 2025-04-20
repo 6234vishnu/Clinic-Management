@@ -1,15 +1,11 @@
-// NavigationBar.jsx
+// DoctorNav.jsx
 import React, { useEffect, useState } from "react";
 import {
   Home,
-  UserPlus,
-  Ticket,
   CreditCard,
   Users,
-  Calendar,
   X,
   Menu,
-  ClipboardCheck,
 } from "lucide-react";
 import "../../../assets/css/partials/recepNavbar.css";
 import api from "../../../services/axios";
@@ -20,9 +16,11 @@ const DoctorNav = () => {
   const [isOpen, setIsOpen] = useState(true);
   const [message, setMessage] = useState("");
   const [docName, setDocName] = useState("");
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
   const navigate = useNavigate();
 
   const userId = localStorage.getItem("docId");
+
   useEffect(() => {
     if (!userId) {
       setMessage("Couldn't find any user. Please log in first.");
@@ -46,6 +44,23 @@ const DoctorNav = () => {
     getReceptionistData();
   }, [userId]);
 
+  const handleLogout = async () => {
+    try {
+      const response = await api.post(`/doctor/logout?docId=${userId}`);
+      if (response.data.success) {
+        localStorage.removeItem("docId");
+        localStorage.removeItem("doctorToken");
+        navigate("/", { replace: true });
+        window.location.reload();
+      } else {
+        setMessage(response.data.message);
+      }
+    } catch (error) {
+      console.log("Logout error:", error);
+      setMessage("Server error");
+    }
+  };
+
   const navItems = [
     {
       id: "dashboard",
@@ -53,7 +68,6 @@ const DoctorNav = () => {
       path: "/Doctor-Dashboard-Page",
       icon: <Home />,
     },
-
     {
       id: "Medical History Page",
       label: "Medical History Page",
@@ -94,7 +108,7 @@ const DoctorNav = () => {
                 borderRadius: "30px",
               }}
               src="\src\assets\images\LogoImage.jpg"
-              alt=""
+              alt="logo"
             />
           </div>
 
@@ -119,6 +133,10 @@ const DoctorNav = () => {
             ))}
           </ul>
 
+          <button className="doctorLogoutBtn" onClick={() => setShowLogoutModal(true)}>
+            Logout
+          </button>
+
           <div className="recepNavUserSection">
             <div className="recepNavUserAvatar">
               <span>{docName.charAt(0)}</span>
@@ -129,6 +147,23 @@ const DoctorNav = () => {
             </div>
           </div>
         </nav>
+      )}
+
+      {showLogoutModal && (
+        <div className="logoutModalOverlay">
+          <div className="logoutModalContent">
+            <h3>Confirm Logout</h3>
+            <p>Are you sure you want to log out?</p>
+            <div className="logoutModalActions">
+              <button className="logoutConfirmBtn" onClick={handleLogout}>
+                Yes, Logout
+              </button>
+              <button className="logoutCancelBtn" onClick={() => setShowLogoutModal(false)}>
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </>
   );

@@ -22,6 +22,7 @@ import {
   generateBill,
   getAllBilling,
   getDashboardData,
+  recepLogout,
 } from "../controllers/receptionist/recepDutiesController.js";
 import verifyReceptionistToken from "../middlewares/verifyReceptionistToken.js";
 const receptionistRoute = express.Router();
@@ -97,5 +98,6 @@ receptionistRoute.get(
   verifyReceptionistToken,
   getDashboardData
 );
+receptionistRoute.post("/logout",verifyReceptionistToken,recepLogout)
 
 export default receptionistRoute;

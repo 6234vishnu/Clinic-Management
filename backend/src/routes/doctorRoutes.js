@@ -15,6 +15,7 @@ import {
   getMedicalRecord,
   DashboardData,
   getDoctorDetails,
+  docLogout,
 } from "../controllers/doctor/navbarController.js";
 const doctorRoute = express.Router();
 
@@ -34,5 +35,6 @@ doctorRoute.get("/getPatientsAppoinment",verifyDoctorToken, getPatientsAppoinmen
 doctorRoute.post("/attendAppoinment",verifyDoctorToken, generatePrescriptions);
 doctorRoute.get("/medicalRecord/:patientId",verifyDoctorToken, getMedicalRecord);
 doctorRoute.get("/dashboardData",verifyDoctorToken, DashboardData);
+doctorRoute.post("/logout",verifyDoctorToken, docLogout);
 
 export default doctorRoute;
