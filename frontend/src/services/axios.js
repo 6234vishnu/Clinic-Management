@@ -36,10 +36,10 @@ api.interceptors.request.use(
         const currentRoute = window.location.pathname;
   
         // Redirection for admin and user routes
-        if (currentRoute.includes("/admin")) {
-          window.location.href = "/admin/login";
-        } else if (currentRoute.includes("/user")) {
-          window.location.href = "/login";
+        if (currentRoute.includes("/doctor")) {
+          window.location.href = "/";
+        } else if (currentRoute.includes("/receptionist")) {
+          window.location.href = "/";
         }
   
         // Reject the request since there's no token
