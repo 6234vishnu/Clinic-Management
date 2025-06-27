@@ -1,300 +1,297 @@
 /* BillingRecepStyles.css */
 
 .BillingRecepContainer {
-    font-family: 'Merriweather', serif;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    color: #2c3e50;
-  }
-  
-  .BillingRecepHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px;
-    padding-bottom: 15px;
-    border-bottom: 2px solid #e0e0e0;
-  }
-  
-  .BillingRecepHeader h1 {
-    color: #2c3e50;
-    font-size: 28px;
-    margin: 0;
-  }
-  
-  .BillingRecepDate {
-    font-size: 16px;
-    color: #2c3e50;
-  }
-  
-  .BillingRecepMain {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .BillingRecepAppointmentList {
-    padding: 20px;
-  }
-  
-  .BillingRecepAppointmentList h2 {
-    color: #2c3e50;
-    font-size: 22px;
-    margin-top: 0;
-    margin-bottom: 20px;
-  }
-  
-  .BillingRecepSearchBar {
-    display: flex;
-    margin-bottom: 20px;
-  }
-  
-  .BillingRecepSearchInput {
-    flex: 1;
-    padding: 10px 15px;
-    border: 1px solid #ddd;
-    border-radius: 4px 0 0 4px;
-    font-size: 16px;
-  }
-  
-  .BillingRecepSearchButton {
-    background-color: #2c3e50;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 0 4px 4px 0;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .BillingRecepSearchButton:hover {
-    background-color: #193756;
-  }
-  
-  .BillingRecepFilters {
-    display: flex;
-    gap: 15px;
-    margin-bottom: 20px;
-  }
-  
-  .BillingRecepFilter {
-    padding: 8px 12px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    background-color: #f9f9f9;
-    font-size: 14px;
-  }
-  
-  .BillingRecepTable {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-  }
-  
-  .BillingRecepTable th {
-    background-color: #f2f2f2;
-    padding: 12px 15px;
-    text-align: left;
-    font-weight: 600;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  .BillingRecepTableRow {
-    cursor: pointer;
-    transition: background-color 0.2s;
-  }
-  
-  .BillingRecepTableRow:hover {
-    background-color: #f5f9ff;
-  }
-  
-  .BillingRecepTable td {
-    padding: 12px 15px;
-    border-bottom: 1px solid #eee;
-  }
-  
-  .BillingRecepStatus {
-    display: inline-block;
-    padding: 4px 10px;
-    border-radius: 20px;
-    font-size: 14px;
-    font-weight: 500;
-  }
-  
+  font-family: "Merriweather", serif;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  color: #2c3e50;
+}
 
-  .BillingRecepViewButton {
-    background-color: #2c3e50;
-    color: white;
-    border: none;
-    padding: 6px 12px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .BillingRecepViewButton:hover {
-    background-color: #14304b;
-  }
-  
-  .BillingRecepPagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 15px;
-    margin-top: 20px;
-  }
-  
-  .BillingRecepPaginationButton {
-    background-color: #2c3e50;
-    border: 1px solid #ddd;
-    padding: 8px 15px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .BillingRecepPaginationButton:hover {
-    background-color: #ffffff;
-    color:#2c3e50 ;
-    border: 1px solid #2c3e50;
-  }
-  
-  /* Overlay and Appointment Details */
-  .BillingRecepOverlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-  }
-  
-  .BillingRecepAppointmentDetails {
-    background-color: white;
-    width: 90%;
-    max-width: 600px;
-    border-radius: 8px;
-    padding: 25px;
-    position: relative;
-    max-height: 90vh;
-    overflow-y: auto;
-  }
-  
-  .BillingRecepCloseButton {
-    position: absolute;
-    top: 15px;
-    right: 15px;
-    background: none;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    color: #777;
-  }
-  
-  .BillingRecepAppointmentDetails h2 {
-    color: #2c3e50;
-    margin-top: 0;
-    margin-bottom: 20px;
-    padding-bottom: 15px;
-    border-bottom: 1px solid #eee;
-  }
-  
-  .BillingRecepDetailSection {
-    margin-bottom: 25px;
-  }
-  
-  .BillingRecepDetailSection h3 {
-    font-size: 18px;
-    color: #34495e;
-    margin-bottom: 10px;
-  }
-  
-  .BillingRecepDetailRow {
-    display: flex;
-    margin-bottom: 8px;
-  }
-  
-  .BillingRecepDetailLabel {
-    font-weight: 600;
-    width: 100px;
-    color: #7f8c8d;
-  }
-  
-  .BillingRecepDetailValue {
-    flex: 1;
-  }
-  
-  .BillingRecepDetailActions {
-    display: flex;
-    gap: 10px;
-    margin-top: 20px;
-    flex-wrap: wrap;
-  }
-  
-  .BillingRecepActionButton {
-    padding: 10px 15px;
-    border: none;
-    border-radius: 4px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
+.BillingRecepHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #e0e0e0;
+}
 
-  .BillingRecepLoading, .BillingRecepError {
-    text-align: center;
-    padding: 40px;
-    font-size: 18px;
-  }
-  
-  .BillingRecepError {
-    color: #e74c3c;
-  }
-  .BillingRecepprescription{
-    background-color: #2c3e50;
-    color: white;
-    border: none;
-    padding: 6px 12px;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  .BillingRecepprescription:hover{
-    background-color: #153250;
-  }
+.BillingRecepHeader h1 {
+  color: #2c3e50;
+  font-size: 28px;
+  margin: 0;
+}
 
-  .BillingRecepBillingButton{
-    background-color: #2c3e50;
-    color: white;
-    border-radius: 4px;
+.BillingRecepDate {
+  font-size: 16px;
+  color: #2c3e50;
+}
 
-  }
-   .BillingRecepBillingButton:hover{
-    background-color: white;
-    color: #2c3e50;
-    border: 1px solid #2c3e50;
-   }
-   .BillingRecepOverlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    background: rgba(0,0,0,0.5);
-    width: 100%;
-    height: 100%;
-    z-index: 1000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .BillingRecepAppointmentDetails {
-    background: white;
-    padding: 2rem;
-    border-radius: 8px;
-    min-width: 300px;
-  }
-  
+.BillingRecepMain {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.BillingRecepAppointmentList {
+  padding: 20px;
+}
+
+.BillingRecepAppointmentList h2 {
+  color: #2c3e50;
+  font-size: 22px;
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.BillingRecepSearchBar {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.BillingRecepSearchInput {
+  flex: 1;
+  padding: 10px 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px 0 0 4px;
+  font-size: 16px;
+}
+
+.BillingRecepSearchButton {
+  background-color: #2c3e50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.BillingRecepSearchButton:hover {
+  background-color: #193756;
+}
+
+.BillingRecepFilters {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.BillingRecepFilter {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  font-size: 14px;
+}
+
+.BillingRecepTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.BillingRecepTable th {
+  background-color: #f2f2f2;
+  padding: 12px 15px;
+  text-align: left;
+  font-weight: 600;
+  border-bottom: 1px solid #ddd;
+}
+
+.BillingRecepTableRow {
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.BillingRecepTableRow:hover {
+  background-color: #f5f9ff;
+}
+
+.BillingRecepTable td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.BillingRecepStatus {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.BillingRecepViewButton {
+  background-color: #2c3e50;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.BillingRecepViewButton:hover {
+  background-color: #14304b;
+}
+
+.BillingRecepPagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.BillingRecepPaginationButton {
+  background-color: #2c3e50;
+  border: 1px solid #ddd;
+  padding: 8px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.BillingRecepPaginationButton:hover {
+  background-color: #ffffff;
+  color: #2c3e50;
+  border: 1px solid #2c3e50;
+}
+
+/* Overlay and Appointment Details */
+.BillingRecepOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.BillingRecepAppointmentDetails {
+  background-color: white;
+  width: 90%;
+  max-width: 600px;
+  border-radius: 8px;
+  padding: 25px;
+  position: relative;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.BillingRecepCloseButton {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #777;
+}
+
+.BillingRecepAppointmentDetails h2 {
+  color: #2c3e50;
+  margin-top: 0;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.BillingRecepDetailSection {
+  margin-bottom: 25px;
+}
+
+.BillingRecepDetailSection h3 {
+  font-size: 18px;
+  color: #34495e;
+  margin-bottom: 10px;
+}
+
+.BillingRecepDetailRow {
+  display: flex;
+  margin-bottom: 8px;
+}
+
+.BillingRecepDetailLabel {
+  font-weight: 600;
+  width: 100px;
+  color: #7f8c8d;
+}
+
+.BillingRecepDetailValue {
+  flex: 1;
+}
+
+.BillingRecepDetailActions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+
+.BillingRecepActionButton {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.BillingRecepLoading,
+.BillingRecepError {
+  text-align: center;
+  padding: 40px;
+  font-size: 18px;
+}
+
+.BillingRecepError {
+  color: #e74c3c;
+}
+.BillingRecepprescription {
+  background-color: #2c3e50;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.BillingRecepprescription:hover {
+  background-color: #153250;
+}
+
+.BillingRecepBillingButton {
+  background-color: #2c3e50;
+  color: white;
+  border-radius: 4px;
+}
+.BillingRecepBillingButton:hover {
+  background-color: white;
+  color: #2c3e50;
+  border: 1px solid #2c3e50;
+}
+.BillingRecepOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.BillingRecepAppointmentDetails {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  min-width: 300px;
+}

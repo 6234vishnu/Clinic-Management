@@ -21,7 +21,7 @@
 }
 
 .BillingGenarationRecepForm::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -112,15 +112,15 @@
   .BillingGenarationRecepForm {
     padding: 30px 20px;
   }
-  
+
   .BillingGenarationRecepTitle {
     font-size: 24px;
   }
-  
+
   .BillingGenarationRecepInput {
     padding: 14px 16px;
   }
-  
+
   .BillingGenarationRecepButton {
     padding: 14px;
     font-size: 16px;
@@ -209,7 +209,6 @@ input[type="number"] {
   border-color: #cbd5e1;
   background-color: #f1f5f9;
 }
-
 
 .BillingGenarationRecepModalOverlay {
   position: fixed;

@@ -13,7 +13,7 @@
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
-  font-family: 'Merriweather', serif;
+  font-family: "Merriweather", serif;
 }
 
 .doctorCard:hover {
@@ -22,7 +22,7 @@
 }
 
 .doctorCard:hover::before {
-  content: '';
+  content: "";
   position: absolute;
   left: 0;
   top: 0;
@@ -271,7 +271,8 @@
   margin-top: 24px;
 }
 
-.cancelButton, .acceptButton {
+.cancelButton,
+.acceptButton {
   padding: 10px 20px;
   border-radius: 6px;
   font-weight: 600;
@@ -415,13 +416,13 @@
   .detailGroup {
     grid-template-columns: 1fr;
   }
-  
+
   .doctorAvatar {
     width: 60px;
     height: 60px;
     font-size: 20px;
   }
-  
+
   .modalContent {
     width: 95%;
   }

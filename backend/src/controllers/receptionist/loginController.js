@@ -5,13 +5,12 @@ import { verifyToken, generateToken } from "../../helpers/jwtToken.js";
 import generateOTP from "../../utils/otpGenerator.js";
 import sendOtpEmail from "../../utils/sendEmail.js";
 import client from "../../helpers/redis.js";
-import bcrypt from 'bcrypt';
+import bcrypt from "bcrypt";
 
 export const login = async (req, res) => {
   try {
-    
     const { email, password } = req.body.formData;
-    
+
     const findUser = await Receptionist.findOne({
       isBlocked: false,
       email: email,
@@ -61,51 +60,41 @@ export const ForgotPasswordGetOtp = async (req, res) => {
     const { email } = req.body;
     const findUser = Receptionist.findOne({ email: email, isBlocked: false });
     if (!findUser) {
-      return res
-        .status(200)
-        .json({
-          success: false,
-          message: "couldint find user with this email",
-        });
+      return res.status(200).json({
+        success: false,
+        message: "couldint find user with this email",
+      });
     }
     const otp = generateOTP();
     if (!otp) {
-      return res
-        .status(200)
-        .json({
-          success: false,
-          message: "error in server side try again later",
-        });
+      return res.status(200).json({
+        success: false,
+        message: "error in server side try again later",
+      });
     }
     console.log("OTP: ", otp);
 
     const sendMail = await sendOtpEmail(email, otp);
 
     if (!sendMail) {
-      return res
-        .status(200)
-        .json({
-          success: false,
-          message: "couldint find this email address",
-        });
+      return res.status(200).json({
+        success: false,
+        message: "couldint find this email address",
+      });
     }
     const storeOtpRedis = await client.set(`otp:${email}`, otp, { EX: 300 });
 
     if (!storeOtpRedis) {
-      return res
-        .status(200)
-        .json({
-          success: false,
-          message: "error in server side try again later",
-        });
+      return res.status(200).json({
+        success: false,
+        message: "error in server side try again later",
+      });
     }
 
-    return res
-      .status(200)
-      .json({
-        success: true,
-        message: "Otp is send to your Email please check",
-      });
+    return res.status(200).json({
+      success: true,
+      message: "Otp is send to your Email please check",
+    });
   } catch (error) {
     console.log("error in ForgotPasswordGetOtp receptionist", error);
 
@@ -118,22 +107,21 @@ export const ForgotPasswordGetOtp = async (req, res) => {
 export const verifyOtp = async (req, res) => {
   try {
     console.log(req.body);
-    
-    const {otp, email} = req.body;
-    
-    const findUser = await Receptionist.findOne({email:email,isBlocked:false})
-    
+
+    const { otp, email } = req.body;
+
+    const findUser = await Receptionist.findOne({
+      email: email,
+      isBlocked: false,
+    });
+
     if (!findUser) {
-      return res
-        .status(200)
-        .json({
-          success: false,
-          message: "couldint find user with this email",
-        });
+      return res.status(200).json({
+        success: false,
+        message: "couldint find user with this email",
+      });
     }
     const storedOtp = await client.get(`otp:${email}`);
-  
-    
 
     if (!otp) {
       return res
@@ -144,13 +132,11 @@ export const verifyOtp = async (req, res) => {
       return res.status(200).json({ success: false, message: "Invalid OTP" });
     }
 
-    return res
-      .status(200)
-      .json({
-        success: true,
-        message: "please Enter a new password",
-        userId: findUser._id,
-      });
+    return res.status(200).json({
+      success: true,
+      message: "please Enter a new password",
+      userId: findUser._id,
+    });
   } catch (error) {
     console.log("error in verifyOtp receptionist login", error);
 
@@ -161,12 +147,9 @@ export const verifyOtp = async (req, res) => {
 };
 
 export const newPassword = async (req, res) => {
-  
   try {
-  
-  
-       const { newPassword, userId } = req.body;
-       
+    const { newPassword, userId } = req.body;
+
     if (!newPassword && !userId) {
       return res
         .status(200)
@@ -174,12 +157,10 @@ export const newPassword = async (req, res) => {
     }
     const findUser = await Receptionist.findById(userId);
     if (!findUser) {
-      return res
-        .status(200)
-        .json({
-          success: false,
-          message: "couldint find user with this Email ID",
-        });
+      return res.status(200).json({
+        success: false,
+        message: "couldint find user with this Email ID",
+      });
     }
     const newhashedPassword = await hashPassword(newPassword);
     const updatepassword = await Receptionist.findByIdAndUpdate(
@@ -187,18 +168,15 @@ export const newPassword = async (req, res) => {
       { $set: { password: newhashedPassword } },
       { new: true }
     );
-    
+
     if (!updatepassword) {
       return res
         .status(200)
         .json({ success: false, message: "coulint update password try later" });
     }
 
-
     return res.status(200).json({ success: true });
-
   } catch (error) {
-
     console.log("error in new password receptionist login", error);
     res
       .status(500)
@@ -206,21 +184,25 @@ export const newPassword = async (req, res) => {
   }
 };
 
-
-export const getRecepDetails=async(req,res)=>{
-
-  
+export const getRecepDetails = async (req, res) => {
   try {
-    const {recepId}=req.query
-    if(!recepId){
-      return res.status(200).json({success:false,message:"couldint find user "})
+    const { recepId } = req.query;
+    if (!recepId) {
+      return res
+        .status(200)
+        .json({ success: false, message: "couldint find user " });
     }
-    const findRecep=await Receptionist.findOne({_id:recepId,isBlocked:false})
-    if(!findRecep){
-      return res.status(200).json({success:false,message:"couldint find user "})
+    const findRecep = await Receptionist.findOne({
+      _id: recepId,
+      isBlocked: false,
+    });
+    if (!findRecep) {
+      return res
+        .status(200)
+        .json({ success: false, message: "couldint find user " });
     }
 
-    return res.status(200).json({success:true,name:findRecep.name})
+    return res.status(200).json({ success: true, name: findRecep.name });
   } catch (error) {
     console.log("error in  receptionist get details", error);
 
@@ -228,4 +210,4 @@ export const getRecepDetails=async(req,res)=>{
       .status(500)
       .json({ success: false, message: "server error try again later" });
   }
-}
+};

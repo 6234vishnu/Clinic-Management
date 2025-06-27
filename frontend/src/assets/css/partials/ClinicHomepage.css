@@ -6,7 +6,8 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", sans-serif;
   line-height: 1.6;
   color: #333;
   padding: 0px;
@@ -222,7 +223,7 @@ body {
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to right, #2e3a4d,#1e3963);
+  background: linear-gradient(to right, #2e3a4d, #1e3963);
 }
 
 .hero-container {
@@ -322,7 +323,7 @@ body {
   align-items: center;
   justify-content: center;
   border: 1px solid #bfdbfe;
-background-image: url('C:\Users\vishn\Documents\Clinic_Management\frontend\src\assets\images\LogoImage.jpg');
+  background-image: url("C:\Users\vishn\Documents\Clinic_Management\frontend\src\assets\images\LogoImage.jpg");
   text-align: center;
 }
 
@@ -334,7 +335,7 @@ background-image: url('C:\Users\vishn\Documents\Clinic_Management\frontend\src\a
   display: flex;
   align-items: center;
   justify-content: center;
-    
+
   margin-bottom: 1rem;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   color: white;
@@ -376,8 +377,13 @@ background-image: url('C:\Users\vishn\Documents\Clinic_Management\frontend\src\a
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 0.2; }
-  50% { opacity: 0.4; }
+  0%,
+  100% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.4;
+  }
 }
 
 /* Features Section */
@@ -482,7 +488,7 @@ background-image: url('C:\Users\vishn\Documents\Clinic_Management\frontend\src\a
   background: linear-gradient(135deg, #cffafe, #dbeafe);
   border-radius: 1rem;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-  background-image: url('C:\Users\vishn\Documents\Clinic_Management\frontend\src\assets\images\istockphoto-1305317670-170667a.jpg');
+  background-image: url("C:\Users\vishn\Documents\Clinic_Management\frontend\src\assets\images\istockphoto-1305317670-170667a.jpg");
   aspect-ratio: 16/9;
   display: flex;
   flex-direction: column;
@@ -706,7 +712,6 @@ background-image: url('C:\Users\vishn\Documents\Clinic_Management\frontend\src\a
 .form-input:focus,
 .form-textarea:focus {
   outline: none;
-  
 }
 
 .form-textarea {

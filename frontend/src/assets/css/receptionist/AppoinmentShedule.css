@@ -1,449 +1,456 @@
 /* Appointment Scheduling Form CSS */
 :root {
-    --primary-color: #2e3a4d;
-    --primary-light: #eef2ff;
-    --primary-dark: #213350;
-    --success-color: #10b981;
-    --error-color: #ef4444;
-    --warning-color: #f59e0b;
-    --text-dark: #111827;
-    --text-medium: #4b5563;
-    --text-light: #6b7280;
-    --border-color: #e5e7eb;
-    --border-focus: #a5b4fc;
-    --background-color: #f9fafb;
-    --card-background: #ffffff;
-    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    --radius-sm: 0.375rem;
-    --radius-md: 0.5rem;
-    --radius-lg: 0.75rem;
-    --font-sans:  'Merriweather', serif;
-    --transition-normal: all 0.3s ease;
-    --transition-fast: all 0.15s ease;
-  }
-  
-  .appointmentRecepContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: 2rem;
+  --primary-color: #2e3a4d;
+  --primary-light: #eef2ff;
+  --primary-dark: #213350;
+  --success-color: #10b981;
+  --error-color: #ef4444;
+  --warning-color: #f59e0b;
+  --text-dark: #111827;
+  --text-medium: #4b5563;
+  --text-light: #6b7280;
+  --border-color: #e5e7eb;
+  --border-focus: #a5b4fc;
+  --background-color: #f9fafb;
+  --card-background: #ffffff;
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --font-sans: "Merriweather", serif;
+  --transition-normal: all 0.3s ease;
+  --transition-fast: all 0.15s ease;
+}
 
-    font-family: var(--font-sans);
-    color: var(--text-dark);
+.appointmentRecepContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 2rem;
+
+  font-family: var(--font-sans);
+  color: var(--text-dark);
+}
+
+.appointmentRecepCard {
+  width: 100%;
+  max-width: 800px;
+  background-color: var(--card-background);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  transform-origin: center center;
+  animation: appointmentRecepFadeIn 0.5s ease-out forwards;
+}
+
+@keyframes appointmentRecepFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
-  
-  .appointmentRecepCard {
-    width: 100%;
-    max-width: 800px;
-    background-color: var(--card-background);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-lg);
-    overflow: hidden;
-    transform-origin: center center;
-    animation: appointmentRecepFadeIn 0.5s ease-out forwards;
-  }
-  
-  @keyframes appointmentRecepFadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  .appointmentRecepHeader {
-    padding: 2rem;
-    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
-    color: white;
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .appointmentRecepHeader:before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    right: -50%;
-    width: 100%;
-    height: 200%;
-    background: rgba(255, 255, 255, 0.1);
-    transform: rotate(30deg);
-    pointer-events: none;
-  }
-  
-  .appointmentRecepHeader h1 {
-    margin: 0;
-    font-size: 1.75rem;
-    font-weight: 700;
-    position: relative;
-  }
-  
-  .appointmentRecepHeader p {
-    margin: 0.5rem 0 0;
-    font-size: 1rem;
-    opacity: 0.9;
-    position: relative;
-  }
-  
-  .appointmentRecepForm {
-    padding: 2rem;
-  }
-  
-  .appointmentRecepSection {
-    margin-bottom: 2rem;
-    padding-bottom: 2rem;
-    border-bottom: 1px solid var(--border-color);
-    animation: appointmentRecepSectionFadeIn 0.4s ease-out forwards;
-  }
-  
-  @keyframes appointmentRecepSectionFadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  .appointmentRecepSection:last-child {
-    margin-bottom: 0;
-    padding-bottom: 0;
-    border-bottom: none;
-  }
-  
-  .appointmentRecepSectionTitle {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    margin: 0 0 1.25rem;
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: var(--primary-color);
-  }
-  
-  .appointmentRecepFormGroup {
-    margin-bottom: 1.5rem;
-  }
-  
-  .appointmentRecepFormGroup:last-child {
-    margin-bottom: 0;
-  }
-  
-  .appointmentRecepFormRow {
-    display: flex;
-    gap: 1.5rem;
-  }
-  
-  .appointmentRecepFormRow .appointmentRecepFormGroup {
-    flex: 1;
-  }
-  
-  .appointmentRecepLabel {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-size: 0.875rem;
-    font-weight: 500;
-    color: var(--text-medium);
-  }
-  
-  .appointmentRecepRequired {
-    color: var(--error-color);
-    margin-left: 0.25rem;
-  }
-  
-  .appointmentRecepInputWrapper,
-  .appointmentRecepSelectWrapper {
-    position: relative;
-  }
-  
-  .appointmentRecepInputIcon {
-    position: absolute;
-    top: 50%;
-    left: 1rem;
-    transform: translateY(-50%);
-    color: var(--text-light);
-    pointer-events: none;
-  }
-  
-  .appointmentRecepInput,
-  .appointmentRecepSelect {
-    width: 100%;
-    padding: 0.75rem 1rem 0.75rem 2.5rem;
-    font-size: 0.95rem;
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-md);
-    background-color: var(--card-background);
-    color: var(--text-dark);
-    transition: var(--transition-fast);
-    appearance: none;
-  }
-  
-  .appointmentRecepSelect {
-    cursor: pointer;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='none' d='M0 0h24v24H0z'/%3E%3Cpath d='M12 15l-4.243-4.243 1.415-1.414L12 12.172l2.828-2.829 1.415 1.414z' fill='%236b7280'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 1rem center;
-    background-size: 1.5rem;
-    padding-right: 2.5rem;
-  }
-  
-  .appointmentRecepInput:focus,
-  .appointmentRecepSelect:focus {
-    outline: none;
-    border-color: var(--border-focus);
-    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
-  }
-  
-  .appointmentRecepInputError {
-    border-color: var(--error-color);
-  }
-  
-  .appointmentRecepInputError:focus {
-    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
-  }
-  
-  .appointmentRecepErrorText {
-    margin-top: 0.5rem;
-    font-size: 0.8rem;
-    color: var(--error-color);
-    display: flex;
-    align-items: center;
-    gap: 0.375rem;
-  }
-  
-  .appointmentRecepErrorText::before {
-    content: "•";
-    font-size: 1.2rem;
-  }
-  
-  .appointmentRecepHelpText {
-    margin-top: 0.5rem;
-    font-size: 0.8rem;
-    color: var(--text-light);
-    font-style: italic;
-  }
-  
-  .appointmentRecepFormActions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 1rem;
-    margin-top: 2rem;
-  }
-  
-  .appointmentRecepPrimaryButton,
-  .appointmentRecepSecondaryButton {
-    padding: 0.75rem 1.5rem;
-    font-size: 0.95rem;
-    font-weight: 500;
-    border-radius: var(--radius-md);
-    cursor: pointer;
-    transition: var(--transition-normal);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 150px;
-  }
-  
-  .appointmentRecepPrimaryButton {
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .appointmentRecepPrimaryButton:hover {
-    background-color: var(--primary-dark);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
-  }
-  
-  .appointmentRecepPrimaryButton:active {
+  to {
+    opacity: 1;
     transform: translateY(0);
   }
-  
-  .appointmentRecepPrimaryButton:disabled {
-    background-color: var(--primary-color);
-    opacity: 0.7;
-    cursor: not-allowed;
-    transform: none;
-    box-shadow: none;
+}
+
+.appointmentRecepHeader {
+  padding: 2rem;
+  background: linear-gradient(
+    135deg,
+    var(--primary-color),
+    var(--primary-dark)
+  );
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.appointmentRecepHeader:before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 200%;
+  background: rgba(255, 255, 255, 0.1);
+  transform: rotate(30deg);
+  pointer-events: none;
+}
+
+.appointmentRecepHeader h1 {
+  margin: 0;
+  font-size: 1.75rem;
+  font-weight: 700;
+  position: relative;
+}
+
+.appointmentRecepHeader p {
+  margin: 0.5rem 0 0;
+  font-size: 1rem;
+  opacity: 0.9;
+  position: relative;
+}
+
+.appointmentRecepForm {
+  padding: 2rem;
+}
+
+.appointmentRecepSection {
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--border-color);
+  animation: appointmentRecepSectionFadeIn 0.4s ease-out forwards;
+}
+
+@keyframes appointmentRecepSectionFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
   }
-  
-  .appointmentRecepSecondaryButton {
-    background-color: transparent;
-    color: var(--text-medium);
-    border: 1px solid var(--border-color);
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  .appointmentRecepSecondaryButton:hover {
-    background-color: var(--background-color);
-    color: var(--text-dark);
-    border-color: var(--text-light);
+}
+
+.appointmentRecepSection:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.appointmentRecepSectionTitle {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0 0 1.25rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.appointmentRecepFormGroup {
+  margin-bottom: 1.5rem;
+}
+
+.appointmentRecepFormGroup:last-child {
+  margin-bottom: 0;
+}
+
+.appointmentRecepFormRow {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.appointmentRecepFormRow .appointmentRecepFormGroup {
+  flex: 1;
+}
+
+.appointmentRecepLabel {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-medium);
+}
+
+.appointmentRecepRequired {
+  color: var(--error-color);
+  margin-left: 0.25rem;
+}
+
+.appointmentRecepInputWrapper,
+.appointmentRecepSelectWrapper {
+  position: relative;
+}
+
+.appointmentRecepInputIcon {
+  position: absolute;
+  top: 50%;
+  left: 1rem;
+  transform: translateY(-50%);
+  color: var(--text-light);
+  pointer-events: none;
+}
+
+.appointmentRecepInput,
+.appointmentRecepSelect {
+  width: 100%;
+  padding: 0.75rem 1rem 0.75rem 2.5rem;
+  font-size: 0.95rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background-color: var(--card-background);
+  color: var(--text-dark);
+  transition: var(--transition-fast);
+  appearance: none;
+}
+
+.appointmentRecepSelect {
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24'%3E%3Cpath fill='none' d='M0 0h24v24H0z'/%3E%3Cpath d='M12 15l-4.243-4.243 1.415-1.414L12 12.172l2.828-2.829 1.415 1.414z' fill='%236b7280'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1.5rem;
+  padding-right: 2.5rem;
+}
+
+.appointmentRecepInput:focus,
+.appointmentRecepSelect:focus {
+  outline: none;
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+}
+
+.appointmentRecepInputError {
+  border-color: var(--error-color);
+}
+
+.appointmentRecepInputError:focus {
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+}
+
+.appointmentRecepErrorText {
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--error-color);
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.appointmentRecepErrorText::before {
+  content: "•";
+  font-size: 1.2rem;
+}
+
+.appointmentRecepHelpText {
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--text-light);
+  font-style: italic;
+}
+
+.appointmentRecepFormActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.appointmentRecepPrimaryButton,
+.appointmentRecepSecondaryButton {
+  padding: 0.75rem 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: var(--transition-normal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 150px;
+}
+
+.appointmentRecepPrimaryButton {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.appointmentRecepPrimaryButton:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
+}
+
+.appointmentRecepPrimaryButton:active {
+  transform: translateY(0);
+}
+
+.appointmentRecepPrimaryButton:disabled {
+  background-color: var(--primary-color);
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.appointmentRecepSecondaryButton {
+  background-color: transparent;
+  color: var(--text-medium);
+  border: 1px solid var(--border-color);
+}
+
+.appointmentRecepSecondaryButton:hover {
+  background-color: var(--background-color);
+  color: var(--text-dark);
+  border-color: var(--text-light);
+}
+
+.appointmentRecepLoadingSpinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: appointmentRecepSpin 0.8s linear infinite;
+}
+
+@keyframes appointmentRecepSpin {
+  to {
+    transform: rotate(360deg);
   }
-  
-  .appointmentRecepLoadingSpinner {
-    width: 20px;
-    height: 20px;
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    border-radius: 50%;
-    border-top-color: white;
-    animation: appointmentRecepSpin 0.8s linear infinite;
+}
+
+.appointmentRecepSuccessMessage,
+.appointmentRecepErrorMessage {
+  padding: 2.5rem 2rem;
+  text-align: center;
+  animation: appointmentRecepMessageFadeIn 0.5s ease-out forwards;
+}
+
+@keyframes appointmentRecepMessageFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
   }
-  
-  @keyframes appointmentRecepSpin {
-    to {
-      transform: rotate(360deg);
-    }
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
-  
-  .appointmentRecepSuccessMessage,
-  .appointmentRecepErrorMessage {
-    padding: 2.5rem 2rem;
-    text-align: center;
-    animation: appointmentRecepMessageFadeIn 0.5s ease-out forwards;
+}
+
+.appointmentRecepSuccessMessage {
+  color: var(--success-color);
+}
+
+.appointmentRecepSuccessIcon {
+  margin: 0 auto 1.5rem;
+  width: 80px;
+  height: 80px;
+  background-color: rgba(16, 185, 129, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: appointmentRecepPulse 2s infinite;
+}
+
+@keyframes appointmentRecepPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4);
   }
-  
-  @keyframes appointmentRecepMessageFadeIn {
-    from {
-      opacity: 0;
-      transform: scale(0.95);
-    }
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
+  70% {
+    box-shadow: 0 0 0 10px rgba(16, 185, 129, 0);
   }
-  
-  .appointmentRecepSuccessMessage {
-    color: var(--success-color);
+  100% {
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
   }
-  
-  .appointmentRecepSuccessIcon {
-    margin: 0 auto 1.5rem;
-    width: 80px;
-    height: 80px;
-    background-color: rgba(16, 185, 129, 0.1);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    animation: appointmentRecepPulse 2s infinite;
+}
+
+.appointmentRecepSuccessMessage h2 {
+  margin: 0 0 1rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.appointmentRecepSuccessMessage p {
+  margin: 0;
+  color: var(--text-medium);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.appointmentRecepErrorMessage {
+  padding: 1rem 2rem;
+  margin: 0 2rem;
+  background-color: rgba(239, 68, 68, 0.1);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--error-color);
+}
+
+.appointmentRecepErrorMessage p {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .appointmentRecepFormRow {
+    flex-direction: column;
+    gap: 1.5rem;
   }
-  
-  @keyframes appointmentRecepPulse {
-    0% {
-      box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4);
-    }
-    70% {
-      box-shadow: 0 0 0 10px rgba(16, 185, 129, 0);
-    }
-    100% {
-      box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
-    }
+
+  .appointmentRecepFormActions {
+    flex-direction: column;
   }
-  
-  .appointmentRecepSuccessMessage h2 {
-    margin: 0 0 1rem;
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: var(--text-dark);
-  }
-  
-  .appointmentRecepSuccessMessage p {
-    margin: 0;
-    color: var(--text-medium);
-    font-size: 1rem;
-    line-height: 1.6;
-  }
-  
-  .appointmentRecepErrorMessage {
-    padding: 1rem 2rem;
-    margin: 0 2rem;
-    background-color: rgba(239, 68, 68, 0.1);
-    border-radius: var(--radius-md);
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    color: var(--error-color);
-  }
-  
-  .appointmentRecepErrorMessage p {
-    margin: 0;
-    font-size: 0.95rem;
-  }
-  
-  /* Responsive adjustments */
-  @media (max-width: 768px) {
-    .appointmentRecepFormRow {
-      flex-direction: column;
-      gap: 1.5rem;
-    }
-    
-    .appointmentRecepFormActions {
-      flex-direction: column;
-    }
-    
-    .appointmentRecepPrimaryButton,
-    .appointmentRecepSecondaryButton {
-      width: 100%;
-    }
-    
-    .appointmentRecepContainer {
-      padding: 1rem;
-    }
-    
-    .appointmentRecepHeader,
-    .appointmentRecepForm {
-      padding: 1.5rem;
-    }
-  }
-  
-  /* Focus styles for accessibility */
-  .appointmentRecepInput:focus-visible,
-  .appointmentRecepSelect:focus-visible,
-  .appointmentRecepPrimaryButton:focus-visible,
-  .appointmentRecepSecondaryButton:focus-visible {
-    outline: 2px solid var(--primary-color);
-    outline-offset: 2px;
-  }
-  
-  /* Transition for all form elements */
-  .appointmentRecepInput,
-  .appointmentRecepSelect,
+
   .appointmentRecepPrimaryButton,
   .appointmentRecepSecondaryButton {
-    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
+    width: 100%;
   }
-  
-  /* Hover effects */
-  .appointmentRecepInput:hover:not(:focus):not(.appointmentRecepInputError),
-  .appointmentRecepSelect:hover:not(:focus):not(.appointmentRecepInputError) {
-    border-color: var(--text-light);
+
+  .appointmentRecepContainer {
+    padding: 1rem;
   }
-  
-  /* Animation delay for staggered section appearance */
-  .appointmentRecepSection:nth-child(1) {
-    animation-delay: 0.1s;
+
+  .appointmentRecepHeader,
+  .appointmentRecepForm {
+    padding: 1.5rem;
   }
-  
-  .appointmentRecepSection:nth-child(2) {
-    animation-delay: 0.2s;
-  }
-  
-  .appointmentRecepSection:nth-child(3) {
-    animation-delay: 0.3s;
-  }
-  
-  .appointmentRecepFormActions {
-    animation: appointmentRecepSectionFadeIn 0.4s ease-out 0.4s forwards;
-    opacity: a;
-  }
+}
+
+/* Focus styles for accessibility */
+.appointmentRecepInput:focus-visible,
+.appointmentRecepSelect:focus-visible,
+.appointmentRecepPrimaryButton:focus-visible,
+.appointmentRecepSecondaryButton:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* Transition for all form elements */
+.appointmentRecepInput,
+.appointmentRecepSelect,
+.appointmentRecepPrimaryButton,
+.appointmentRecepSecondaryButton {
+  transition: transform 0.2s ease, box-shadow 0.2s ease,
+    background-color 0.2s ease, border-color 0.2s ease;
+}
+
+/* Hover effects */
+.appointmentRecepInput:hover:not(:focus):not(.appointmentRecepInputError),
+.appointmentRecepSelect:hover:not(:focus):not(.appointmentRecepInputError) {
+  border-color: var(--text-light);
+}
+
+/* Animation delay for staggered section appearance */
+.appointmentRecepSection:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.appointmentRecepSection:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.appointmentRecepSection:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.appointmentRecepFormActions {
+  animation: appointmentRecepSectionFadeIn 0.4s ease-out 0.4s forwards;
+  opacity: a;
+}

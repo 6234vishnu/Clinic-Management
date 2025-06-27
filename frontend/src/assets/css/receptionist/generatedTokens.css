@@ -1,144 +1,149 @@
 .generatedTokenRecep-container {
-    padding: 2rem;
-    /* background: #f6f9ff; */
-    min-height: 100vh;
-    animation: fadeIn 0.6s ease-in;
-    font-family: "Merriweather",serif;
+  padding: 2rem;
+  /* background: #f6f9ff; */
+  min-height: 100vh;
+  animation: fadeIn 0.6s ease-in;
+  font-family: "Merriweather", serif;
+}
+
+.generatedTokenRecep-title {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  color: #333;
+}
+
+.generatedTokenRecep-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.generatedTokenRecep-card {
+  background: white;
+  border-radius: 20px;
+  padding: 1.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.generatedTokenRecep-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.generatedTokenRecep-tokenNumber {
+  font-size: 1.8rem;
+  color: #2e3a4d;
+  margin-bottom: 1rem;
+}
+
+.generatedTokenRecep-info {
+  margin-bottom: 0.6rem;
+  font-size: 1.1rem;
+  color: #555;
+}
+
+.generatedTokenRecep-status {
+  font-weight: bold;
+  font-size: 1.1rem;
+  padding: 0.3rem 0.8rem;
+  border-radius: 12px;
+  display: inline-block;
+  margin-top: 1rem;
+}
+
+.generatedTokenRecep-status.waiting {
+  background-color: #ffe8a1;
+  color: #a67c00;
+}
+
+.generatedTokenRecep-status.consulting {
+  background-color: #cce5ff;
+  color: #0056b3;
+}
+
+.generatedTokenRecep-status.completed {
+  background-color: #d4edda;
+  color: #2f7a35;
+}
+
+.generatedTokenRecep-date {
+  margin-top: 0.8rem;
+  font-size: 0.95rem;
+  color: #777;
+}
+
+.generatedTokenRecep-message {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #999;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
-  
-  .generatedTokenRecep-title {
-    text-align: center;
-    font-size: 2.5rem;
-    margin-bottom: 2rem;
-    color: #333;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  .generatedTokenRecep-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
+}
+.generatedTokenRecep-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.generatedTokenRecep-pagination button {
+  padding: 0.6rem 1.2rem;
+  background-color: #ffffff;
+  color: #2e3a4d;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.generatedTokenRecep-pagination button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.generatedTokenRecep-pagination span {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: rgb(192, 191, 191);
+}
+
+@keyframes coinSpin {
+  0% {
+    transform: rotateY(0deg);
   }
-  
-  .generatedTokenRecep-card {
-    background: white;
-    border-radius: 20px;
-    padding: 1.5rem;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  100% {
+    transform: rotateY(360deg);
   }
-  
-  .generatedTokenRecep-card:hover {
-    transform: scale(1.03);
-    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
-  }
-  
-  .generatedTokenRecep-tokenNumber {
-    font-size: 1.8rem;
-    color: #2e3a4d;
-    margin-bottom: 1rem;
-  }
-  
-  .generatedTokenRecep-info {
-    margin-bottom: 0.6rem;
-    font-size: 1.1rem;
-    color: #555;
-  }
-  
-  .generatedTokenRecep-status {
-    font-weight: bold;
-    font-size: 1.1rem;
-    padding: 0.3rem 0.8rem;
-    border-radius: 12px;
-    display: inline-block;
-    margin-top: 1rem;
-  }
-  
-  .generatedTokenRecep-status.waiting {
-    background-color: #ffe8a1;
-    color: #a67c00;
-  }
-  
-  .generatedTokenRecep-status.consulting {
-    background-color: #cce5ff;
-    color: #0056b3;
-  }
-  
-  .generatedTokenRecep-status.completed {
-    background-color: #d4edda;
-    color: #2f7a35;
-  }
-  
-  .generatedTokenRecep-date {
-    margin-top: 0.8rem;
-    font-size: 0.95rem;
-    color: #777;
-  }
-  
-  .generatedTokenRecep-message {
-    text-align: center;
-    font-size: 1.2rem;
-    color: #999;
-  }
-  
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  .generatedTokenRecep-pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 1rem;
-    margin-top: 2rem;
-  }
-  
-  .generatedTokenRecep-pagination button {
-    padding: 0.6rem 1.2rem;
-    background-color: #ffffff;
-    color: #2e3a4d;
-    border: none;
-    border-radius: 10px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-  
-  .generatedTokenRecep-pagination button:disabled {
-    background-color: #cccccc;
-    cursor: not-allowed;
-  }
-  
-  .generatedTokenRecep-pagination span {
-    font-size: 1.1rem;
-    font-weight: bold;
-    color: rgb(192, 191, 191);
-  }
-  
-  @keyframes coinSpin {
-    0% {
-      transform: rotateY(0deg);
-    }
-    100% {
-      transform: rotateY(360deg);
-    }
-  }
-  
-  .generatedTokenRecep-spinImage {
-    animation: coinSpin 1.5s linear infinite;
-    transform-style: preserve-3d;
-  }
-  .generatedTokenRecep-cancelBtn {
-    background-color: #2e3a4d;
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    margin-top: 10px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .generatedTokenRecep-cancelBtn:hover {
-    background-color: #1a2d4b;
-  }
-  
+}
+
+.generatedTokenRecep-spinImage {
+  animation: coinSpin 1.5s linear infinite;
+  transform-style: preserve-3d;
+}
+.generatedTokenRecep-cancelBtn {
+  background-color: #2e3a4d;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  margin-top: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.generatedTokenRecep-cancelBtn:hover {
+  background-color: #1a2d4b;
+}

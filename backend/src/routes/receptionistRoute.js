@@ -33,7 +33,7 @@ receptionistRoute.post("/auth/getOtp", ForgotPasswordGetOtp);
 receptionistRoute.post("/auth/verifyOtp", verifyOtp);
 receptionistRoute.post("/auth/newPassword", newPassword);
 receptionistRoute.post("/getDetails", getRecepDetails);
-
+receptionistRoute.post("/getDetails", getRecepDetails);
 // Receptionist duties routes
 receptionistRoute.get(
   "/unApprovedDoctors",
@@ -98,6 +98,6 @@ receptionistRoute.get(
   verifyReceptionistToken,
   getDashboardData
 );
-receptionistRoute.post("/logout",verifyReceptionistToken,recepLogout)
+receptionistRoute.post("/logout", verifyReceptionistToken, recepLogout);
 
 export default receptionistRoute;

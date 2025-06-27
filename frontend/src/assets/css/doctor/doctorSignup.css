@@ -1,357 +1,354 @@
 /* Admin Login Styles - Alternative Version */
 .adminLoginContainer {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 
-    align-items: center;
-    height:auto;
-    overflow: hidden;
-    font-family: 'Merriweather', serif;
-    box-shadow: 13px 17px 12px 12px rgb(0 0 0 / 15%);
-    border-radius: 12px;
-   
+  align-items: center;
+  height: auto;
+  overflow: hidden;
+  font-family: "Merriweather", serif;
+  box-shadow: 13px 17px 12px 12px rgb(0 0 0 / 15%);
+  border-radius: 12px;
+}
+
+.adminLoginWrapper {
+  display: flex;
+  width: 900px;
+  height: auto;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.adminLoginLeftPanel {
+  width: 40%;
+  background-color: #2e3a4d;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.adminLoginIllustration {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  width: 200px;
+  margin-bottom: 30px;
+}
+
+.adminLoginCircle {
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  animation: pulse 2s infinite ease-in-out;
+}
+
+.adminLoginCircleTwo {
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  animation: pulse 2s infinite ease-in-out 0.3s;
+}
+
+.adminLoginCircleThree {
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.03);
+  animation: pulse 2s infinite ease-in-out 0.6s;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
   }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
 
-  
+.adminLoginLogoIcon {
+  position: relative;
+  width: 128px;
+  height: 110px;
+  z-index: 2;
+  border-radius: 38px;
+}
+
+.adminLoginWelcomeText {
+  text-align: center;
+  color: white;
+  padding: 0 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.adminLoginWelcomeText h1 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.adminLoginWelcomeText p {
+  font-size: 16px;
+  opacity: 0.9;
+  margin: 0;
+}
+
+.adminLoginRightPanel {
+  width: 60%;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.adminLoginFormContainer {
+  width: 75%;
+  max-width: 400px;
+}
+
+.adminLoginTitle {
+  font-size: 26px;
+  font-weight: 700;
+  color: #333;
+  margin: 0 0 5px;
+  padding: 30px;
+}
+
+.adminLoginSubtitle {
+  font-size: 15px;
+  color: #666;
+  margin: 0 0 30px;
+}
+
+.adminLoginForm {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.adminLoginInputGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+.adminLoginLabelFlex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.adminLoginLabel {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 6px;
+}
+
+.adminLoginInput {
+  height: 50px;
+  padding: 0 16px;
+  font-size: 15px;
+  border: 1px solid #e1e5ee;
+  background-color: white;
+  color: black;
+  border-radius: 10px;
+  transition: all 0.3s;
+}
+
+.adminLoginInput:focus {
+  outline: none;
+  border-color: #2e3a4d;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.adminLoginInput::placeholder {
+  color: #a0aec0;
+}
+
+.adminLoginForgot {
+  font-size: 13px;
+  color: #3b82f6;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.adminLoginForgot:hover {
+  color: #2563eb;
+  text-decoration: underline;
+}
+
+.adminLoginCheckboxWrapper {
+  margin-top: -5px;
+}
+
+.adminLoginCheckboxContainer {
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding-left: 30px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.adminLoginCheckbox {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.adminLoginCheckmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.adminLoginCheckboxContainer:hover .adminLoginCheckmark {
+  background-color: #e2e8f0;
+}
+
+.adminLoginCheckboxContainer input:checked ~ .adminLoginCheckmark {
+  background-color: #3b82f6;
+  border-color: #3b82f6;
+}
+
+.adminLoginCheckmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.adminLoginCheckboxContainer input:checked ~ .adminLoginCheckmark:after {
+  display: block;
+}
+
+.adminLoginCheckboxContainer .adminLoginCheckmark:after {
+  left: 7px;
+  top: 3px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.adminLoginCheckboxLabel {
+  font-size: 14px;
+  color: #64748b;
+}
+
+.adminLoginButton {
+  height: 50px;
+  background-color: #2e3a4d;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  position: relative;
+  margin-top: 10px;
+}
+
+.adminLoginButton:hover {
+  background-color: white;
+  border: 1px solid #2e3a4d;
+  color: #2e3a4d;
+}
+
+.adminLoginButton:active {
+  transform: translateY(1px);
+}
+
+.adminLoginButtonLoading {
+  background-color: #6366f1;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.adminLoginSpinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 0.8s linear infinite;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.adminLoginFooter {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.adminLoginFooter p {
+  font-size: 14px;
+  color: #64748b;
+}
+
+.adminLoginLink {
+  color: #3b82f6;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.adminLoginLink:hover {
+  color: #2563eb;
+  text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
   .adminLoginWrapper {
-    display: flex;
-    width: 900px;
+    width: 90%;
     height: auto;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
-    border-radius: 20px;
-    overflow: hidden;
-  
+    flex-direction: column;
   }
-  
+
   .adminLoginLeftPanel {
-    width: 40%;
-    background-color: #2e3a4d;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    overflow: hidden;
+    width: 100%;
+    padding: 30px 0;
   }
-  
-  .adminLoginIllustration {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 200px;
-    width: 200px;
-    margin-bottom: 30px;
-  }
-  
-  .adminLoginCircle {
-    position: absolute;
-    width: 180px;
-    height: 180px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
-    animation: pulse 2s infinite ease-in-out;
-  }
-  
-  .adminLoginCircleTwo {
-    position: absolute;
-    width: 220px;
-    height: 220px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.05);
-    animation: pulse 2s infinite ease-in-out 0.3s;
-  }
-  
-  .adminLoginCircleThree {
-    position: absolute;
-    width: 260px;
-    height: 260px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.03);
-    animation: pulse 2s infinite ease-in-out 0.6s;
-  }
-  
-  @keyframes pulse {
-    0% {
-      transform: scale(1);
-    }
-    50% {
-      transform: scale(1.05);
-    }
-    100% {
-      transform: scale(1);
-    }
-  }
-  
-  .adminLoginLogoIcon {
-    position: relative;
-    width: 128px;
-    height: 110px;
-    z-index: 2;
-    border-radius: 38px;
-  }
-  
-  .adminLoginWelcomeText {
-    text-align: center;
-    color: white;
-    padding: 0 20px;
-    position: relative;
-    z-index: 1;
-  }
-  
-  .adminLoginWelcomeText h1 {
-    font-size: 28px;
-    font-weight: 700;
-    margin-bottom: 10px;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  }
-  
-  .adminLoginWelcomeText p {
-    font-size: 16px;
-    opacity: 0.9;
-    margin: 0;
-  }
-  
+
   .adminLoginRightPanel {
-    width: 60%;
-    background-color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 100%;
+    padding: 40px 20px;
   }
-  
+
   .adminLoginFormContainer {
-    width: 75%;
-    max-width: 400px;
+    width: 100%;
   }
-  
-  .adminLoginTitle {
-    font-size: 26px;
-    font-weight: 700;
-    color: #333;
-    margin: 0 0 5px;
-    padding: 30px;
-  }
-  
-  .adminLoginSubtitle {
-    font-size: 15px;
-    color: #666;
-    margin: 0 0 30px;
-  }
-  
-  .adminLoginForm {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-  }
-  
-  .adminLoginInputGroup {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .adminLoginLabelFlex {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 6px;
-  }
-  
-  .adminLoginLabel {
-    font-size: 14px;
-    font-weight: 500;
-    color: #333;
-    margin-bottom: 6px;
-  }
-  
-  .adminLoginInput {
-    height: 50px;
-    padding: 0 16px;
-    font-size: 15px;
-    border: 1px solid #e1e5ee;
-    background-color: white;
-    color: black;
-    border-radius: 10px;
-    transition: all 0.3s;
-  }
-  
-  .adminLoginInput:focus {
-    outline: none;
-    border-color: #2e3a4d;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-  }
-  
-  .adminLoginInput::placeholder {
-    color: #a0aec0;
-  }
-  
-  .adminLoginForgot {
-    font-size: 13px;
-    color: #3b82f6;
-    text-decoration: none;
-    transition: color 0.3s;
-  }
-  
-  .adminLoginForgot:hover {
-    color: #2563eb;
-    text-decoration: underline;
-  }
-  
-  .adminLoginCheckboxWrapper {
-    margin-top: -5px;
-  }
-  
-  .adminLoginCheckboxContainer {
-    display: flex;
-    align-items: center;
-    position: relative;
-    padding-left: 30px;
-    cursor: pointer;
-    user-select: none;
-  }
-  
-  .adminLoginCheckbox {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
-  }
-  
-  .adminLoginCheckmark {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 20px;
-    width: 20px;
-    background-color: #f1f5f9;
-    border: 1px solid #e2e8f0;
-    border-radius: 4px;
-    transition: all 0.2s;
-  }
-  
-  .adminLoginCheckboxContainer:hover .adminLoginCheckmark {
-    background-color: #e2e8f0;
-  }
-  
-  .adminLoginCheckboxContainer input:checked ~ .adminLoginCheckmark {
-    background-color: #3b82f6;
-    border-color: #3b82f6;
-  }
-  
-  .adminLoginCheckmark:after {
-    content: "";
-    position: absolute;
-    display: none;
-  }
-  
-  .adminLoginCheckboxContainer input:checked ~ .adminLoginCheckmark:after {
-    display: block;
-  }
-  
-  .adminLoginCheckboxContainer .adminLoginCheckmark:after {
-    left: 7px;
-    top: 3px;
-    width: 5px;
-    height: 10px;
-    border: solid white;
-    border-width: 0 2px 2px 0;
-    transform: rotate(45deg);
-  }
-  
-  .adminLoginCheckboxLabel {
-    font-size: 14px;
-    color: #64748b;
-  }
-  
-  .adminLoginButton {
-    height: 50px;
-    background-color: #2e3a4d;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s;
-    position: relative;
-    margin-top: 10px;
-  }
-  
-  .adminLoginButton:hover {
-    background-color: white;
-    border: 1px solid #2e3a4d;
-    color: #2e3a4d;
-  }
-  
-  .adminLoginButton:active {
-    transform: translateY(1px);
-  }
-  
-  .adminLoginButtonLoading {
-    background-color: #6366f1;
-    color: rgba(255, 255, 255, 0.7);
-  }
-  
-  .adminLoginSpinner {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    border-radius: 50%;
-    border-top-color: white;
-    animation: spin 0.8s linear infinite;
-    margin-left: 8px;
-    vertical-align: middle;
-  }
-  
-  @keyframes spin {
-    to {
-      transform: rotate(360deg);
-    }
-  }
-  
-  .adminLoginFooter {
-    margin-top: 30px;
-    text-align: center;
-  }
-  
-  .adminLoginFooter p {
-    font-size: 14px;
-    color: #64748b;
-  }
-  
-  .adminLoginLink {
-    color: #3b82f6;
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.3s;
-  }
-  
-  .adminLoginLink:hover {
-    color: #2563eb;
-    text-decoration: underline;
-  }
-  
-  /* Responsive adjustments */
-  @media (max-width: 900px) {
-    .adminLoginWrapper {
-      width: 90%;
-      height: auto;
-      flex-direction: column;
-    }
-    
-    .adminLoginLeftPanel {
-      width: 100%;
-      padding: 30px 0;
-    }
-    
-    .adminLoginRightPanel {
-      width: 100%;
-      padding: 40px 20px;
-    }
-    
-    .adminLoginFormContainer {
-      width: 100%;
-    }
-  }
+}

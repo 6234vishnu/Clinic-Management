@@ -1,10 +1,9 @@
 // utils/sendEmail.js
-import nodemailer from 'nodemailer';
+import nodemailer from "nodemailer";
 
 const sendOtpEmail = async (toEmail, otp) => {
-
   const transporter = nodemailer.createTransport({
-    service: 'Gmail',
+    service: "Gmail",
     auth: {
       user: process.env.NODEEMAILER_EMAIL,
       pass: process.env.NODEMAILER_PASSWORD,
@@ -14,7 +13,7 @@ const sendOtpEmail = async (toEmail, otp) => {
   const mailOptions = {
     from: process.env.NODEEMAILER_EMAIL,
     to: toEmail,
-    subject: 'Your OTP Code',
+    subject: "Your OTP Code",
     html: `
       <h2>OTP Verification</h2>
       <p>Your OTP code is:</p>
@@ -28,5 +27,4 @@ const sendOtpEmail = async (toEmail, otp) => {
   return true;
 };
 
-
-export default sendOtpEmail
+export default sendOtpEmail;

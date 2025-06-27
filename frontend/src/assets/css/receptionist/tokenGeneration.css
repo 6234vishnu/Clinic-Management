@@ -1,129 +1,127 @@
 .tokenGenerationRecep-container {
-    padding: 2rem;
-    min-height: 100vh;
-  }
-  
-  .tokenGenerationRecep-heading {
-    font-size: 2rem;
-    margin-bottom: 1.5rem;
-    color: #ffffff;
-  }
-  
-  .tokenGenerationRecep-message {
-    color: #e63946;
-    font-weight: bold;
-    margin-bottom: 1rem;
-  }
-  
-  .tokenGenerationRecep-list {
-    flex-wrap: wrap;
-    gap: 1rem;
-    display: flex;
-  }
-  
-  .tokenGenerationRecep-card {
-    background-color: #fff;
-    border: 1px solid #ccc;
-    padding: 1rem;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: box-shadow 0.2s ease;
-    color: #2e3a4d;
-    margin-top: 30px;
-  }
-  p{
-    color: #2e3a4d;
-  }
-  
-  .tokenGenerationRecep-card:hover {
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .tokenGenerationRecep-modalOverlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  padding: 2rem;
+  min-height: 100vh;
+}
 
+.tokenGenerationRecep-heading {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  color: #ffffff;
+}
 
-  }
-  
-  .tokenGenerationRecep-modal {
-    background-color: white;
-    padding: 2rem;
-    border-radius: 12px;
-    width: 400px;
-    position: relative;
-  }
-  
-  .tokenGenerationRecep-modal h3 {
-    margin-bottom: 1rem;
-    color: #2e3a4d;
-  }
-  
-  .tokenGenerationRecep-modal button {
-    margin-right: 1rem;
-    padding: 0.5rem 1rem;
-    border: none;
-    background-color: #2e3a4d;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  .tokenGenerationRecep-modal button:hover{
-    background-color: #fff;
-    border:  1px solid #2e3a4d;
-    color: #2e3a4d;
-  }
-  
-  .tokenGenerationRecep-close {
-    background-color: #ccc !important;
-  }
-  .tokenGenerationRecep-pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-    gap: 10px;
-  }
-  
-  .tokenGenerationRecep-pagination button {
-    padding: 5px 10px;
-    font-weight: bold;
-    cursor: pointer;
-    border-radius: 5px;
-    background-color: white;
-    color: #2e3a4d;
-  }
-  
-  .tokenGenerationRecep-pagination span {
-    font-size: 14px;
-    color: rgb(190, 189, 189);
-  }
-  .tokenGenerationRecep-closeIcon {
-    position: absolute;
-    top: 10px;
-    right: 35px;
-    font-size: 24px;
-    font-weight: bold;
-    color: #333;
-    cursor: pointer;
-    background: none;
-    border: none;
-  }
-  .tokenGenerationRecep-generatedTokens{
-    background-color: #2e3a4d;
-    color: #ffffff;
-    border-radius: 25px;
-    border: 2px solid white;
-  }
-  .tokenGenerationRecep-generatedTokens:hover{
-    background-color: #f5f5f5;
-    color: #2e3a4d;
-    border-radius: 25px;
-    border: 2px solid #1d2f4b;
-  }
+.tokenGenerationRecep-message {
+  color: #e63946;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.tokenGenerationRecep-list {
+  flex-wrap: wrap;
+  gap: 1rem;
+  display: flex;
+}
+
+.tokenGenerationRecep-card {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: box-shadow 0.2s ease;
+  color: #2e3a4d;
+  margin-top: 30px;
+}
+p {
+  color: #2e3a4d;
+}
+
+.tokenGenerationRecep-card:hover {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.tokenGenerationRecep-modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tokenGenerationRecep-modal {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 12px;
+  width: 400px;
+  position: relative;
+}
+
+.tokenGenerationRecep-modal h3 {
+  margin-bottom: 1rem;
+  color: #2e3a4d;
+}
+
+.tokenGenerationRecep-modal button {
+  margin-right: 1rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  background-color: #2e3a4d;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.tokenGenerationRecep-modal button:hover {
+  background-color: #fff;
+  border: 1px solid #2e3a4d;
+  color: #2e3a4d;
+}
+
+.tokenGenerationRecep-close {
+  background-color: #ccc !important;
+}
+.tokenGenerationRecep-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  gap: 10px;
+}
+
+.tokenGenerationRecep-pagination button {
+  padding: 5px 10px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 5px;
+  background-color: white;
+  color: #2e3a4d;
+}
+
+.tokenGenerationRecep-pagination span {
+  font-size: 14px;
+  color: rgb(190, 189, 189);
+}
+.tokenGenerationRecep-closeIcon {
+  position: absolute;
+  top: 10px;
+  right: 35px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+.tokenGenerationRecep-generatedTokens {
+  background-color: #2e3a4d;
+  color: #ffffff;
+  border-radius: 25px;
+  border: 2px solid white;
+}
+.tokenGenerationRecep-generatedTokens:hover {
+  background-color: #f5f5f5;
+  color: #2e3a4d;
+  border-radius: 25px;
+  border: 2px solid #1d2f4b;
+}

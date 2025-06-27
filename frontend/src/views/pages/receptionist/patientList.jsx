@@ -39,13 +39,12 @@ const PatientList = () => {
   ]);
   const patientsPerPage = 2;
 
-  const patients =  realPatients;
+  const patients = realPatients;
 
   const patientsWithAppointments = patients.map((p) => ({
     ...p,
     appointments: appointments.filter((a) => a.patient === p._id),
   }));
-  
 
   const filteredPatients = patientsWithAppointments.filter(
     (patient) =>
@@ -68,11 +67,13 @@ const PatientList = () => {
   useState(() => {
     const getPatientsAndAppoinments = async () => {
       try {
-        const response = await api.get("/receptionist/getPatientListAndAppoinments");
+        const response = await api.get(
+          "/receptionist/getPatientListAndAppoinments"
+        );
         if (response.data.success) {
-          console.log('patients',response.data.patients);
-          console.log('appoinment',response.data.appointments);
-          
+          console.log("patients", response.data.patients);
+          console.log("appoinment", response.data.appointments);
+
           setRealPatients(response.data.patients);
           setAppoinments(response.data.appointments);
         }
@@ -127,7 +128,6 @@ const PatientList = () => {
                   <p>
                     <MapPin size={16} /> {patient?.address}
                   </p>
-   
                 </div>
               </div>
             ))

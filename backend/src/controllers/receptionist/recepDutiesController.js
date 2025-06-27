@@ -263,7 +263,6 @@ export const generateToken = async (req, res) => {
 
     await newToken.save();
 
-
     return res.status(200).json({
       success: true,
       token: newToken.tokenNumber,
@@ -367,7 +366,6 @@ export const cancelTokenAndAppoinment = async (req, res) => {
 
 export const appoinmentsAndPrescriptions = async (req, res) => {
   try {
-
     const getAppoinments = await Appoinment.find({ status: "Completed" })
       .populate("patient")
       .populate("doctor")
@@ -382,15 +380,21 @@ export const appoinmentsAndPrescriptions = async (req, res) => {
         .status(200)
         .json({ success: false, message: "couldint find any appoinments" });
     }
-    const getPrescriptions=await Prescription.find().populate('doctor').populate("patient")
-    if(!getPrescriptions){
+    const getPrescriptions = await Prescription.find()
+      .populate("doctor")
+      .populate("patient");
+    if (!getPrescriptions) {
       return res
         .status(200)
         .json({ success: false, message: "couldint find any Prescriptions" });
     }
     return res
       .status(200)
-      .json({ success: true, appointments: getAppoinments,Prescriptions:getPrescriptions });
+      .json({
+        success: true,
+        appointments: getAppoinments,
+        Prescriptions: getPrescriptions,
+      });
   } catch (error) {
     console.error("Error in appoinmentsAndPrescriptions", error);
     return res.status(500).json({
@@ -402,7 +406,8 @@ export const appoinmentsAndPrescriptions = async (req, res) => {
 
 export const generateBill = async (req, res) => {
   try {
-    const { consultationFee, additionalCharges, totalAmount } = req.body.formData;
+    const { consultationFee, additionalCharges, totalAmount } =
+      req.body.formData;
 
     if (!consultationFee && !additionalCharges && !totalAmount) {
       return res
@@ -424,17 +429,19 @@ export const generateBill = async (req, res) => {
         .json({ success: false, message: "Couldn’t find prescription" });
     }
 
-    const alreadyBillGenerated = await Bill.findOne({ prescription: PrescriptionId });
+    const alreadyBillGenerated = await Bill.findOne({
+      prescription: PrescriptionId,
+    });
     if (alreadyBillGenerated) {
-      return res
-        .status(200)
-        .json({
-          success: false,
-          message: "Bill is already generated for this appointment",
-        });
+      return res.status(200).json({
+        success: false,
+        message: "Bill is already generated for this appointment",
+      });
     }
 
-    const appointmentCount = await Appoinment.countDocuments({ patient: findPrescription.patient });
+    const appointmentCount = await Appoinment.countDocuments({
+      patient: findPrescription.patient,
+    });
 
     const parsedConsultationFee = parseFloat(consultationFee) || 0;
     const parsedAdditionalCharges = parseFloat(additionalCharges) || 0;
@@ -444,14 +451,15 @@ export const generateBill = async (req, res) => {
       tokenAmount = 100;
     }
 
-    const calculatedTotal = parsedConsultationFee + parsedAdditionalCharges + tokenAmount;
+    const calculatedTotal =
+      parsedConsultationFee + parsedAdditionalCharges + tokenAmount;
 
     const newbill = new Bill({
       patient: findPrescription.patient,
       doctor: findPrescription.doctor,
       consultationFee: parsedConsultationFee,
       additionalCharges: parsedAdditionalCharges,
-      tokenAmount, 
+      tokenAmount,
       totalAmount: calculatedTotal,
       prescription: PrescriptionId,
     });
@@ -473,31 +481,26 @@ export const generateBill = async (req, res) => {
   }
 };
 
-
 export const getAllBilling = async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 5;
     const skip = (page - 1) * limit;
 
-
     const total = await Bill.countDocuments();
 
-
     const bills = await Bill.find()
-      .populate("patient",) 
-      .populate("doctor", ) 
-      .sort({ createdAt: -1 }) 
+      .populate("patient")
+      .populate("doctor")
+      .sort({ createdAt: -1 })
       .skip(skip)
       .limit(limit);
-if(!bills){
-  return res
-  .status(200)
-  .json({
-    success: false,
-    message: "No bills found",
-  });
-}
+    if (!bills) {
+      return res.status(200).json({
+        success: false,
+        message: "No bills found",
+      });
+    }
 
     return res.status(200).json({
       success: true,
@@ -515,7 +518,6 @@ if(!bills){
   }
 };
 
-
 export const getDashboardData = async (req, res) => {
   try {
     const today = new Date();
@@ -523,17 +525,14 @@ export const getDashboardData = async (req, res) => {
     const tomorrow = new Date(today);
     tomorrow.setDate(today.getDate() + 1);
 
-  
     const totalPatients = await Patient.countDocuments({
       createdAt: { $gte: today, $lt: tomorrow },
     });
 
- 
     const tokensIssued = await Token.countDocuments({
       createdAt: { $gte: today, $lt: tomorrow },
     });
 
- 
     const findPendingAppointments = await Appoinment.countDocuments({
       createdAt: { $gte: today, $lt: tomorrow },
       status: "Pending",
@@ -544,7 +543,6 @@ export const getDashboardData = async (req, res) => {
       status: "Completed",
     });
 
-  
     const totalBillingToday = await Bill.aggregate([
       {
         $match: {
@@ -563,7 +561,6 @@ export const getDashboardData = async (req, res) => {
         ? `₹${totalBillingToday[0].totalAmount}`
         : "₹0";
 
-  
     const upcomingAppointments = await Appoinment.find({
       date: { $gte: today },
       status: { $in: ["Pending", "Confirmed"] },
@@ -573,15 +570,16 @@ export const getDashboardData = async (req, res) => {
       .populate("patient", "name")
       .populate("doctor", "name");
 
-   
     const formattedAppointments = upcomingAppointments.map((app) => ({
       time: app.timeSlot,
       patient: app.patient?.name || "Unknown",
       doctor: app.doctor?.name || "Unknown",
       status: app.status,
     }));
-    const findDoctorSignupRequest=await Doctor.countDocuments({isApproved:false})
-    const totalTokens=await Token.countDocuments()
+    const findDoctorSignupRequest = await Doctor.countDocuments({
+      isApproved: false,
+    });
+    const totalTokens = await Token.countDocuments();
 
     res.status(200).json({
       success: true,
@@ -594,7 +592,7 @@ export const getDashboardData = async (req, res) => {
         },
         billingTotal,
       },
-      DoctorSignupRequest:findDoctorSignupRequest,
+      DoctorSignupRequest: findDoctorSignupRequest,
       pendingAppointments: formattedAppointments,
       totalTokens,
     });
@@ -607,19 +605,17 @@ export const getDashboardData = async (req, res) => {
   }
 };
 
-
-export const recepLogout=async(req,res)=>{
+export const recepLogout = async (req, res) => {
   try {
-    const {recepId}=req.query
-    if(!recepId){
+    const { recepId } = req.query;
+    if (!recepId) {
       return res.status(200).json({
         success: false,
         message: "Server Error",
       });
-
     }
-    const findReceptionist=await Receptionist.findById(recepId);
-    if(!findReceptionist){
+    const findReceptionist = await Receptionist.findById(recepId);
+    if (!findReceptionist) {
       return res.status(200).json({
         success: false,
         message: "Couldint find receptionist ",
@@ -635,8 +631,6 @@ export const recepLogout=async(req,res)=>{
       success: true,
       message: "Logged out successfully",
     });
-
-
   } catch (error) {
     console.error("Error in recepLogout:", error);
     res.status(500).json({
@@ -644,4 +638,4 @@ export const recepLogout=async(req,res)=>{
       message: "Server error in logout doctor",
     });
   }
-}
+};

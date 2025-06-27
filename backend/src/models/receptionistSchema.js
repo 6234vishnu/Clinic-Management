@@ -12,7 +12,6 @@ const receptionistSchema = new mongoose.Schema(
       type: String,
       required: true,
       unique: true,
-
     },
 
     phone: {
@@ -30,7 +29,6 @@ const receptionistSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
-
   },
   { timestamps: true }
 );

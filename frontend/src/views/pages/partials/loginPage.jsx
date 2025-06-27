@@ -10,32 +10,31 @@ import {
   faEyeSlash,
   faArrowRight,
 } from "@fortawesome/free-solid-svg-icons";
-import api from '../../../services/axios'
+import api from "../../../services/axios";
 import { useNavigate } from "react-router-dom";
-import ForgotPasswordModal from '../../../components/forgotPasswordModal'
-
+import ForgotPasswordModal from "../../../components/forgotPasswordModal";
 
 const LoginPage = () => {
-  const navigate=useNavigate()
-  
+  const navigate = useNavigate();
+
   // useEffect(() => {
   //   const recepLoign = localStorage.getItem("recepID");
   //   const doctorLogin = localStorage.getItem("docId");
-  
+
   //   if (recepLoign && !doctorLogin) {
   //     navigate("/Recep-Dasboard-Page");
   //   } else if (doctorLogin && !recepLoign) {
   //     navigate("/Doctor-Dashboard");
   //   } else if (recepLoign && doctorLogin) {
-  
-  //     navigate("/Doctor-Dashboard"); 
+
+  //     navigate("/Doctor-Dashboard");
   //   }
   // }, [navigate]);
-  const [activeRole,setActiveRole]=useState('doctor')
+  const [activeRole, setActiveRole] = useState("doctor");
   const [showPassword, setShowPassword] = useState(false);
   const [showModal, setShowModal] = useState(false);
- 
-  const [message,setMessage]=useState("")
+
+  const [message, setMessage] = useState("");
 
   const [formData, setFormData] = useState({
     email: "",
@@ -61,170 +60,187 @@ const LoginPage = () => {
     });
   };
 
-  const handleSubmit =async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // console.log(`Logging in as ${activeRole} with:`, formData);
-  if(activeRole==="doctor"){
-    try {
-    
-        const response=await api.post("/doctor/auth/doctor-login",{formData})
-        if(response.data.success){
-          localStorage.setItem("docId",response.data.user)
-          localStorage.setItem("doctorToken",response.data.token)
-          return navigate("/Doctor-Dashboard-Page")
+    if (activeRole === "doctor") {
+      try {
+        const response = await api.post("/doctor/auth/doctor-login", {
+          formData,
+        });
+        if (response.data.success) {
+          localStorage.setItem("docId", response.data.user);
+          localStorage.setItem("doctorToken", response.data.token);
+          return navigate("/Doctor-Dashboard-Page");
         }
-       return setMessage(response.data.message)
-    } catch (error) {
-        setMessage("server error try again later")
-    return  console.log('error in loginPage',error);
-        
+        return setMessage(response.data.message);
+      } catch (error) {
+        setMessage("server error try again later");
+        return console.log("error in loginPage", error);
+      }
     }
-  }
-  if(activeRole==="receptionist"){
-    try {
-       
-        const response=await api.post("/receptionist/auth/recep-login",{formData})
-        if(response.data.success){
-          localStorage.setItem('recepID',response.data.user)
-          localStorage.setItem("recepionistToken",response.data.token);
-          return navigate("/Recep-Dasboard-Page")
+    if (activeRole === "receptionist") {
+      try {
+        const response = await api.post("/receptionist/auth/recep-login", {
+          formData,
+        });
+        if (response.data.success) {
+          localStorage.setItem("recepID", response.data.user);
+          localStorage.setItem("recepionistToken", response.data.token);
+          return navigate("/Recep-Dasboard-Page");
         }
-       return setMessage(response.data.message)
-    } catch (error) {
-        setMessage("server error try again later")
-        return  console.log('error in loginPage',error);
+        return setMessage(response.data.message);
+      } catch (error) {
+        setMessage("server error try again later");
+        return console.log("error in loginPage", error);
+      }
     }
-  }
   };
 
   return (
     <>
-    <div className="loginPage-container" style={{ display: "flex" }}>
-      <div>
-        <img
-          style={{
-            width: "300px",
-            height: "230px",
-            padding: "30px",
-            borderRadius: "59px",
-          }}
-          src="\src\assets\images\LogoImage.jpg"
-          alt="Clinic Logo"
+      <div className="loginPage-container" style={{ display: "flex" }}>
+        <div>
+          <img
+            style={{
+              width: "300px",
+              height: "230px",
+              padding: "30px",
+              borderRadius: "59px",
+            }}
+            src="\src\assets\images\LogoImage.jpg"
+            alt="Clinic Logo"
+          />
+        </div>
+        <div className="loginPage-card">
+          <div className="loginPage-header">
+            <img
+              className="loginPage-logo"
+              src="\src\assets\images\LogoImage.jpg"
+              alt="Hospital Logo"
+            />
+            <div className="loginPage-help">
+              <h5 style={{ color: "red", paddingBottom: "10px" }}>{message}</h5>
+            </div>
+            <h1 className="loginPage-title">Medical Staff Portal</h1>
+          </div>
+
+          <div className="loginPage-toggle-container">
+            <button
+              className={`loginPage-toggle-btn ${
+                activeRole === "doctor" ? "active" : ""
+              }`}
+              onClick={() => handleRoleChange("doctor")}
+            >
+              <FontAwesomeIcon icon={faUserMd} /> Doctor
+            </button>
+            <button
+              className={`loginPage-toggle-btn ${
+                activeRole === "receptionist" ? "active" : ""
+              }`}
+              onClick={() => handleRoleChange("receptionist")}
+            >
+              <FontAwesomeIcon icon={faUser} /> Receptionist
+            </button>
+          </div>
+          {activeRole === "receptionist" && (
+            <div
+              style={{
+                marginTop: "10px",
+                color: "#555",
+                fontSize: "14px",
+                textAlign: "center",
+              }}
+            >
+              <em style={{ color: "green" }}>
+                <strong style={{ color: "black" }}>Note:</strong> if your
+                logging in for the first time or dont know the password select
+                forgot password to complete your login.
+              </em>
+            </div>
+          )}
+
+          <div className="loginPage-role-indicator">
+            <span className="loginPage-role-text">
+              {activeRole.charAt(0).toUpperCase() + activeRole.slice(1)} Login
+            </span>
+          </div>
+
+          <form
+            className={`loginPage-form ${
+              formAnimation ? "loginPage-form-change" : ""
+            }`}
+            onSubmit={handleSubmit}
+          >
+            <div className="loginPage-input-group">
+              <label htmlFor="email" className="loginPage-label">
+                Email
+              </label>
+              <div className="loginPage-input-container">
+                <FontAwesomeIcon icon={faEnvelope} className="loginPage-icon" />
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  className="loginPage-input"
+                  placeholder="Enter your email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
+            </div>
+
+            <div className="loginPage-input-group">
+              <label htmlFor="password" className="loginPage-label">
+                Password
+              </label>
+              <div className="loginPage-input-container">
+                <FontAwesomeIcon icon={faLock} className="loginPage-icon" />
+                <input
+                  type={showPassword ? "text" : "password"}
+                  id="password"
+                  name="password"
+                  className="loginPage-input"
+                  placeholder="Enter your password"
+                  value={formData.password}
+                  onChange={handleInputChange}
+                  required
+                />
+                <FontAwesomeIcon
+                  icon={showPassword ? faEyeSlash : faEye}
+                  className="loginPage-password-toggle"
+                  onClick={togglePasswordVisibility}
+                />
+              </div>
+            </div>
+
+            <div className="loginPage-options">
+              <a
+                href="#"
+                className="loginPage-forgot"
+                onClick={() => setShowModal(true)}
+              >
+                Forgot password?
+              </a>
+            </div>
+
+            <button type="submit" className="loginPage-submit-btn">
+              <span className="loginPage-btn-text">Login</span>
+              <FontAwesomeIcon
+                icon={faArrowRight}
+                className="loginPage-btn-icon"
+              />
+            </button>
+          </form>
+        </div>
+        <ForgotPasswordModal
+          show={showModal}
+          onClose={() => setShowModal(false)}
+          role={activeRole}
         />
       </div>
-      <div className="loginPage-card">
-        <div className="loginPage-header">
-          <img
-            className="loginPage-logo"
-            src="\src\assets\images\LogoImage.jpg"
-            alt="Hospital Logo"
-          />
-          <div className="loginPage-help">
-          <h5 style={{color:"red",paddingBottom:"10px"}}>{message}</h5>
-        </div>
-          <h1 className="loginPage-title">Medical Staff Portal</h1>
-        </div>
-
-        <div className="loginPage-toggle-container">
-          <button
-            className={`loginPage-toggle-btn ${
-              activeRole === "doctor" ? "active" : ""
-            }`}
-            onClick={() => handleRoleChange("doctor")}
-          >
-            <FontAwesomeIcon icon={faUserMd} /> Doctor
-          </button>
-          <button
-            className={`loginPage-toggle-btn ${
-              activeRole === "receptionist" ? "active" : ""
-            }`}
-            onClick={() => handleRoleChange("receptionist")}
-          >
-            <FontAwesomeIcon icon={faUser} /> Receptionist
-          </button>
-        </div>
-        {activeRole === "receptionist" && (
-  <div style={{ marginTop: "10px", color: "#555", fontSize: "14px", textAlign: "center" }}>
-    <em style={{color:"green"}}><strong style={{color:"black"}}>Note:</strong> if your logging in for the first time or dont know the password select forgot password to complete your login.</em>
-  </div>
-)}
-
-        <div className="loginPage-role-indicator">
-          <span className="loginPage-role-text">
-            {activeRole.charAt(0).toUpperCase() + activeRole.slice(1)} Login
-          </span>
-        </div>
-
-        <form
-          className={`loginPage-form ${
-            formAnimation ? "loginPage-form-change" : ""
-          }`}
-          onSubmit={handleSubmit}
-        >
-          <div className="loginPage-input-group">
-            <label htmlFor="email" className="loginPage-label">
-              Email
-            </label>
-            <div className="loginPage-input-container">
-              <FontAwesomeIcon icon={faEnvelope} className="loginPage-icon" />
-              <input
-                type="email"
-                id="email"
-                name="email"
-                className="loginPage-input"
-                placeholder="Enter your email"
-                value={formData.email}
-                onChange={handleInputChange}
-                required
-              />
-            </div>
-          </div>
-
-          <div className="loginPage-input-group">
-            <label htmlFor="password" className="loginPage-label">
-              Password
-            </label>
-            <div className="loginPage-input-container">
-              <FontAwesomeIcon icon={faLock} className="loginPage-icon" />
-              <input
-                type={showPassword ? "text" : "password"}
-                id="password"
-                name="password"
-                className="loginPage-input"
-                placeholder="Enter your password"
-                value={formData.password}
-                onChange={handleInputChange}
-                required
-              />
-              <FontAwesomeIcon
-                icon={showPassword ? faEyeSlash : faEye}
-                className="loginPage-password-toggle"
-                onClick={togglePasswordVisibility}
-              />
-            </div>
-          </div>
-
-          <div className="loginPage-options">
-            <a href="#" className="loginPage-forgot" onClick={()=>setShowModal(true)}>
-              Forgot password?
-            </a>
-          </div>
-
-          <button type="submit" className="loginPage-submit-btn">
-            <span className="loginPage-btn-text">Login</span>
-            <FontAwesomeIcon
-              icon={faArrowRight}
-              className="loginPage-btn-icon"
-            />
-          </button>
-        </form>
-
-        
-      </div>
-      <ForgotPasswordModal  show={showModal} onClose={() => setShowModal(false)} role={activeRole} />
-    </div>
-    
     </>
   );
 };

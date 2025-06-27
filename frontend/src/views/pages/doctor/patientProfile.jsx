@@ -12,7 +12,7 @@ import {
   ChevronRight,
   CalendarDays,
   FileText,
-  Receipt
+  Receipt,
 } from "lucide-react";
 import "../../../assets/css/doctor/patientProfile.css";
 import DoctorNav from "../partials/DoctorNav";
@@ -404,7 +404,7 @@ const PatientListPage = () => {
                     </p>
                   ) : (
                     <div className="patientprofileListDoc-records-list">
-                      {console.log('mdhis',selectedPatient.medicalHistory)}
+                      {console.log("mdhis", selectedPatient.medicalHistory)}
                       {selectedPatient.medicalHistory.map((recordId, index) => (
                         <div
                           key={recordId}
@@ -412,7 +412,8 @@ const PatientListPage = () => {
                         >
                           <ClipboardList size={18} />
                           <span>
-                            Record #{index + 1} (Diagnosis: {recordId.diagnosis})
+                            Record #{index + 1} (Diagnosis: {recordId.diagnosis}
+                            )
                           </span>
                         </div>
                       ))}
@@ -452,68 +453,78 @@ const PatientListPage = () => {
                   <h3>Prescriptions</h3>
                   {/* For Prescriptions */}
                   {prescriptions.filter(
-  (p) => p.patient._id?.toString() === selectedPatient._id?.toString()
-).length === 0 ? (
-  <p className="patientprofileListDoc-no-records">
-    No prescriptions found
-  </p>
-) : (
-  <div className="patientprofileListDoc-records-list">
-    {prescriptions
-      .filter((p) => p.patient._id?.toString() === selectedPatient._id?.toString())
-      .map((prescription, index) => (
-        <div
-          key={prescription._id}
-          className="patientprofileListDoc-record-item"
-        >
-          <FileText size={18} />
-          <div>
-            <span>
-              <strong>Prescription #{index + 1}</strong> –{" "}
-              <em>
-                {new Date(prescription.createdAt).toLocaleDateString()}
-              </em>
-            </span>
-            <p>
-              <strong>Instructions:</strong> {prescription.instructions}
-            </p>
-            <p>
-              <strong>Medicines:</strong>{" "}
-              {prescription.medicines.map((m) => m.name).join(", ")}
-            </p>
-          </div>
-        </div>
-      ))}
-  </div>
-)}
-
+                    (p) =>
+                      p.patient._id?.toString() ===
+                      selectedPatient._id?.toString()
+                  ).length === 0 ? (
+                    <p className="patientprofileListDoc-no-records">
+                      No prescriptions found
+                    </p>
+                  ) : (
+                    <div className="patientprofileListDoc-records-list">
+                      {prescriptions
+                        .filter(
+                          (p) =>
+                            p.patient._id?.toString() ===
+                            selectedPatient._id?.toString()
+                        )
+                        .map((prescription, index) => (
+                          <div
+                            key={prescription._id}
+                            className="patientprofileListDoc-record-item"
+                          >
+                            <FileText size={18} />
+                            <div>
+                              <span>
+                                <strong>Prescription #{index + 1}</strong> –{" "}
+                                <em>
+                                  {new Date(
+                                    prescription.createdAt
+                                  ).toLocaleDateString()}
+                                </em>
+                              </span>
+                              <p>
+                                <strong>Instructions:</strong>{" "}
+                                {prescription.instructions}
+                              </p>
+                              <p>
+                                <strong>Medicines:</strong>{" "}
+                                {prescription.medicines
+                                  .map((m) => m.name)
+                                  .join(", ")}
+                              </p>
+                            </div>
+                          </div>
+                        ))}
+                    </div>
+                  )}
                 </div>
 
                 <div className="patientprofileListDoc-info-section">
                   <h3>Billing Records</h3>
                   {/* For Billing */}
-                  {billing.filter((b) => b.patient === selectedPatient._id).length === 0 ? (
-  <p className="patientprofileListDoc-no-records">
-    No billing data available
-  </p>
-) : (
-  <div className="patientprofileListDoc-records-list">
-    {billing
-      .filter((b) => b.patient === selectedPatient._id)
-      .map((bill, index) => (
-        <div
-          key={index}
-          className="patientprofileListDoc-record-item"
-        >
-          <Receipt size={18} />
-          <span>
-            ₹{bill.totalAmount} – {formatDate(bill.createdAt)}
-          </span>
-        </div>
-      ))}
-  </div>
-)}
-
+                  {billing.filter((b) => b.patient === selectedPatient._id)
+                    .length === 0 ? (
+                    <p className="patientprofileListDoc-no-records">
+                      No billing data available
+                    </p>
+                  ) : (
+                    <div className="patientprofileListDoc-records-list">
+                      {billing
+                        .filter((b) => b.patient === selectedPatient._id)
+                        .map((bill, index) => (
+                          <div
+                            key={index}
+                            className="patientprofileListDoc-record-item"
+                          >
+                            <Receipt size={18} />
+                            <span>
+                              ₹{bill.totalAmount} – {formatDate(bill.createdAt)}
+                            </span>
+                          </div>
+                        ))}
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

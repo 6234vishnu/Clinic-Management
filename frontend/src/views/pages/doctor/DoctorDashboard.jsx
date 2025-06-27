@@ -1,42 +1,59 @@
 import React, { useEffect, useState } from "react";
 import {
-  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
 } from "recharts";
-import '../../../assets/css/doctor/doctordashboard.css';
-import { CalendarDays, ClipboardCheck, Users, FileText, Bell } from "lucide-react";
+import "../../../assets/css/doctor/doctordashboard.css";
+import {
+  CalendarDays,
+  ClipboardCheck,
+  Users,
+  FileText,
+  Bell,
+} from "lucide-react";
 import DoctorNav from "../partials/DoctorNav";
 import api from "../../../services/axios";
 
 const DoctorDashboard = () => {
+  const [dashboardData, setDashboardData] = useState([
+    {
+      doctorName: "",
+      specialization: "",
+      todaysAppoinments: 0,
+      totalConsultedpatients: 0,
+      pendingPrescription: 0,
+      totalGeneratedAmount: 0,
+    },
+  ]);
 
-  const [dashboardData,setDashboardData]=useState([{
-    doctorName:"",specialization:"",
-    todaysAppoinments:0,totalConsultedpatients:0,
-    pendingPrescription:0,totalGeneratedAmount:0,
+  const docId = localStorage.getItem("docId");
+  const [appointmentData, setAppointmentData] = useState([]);
+  const [message, setMessage] = useState("");
 
-  }])
-
-  const docId=localStorage.getItem('docId')
-  const [appointmentData,setAppointmentData]=useState([])
-  const [message,setMessage]=useState("")
-
-useEffect(()=>{
-  const getDatas=async()=>{
-   try {
-    const response=await api.get(`/doctor/dashboardData?doctorId=${docId}`)
-    if(response.data.success){
-setDashboardData(response.data.dashboardData)
-return setAppointmentData(response.data.appoinments)
-    }
-   return setMessage(response.data.message)
-   } catch (error) {
-    setMessage('server error try later')
-    console.log('error in getDatas DoctorDashboard',error);
-    
-   }
-  }
-  getDatas()
-},[])
+  useEffect(() => {
+    const getDatas = async () => {
+      try {
+        const response = await api.get(
+          `/doctor/dashboardData?doctorId=${docId}`
+        );
+        if (response.data.success) {
+          setDashboardData(response.data.dashboardData);
+          return setAppointmentData(response.data.appoinments);
+        }
+        return setMessage(response.data.message);
+      } catch (error) {
+        setMessage("server error try later");
+        console.log("error in getDatas DoctorDashboard", error);
+      }
+    };
+    getDatas();
+  }, []);
 
   // const appointmentData = [
   //   { date: "Mon", appointments: 3 },
@@ -53,8 +70,12 @@ return setAppointmentData(response.data.appoinments)
       <DoctorNav />
       <div className="docDashboard-container">
         <header className="docDashboard-header">
-          <h1>Welcome, <span>{dashboardData.doctorName}</span></h1>
-          <p className="docDashboard-specialization">{dashboardData.specialization}</p>
+          <h1>
+            Welcome, <span>{dashboardData.doctorName}</span>
+          </h1>
+          <p className="docDashboard-specialization">
+            {dashboardData.specialization}
+          </p>
           <h6>{message}</h6>
         </header>
 
@@ -82,20 +103,25 @@ return setAppointmentData(response.data.appoinments)
             <h2>Total Amount Generated</h2>
             <p>{dashboardData.totalGeneratedAmount} Rupees</p>
           </div>
-
-        
         </div>
 
         <div className="docDashboard-chart-section">
           <h2>Appointments This Week</h2>
           <ResponsiveContainer width="100%" height={300}>
-            <BarChart data={appointmentData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+            <BarChart
+              data={appointmentData}
+              margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+            >
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="date" />
               <YAxis />
               <Tooltip />
               <Legend />
-              <Bar dataKey="appointments" fill="#2e3a4d" radius={[5, 5, 0, 0]} />
+              <Bar
+                dataKey="appointments"
+                fill="#2e3a4d"
+                radius={[5, 5, 0, 0]}
+              />
             </BarChart>
           </ResponsiveContainer>
         </div>

@@ -6,7 +6,7 @@ import {
   Users,
   X,
   Menu,
-  LayoutDashboard
+  LayoutDashboard,
 } from "lucide-react";
 import "../../../assets/css/partials/recepNavbar.css";
 import api from "../../../services/axios";
@@ -63,7 +63,7 @@ const DoctorNav = () => {
   };
 
   const navItems = [
-    { id: 'home', label: 'Home', path: "/", icon: <Home /> },
+    { id: "home", label: "Home", path: "/", icon: <Home /> },
     {
       id: "dashboard",
       label: "Dashboard",
@@ -135,7 +135,10 @@ const DoctorNav = () => {
             ))}
           </ul>
 
-          <button className="doctorLogoutBtn" onClick={() => setShowLogoutModal(true)}>
+          <button
+            className="doctorLogoutBtn"
+            onClick={() => setShowLogoutModal(true)}
+          >
             Logout
           </button>
 
@@ -160,7 +163,10 @@ const DoctorNav = () => {
               <button className="logoutConfirmBtn" onClick={handleLogout}>
                 Yes, Logout
               </button>
-              <button className="logoutCancelBtn" onClick={() => setShowLogoutModal(false)}>
+              <button
+                className="logoutCancelBtn"
+                onClick={() => setShowLogoutModal(false)}
+              >
                 Cancel
               </button>
             </div>

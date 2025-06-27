@@ -12,7 +12,7 @@ const TokenGeneration = () => {
   const [generatedToken, setGeneratedToken] = useState(null);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const navigate=useNavigate()
+  const navigate = useNavigate();
 
   const itemsPerPage = 3;
 
@@ -73,9 +73,14 @@ const TokenGeneration = () => {
       <RecepNav />
       <div className="tokenGenerationRecep-container">
         <h2 className="tokenGenerationRecep-heading">Pending Appointments</h2>
-           <button className="tokenGenerationRecep-generatedTokens" onClick={()=>navigate("/Show-Generated-Tokens")}>Show Recently Generated Tokens</button>
+        <button
+          className="tokenGenerationRecep-generatedTokens"
+          onClick={() => navigate("/Show-Generated-Tokens")}
+        >
+          Show Recently Generated Tokens
+        </button>
         {message && <p className="tokenGenerationRecep-message">{message}</p>}
-        <div style={{gap:"2rem"}} className="tokenGenerationRecep-list">
+        <div style={{ gap: "2rem" }} className="tokenGenerationRecep-list">
           {currentAppointments.length > 0 ? (
             currentAppointments.map((a) => (
               <div
@@ -91,15 +96,21 @@ const TokenGeneration = () => {
                 <p>Doctor: {a?.doctor?.name}</p>
                 <p>Date: {new Date(a.date).toLocaleDateString()}</p>
                 <p>Time: {a?.timeSlot}</p>
-                <p>Status: <strong style={{color:"red"}}>{a?.status}</strong></p>
+                <p>
+                  Status: <strong style={{ color: "red" }}>{a?.status}</strong>
+                </p>
               </div>
             ))
           ) : (
-            <p style={{
-              color:"white",
-              marginLeft:"50px",
-              padding:"30px"
-            }}>No pending appointments.</p>
+            <p
+              style={{
+                color: "white",
+                marginLeft: "50px",
+                padding: "30px",
+              }}
+            >
+              No pending appointments.
+            </p>
           )}
         </div>
 
@@ -127,33 +138,31 @@ const TokenGeneration = () => {
         )}
 
         {selectedAppointment && (
-          <div 
+          <div
             className="tokenGenerationRecep-modalOverlay"
             onClick={closeModal}
           >
-            
             <div
               className="tokenGenerationRecep-modal"
               onClick={(e) => e.stopPropagation()}
             >
-                 <span
-    className="tokenGenerationRecep-closeIcon"
-    onClick={closeModal}
-  >
-    &times;
-  </span>
+              <span
+                className="tokenGenerationRecep-closeIcon"
+                onClick={closeModal}
+              >
+                &times;
+              </span>
               <h3>Generated Token</h3>
               <p>Patient: {selectedAppointment.patient.name}</p>
               <p>Doctor: {selectedAppointment.doctor.name}</p>
               <p>
-                Date:{" "}
-                {new Date(selectedAppointment.date).toLocaleDateString()}
+                Date: {new Date(selectedAppointment.date).toLocaleDateString()}
               </p>
               <p>Time: {selectedAppointment.timeSlot}</p>
 
               {generatedToken ? (
                 <div className="tokenGenerationRecep-tokenDisplay">
-                 <AnimatedTokenModal token={generatedToken} />
+                  <AnimatedTokenModal token={generatedToken} />
                 </div>
               ) : (
                 <button onClick={handleGenerateToken} disabled={loading}>

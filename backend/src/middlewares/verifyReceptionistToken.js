@@ -5,7 +5,9 @@ const verifyReceptionistToken = (req, res, next) => {
     const token = req.cookies.authTokenRecep;
 
     if (!token) {
-      return res.status(401).json({ success: false, message: "Access denied. No token provided." });
+      return res
+        .status(401)
+        .json({ success: false, message: "Access denied. No token provided." });
     }
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET); // must match your token generation
@@ -13,7 +15,9 @@ const verifyReceptionistToken = (req, res, next) => {
     next();
   } catch (err) {
     console.log("Receptionist token verification failed:", err);
-    return res.status(401).json({ success: false, message: "Invalid or expired token." });
+    return res
+      .status(401)
+      .json({ success: false, message: "Invalid or expired token." });
   }
 };
 

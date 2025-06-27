@@ -1,6 +1,6 @@
 import Doctor from "../../models/doctorSchema.js";
 import hashPassword from "../../helpers/bcryptPassword.js";
-import { generateToken } from "../../helpers/jwtToken.js";
+import { generateToken,verifyToken } from "../../helpers/jwtToken.js";
 import generateOTP from "../../utils/otpGenerator.js";
 import sendOtpEmail from "../../utils/sendEmail.js";
 import client from "../../helpers/redis.js";
@@ -208,21 +208,17 @@ export const signupDoctor = async (req, res) => {
     const findUser = await Doctor.findOne({ email: email });
 
     if (findUser) {
-      return res
-        .status(200)
-        .json({
-          success: false,
-          message: "user already exists with same email",
-        });
+      return res.status(200).json({
+        success: false,
+        message: "user already exists with same email",
+      });
     }
 
     if (password !== confirmPassword) {
-      return res
-        .status(200)
-        .json({
-          success: false,
-          message: "password and confirm password are not matched",
-        });
+      return res.status(200).json({
+        success: false,
+        message: "password and confirm password are not matched",
+      });
     }
     const hashedPassword = await hashPassword(password);
 
@@ -271,5 +267,25 @@ export const signupDoctor = async (req, res) => {
     res
       .status(500)
       .json({ success: false, message: "server error try again later" });
+  }
+};
+
+
+
+export const verifyDoctor =async (req, res,) => {
+  try {
+    const token = req.cookies.authTokenDoc;
+
+    if (!token) {
+      return res.status(401).json({ success: false, message: "Unauthorized. Token missing." });
+    }
+
+    const decoded = verifyToken(token); 
+    req.user = decoded;
+    return res.status(200).json({ success: true, });
+
+    
+  } catch (error) {
+    return res.status(401).json({ success: false, message: "Unauthorized. Invalid token." });
   }
 };
