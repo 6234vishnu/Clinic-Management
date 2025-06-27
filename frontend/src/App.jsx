@@ -19,6 +19,7 @@ import PatientListPage from './views/pages/doctor/patientProfile'
 import MedicalHistoryDoctor from './views/pages/doctor/MedicalHistoryDoctor'
 import PatientConsultationPage from './views/pages/doctor/PatientConsultationPage'
 import DoctorDashboard from './views/pages/doctor/DoctorDashboard'
+import ClinicHomepage from './views/pages/partials/Home'
 
 
 function App() {
@@ -28,8 +29,8 @@ function App() {
     <BrowserRouter>
     <Routes>
       {/*Login*/}
-      <Route path='/' element={<LoginPage/>}/>
-
+      <Route path='/' element={<ClinicHomepage/>}/>
+      <Route path='/login' element={<LoginPage/>}/>
 
        {/* Receptionist */}
        <Route path='/RecepNav' element={<RecepNav/>}/>

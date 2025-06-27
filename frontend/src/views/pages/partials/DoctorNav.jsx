@@ -6,6 +6,7 @@ import {
   Users,
   X,
   Menu,
+  LayoutDashboard
 } from "lucide-react";
 import "../../../assets/css/partials/recepNavbar.css";
 import api from "../../../services/axios";
@@ -62,11 +63,12 @@ const DoctorNav = () => {
   };
 
   const navItems = [
+    { id: 'home', label: 'Home', path: "/", icon: <Home /> },
     {
       id: "dashboard",
       label: "Dashboard",
       path: "/Doctor-Dashboard-Page",
-      icon: <Home />,
+      icon: <LayoutDashboard />,
     },
     {
       id: "Medical History Page",

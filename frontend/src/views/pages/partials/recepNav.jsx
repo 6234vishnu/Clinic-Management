@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Home, UserPlus, Ticket, CreditCard, Users, Calendar, X, Menu, ClipboardCheck } from 'lucide-react';
+import { Home, UserPlus, Ticket, CreditCard, Users, Calendar, X, Menu, ClipboardCheck ,LayoutDashboard} from 'lucide-react';
 import '../../../assets/css/partials/recepNavbar.css';
 import api from '../../../services/axios';
 import { useNavigate } from 'react-router-dom';
@@ -63,14 +63,16 @@ const recepId=localStorage.getItem("recepID")
   };
 
   const navItems = [
-    { id: 'dashboard', label: 'Dashboard', path: "/Recep-Dasboard-Page", icon: <Home /> },
-    { id: 'registration', label: 'Patient Registration', path: "/Register-Patient", icon: <UserPlus /> },
-    { id: 'token', label: 'Token Generation', path: "/Token-Generation", icon: <Ticket /> },
-    { id: 'billing', label: 'Billing', path: "/Billing-receptionist", icon: <CreditCard /> },
-    { id: 'patients', label: 'Patient List', path: "/Patient-List", icon: <Users /> },
-    { id: 'appointments', label: 'Appointment Management', path: "/Appoinment-Shedule", icon: <Calendar /> },
-    { id: 'doctorSignupRequests', label: 'Doctor Signup Requests', path: "/Approve-Doctors", icon: <ClipboardCheck /> }
-  ];
+  { id: 'home', label: 'Home', path: "/", icon: <Home /> },
+  { id: 'dashboard', label: 'Dashboard', path: "/Recep-Dasboard-Page", icon: <LayoutDashboard /> },
+  { id: 'registration', label: 'Patient Registration', path: "/Register-Patient", icon: <UserPlus /> },
+  { id: 'token', label: 'Token Generation', path: "/Token-Generation", icon: <Ticket /> },
+  { id: 'billing', label: 'Billing', path: "/Billing-receptionist", icon: <CreditCard /> },
+  { id: 'patients', label: 'Patient List', path: "/Patient-List", icon: <Users /> },
+  { id: 'appointments', label: 'Appointment Management', path: "/Appoinment-Shedule", icon: <Calendar /> },
+  { id: 'doctorSignupRequests', label: 'Doctor Signup Requests', path: "/Approve-Doctors", icon: <ClipboardCheck /> }
+];
+
 
   return (
     <>

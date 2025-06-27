@@ -72,11 +72,22 @@ const BillingPage = () => {
   };
 
   if (loading) {
-    return <div className="BillingRecepLoading">Loading appointments...</div>;
+    return (
+      <>
+      <RecepNav />
+      <div className="BillingRecepLoading">Loading appointments...</div>;
+      </>
+
+    )
   }
 
   if (error) {
-    return <div className="BillingRecepError">{error}</div>;
+    return (
+      <>
+       <RecepNav />
+      <div className="BillingRecepError">{error}</div>
+      </>
+    );
   }
 
   return (

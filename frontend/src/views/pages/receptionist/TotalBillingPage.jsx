@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../../services/axios';
 import '../../../assets/css/receptionist/totalBillings.css';
+import RecepNav from '../partials/recepNav';
 
 const TotalBillingPage = () => {
   const [billings, setBillings] = useState([]);
@@ -31,6 +32,9 @@ const TotalBillingPage = () => {
   };
 
   return (
+    <>
+        <RecepNav />
+    
     <div className="TotalBillingRecepContainer">
       <h2 className="TotalBillingRecepTitle">All Billing Records</h2>
 
@@ -59,6 +63,7 @@ const TotalBillingPage = () => {
         </button>
       </div>
     </div>
+    </>
   );
 };
 
